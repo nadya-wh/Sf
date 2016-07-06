@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for name in *.cpp
+do
+  nn=`basename ${name} .cpp`
+  g++ -c -D_LINUX -D__LINUX -c -Wall ${nn}.cpp -o ${nn}.o
+done
