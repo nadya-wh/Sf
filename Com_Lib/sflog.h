@@ -44,26 +44,26 @@ typedef unsigned long ULONG;
 
 #endif
 */
-#include "Common/BaseBool.h"
-#include "Common/BaseTern.h"
+#include "../Common/BaseBool.h"
+#include "../Common/BaseTern.h"
 
 typedef std::vector<CTM> MTM;
 typedef std::pair <CTV, int> PairTv_I;
 typedef std::vector <PairTv_I> MTv_I;
 typedef std::vector <MTv_I> MMTv_I;
 
-#include "Common/Sop.h"
-#include "Common/Sbf.h"
+#include "../Common/Sop.h"
+#include "../Common/Sbf.h"
 
-#include "Com_Lib/bufer.h"
-#include "sf.h"
+#include "../Com_Lib/bufer.h"
+#include "../Com_Lib/sf.h"
 
-#include "ComBool/ShortBool.h"
-#include "ComBool/ShortTern.h"
-#include "Com_Lib/archive.h"
+#include "../ComBool/ShortBool.h"
+#include "../ComBool/ShortTern.h"
+#include "../Com_Lib/archive.h"
 
-#include "Com_Lib/objects.h"
-#include "Com_Lib/objects_sys.h"
+#include "../Com_Lib/objects.h"
+#include "../Com_Lib/objects_sys.h"
 
 ////////////////////////////////////////////////////
 class CCon

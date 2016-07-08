@@ -21,8 +21,8 @@
 #include <vector>
 #include <map>
 using namespace std;
-#include "sf.h"
-#include "Com_Lib/objects_sys.h"
+#include "../Com_Lib/sf.h"
+#include "../Com_Lib/objects_sys.h"
 
 
 ////////////////////////////////////////////////////////////////////////////

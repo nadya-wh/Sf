@@ -13,8 +13,8 @@ enum    BIBLSF{NOBIBL, BIBL};
 enum    FUNCTION{ FLOG, FSDF};
 enum    MINSF{NOMIN, MIN};
 
-#include "Com_Lib\objects_sys.h"
-#include "Com_Lib\archive.h"
+#include "../Com_Lib/objects_sys.h"
+#include "../Com_Lib/archive.h"
 
 #ifdef _LINUX
 #include <sys/io.h>

@@ -10,7 +10,7 @@
 using namespace std;
 #include "../Com_Lib/objects.h"
 #include "../Com_Lib/archive.h"
-#include "sf.h"
+#include "../Com_Lib/sf.h"
 #include "../Com_Lib/bufer.h"
 #include "../Common/BaseBool.h"
 #include "../Common/BaseTern.h"

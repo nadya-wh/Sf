@@ -23,14 +23,16 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#ifdef _MSVC9
+
+/*#ifdef _MSVC9
 #include <afx.h>
 #include <afxwin.h>
 #pragma warning(disable : 4996)
 #endif
-#include "../sf.h"
-#include "Com_Lib/objects.h"
-#include "Com_Lib/objects_sys.h"
+*/
+#include "../Com_Lib/sf.h"
+#include "../Com_Lib/objects.h"
+#include "../Com_Lib/objects_sys.h"
 
 using namespace std;
 class CSF;

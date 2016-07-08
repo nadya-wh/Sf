@@ -1,8 +1,8 @@
 using namespace std;
 
-#include "Com_Lib/objects.h"
-#include "Com_Lib/archive.h"
-#include "sf.h"
+#include "../Com_Lib/objects.h"
+#include "../Com_Lib/archive.h"
+#include "../Com_Lib/sf.h"
 
 //#ifdef _LINUX
 //#undef _DEBUG
