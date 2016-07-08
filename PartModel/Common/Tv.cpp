@@ -47,17 +47,17 @@
 #include "../Com_Lib/archive.h"
 #endif
 
+/*
+#ifndef _LINUX
 
-//#ifndef _LINUX
+#ifdef _DEBUG
+#undef THIS_FILE
+static char BASED_CODE THIS_FILE[] = __FILE__;
+#endif
+#define new DEBUG_NEW
 
-//#ifdef _DEBUG
-//#undef THIS_FILE
-//static char BASED_CODE THIS_FILE[] = __FILE__;
-//#endif
-//#define new DEBUG_NEW
-
-//#endif //_LINUX
-
+#endif //_LINUX
+*/
 ///////////////////////////////////////////////////////////////////////////////
 // Генерация псевдослучайного <nCol>-компонентного троичного
 // вектора с равномерным распределением значений '-','0'и'1'
@@ -215,25 +215,27 @@ CTV CTV::Extract(int nFirst,int nCount)
 }
 
 //------------------------- BitChar -------------------------------------------
-//#ifndef _LINUX
-//CString CTV::BitChar(char One,char Zero,char Dont,char Rest,int Max)
-//{ int i,j=0;
-//  CString res('\0',m_nBitLength);
-//  for (i=0; i < m_nBitLength; i++, j++)
-//  {
-//    switch (GetBitAt(i)) {
-//     case '1': res.SetAt(j,One); break;
-//     case '0': res.SetAt(j,Zero); break;
-//     case '-': res.SetAt(j,Dont); break;
-//     default:  res.SetAt(j,Rest);
-//    }
-//    if (Max!=0)
-//      if ((Max==1)||((i+1)%Max == 0))
-//      { res.SetAt(++j,'\n'); }  //res.SetAt(++j,'\r');
-//  }
-//  return res;
-//}
-//#else
+/*
+#ifndef _LINUX
+CString CTV::BitChar(char One,char Zero,char Dont,char Rest,int Max)
+{ int i,j=0;
+  CString res('\0',m_nBitLength);
+  for (i=0; i < m_nBitLength; i++, j++)
+  {
+    switch (GetBitAt(i)) {
+     case '1': res.SetAt(j,One); break;
+     case '0': res.SetAt(j,Zero); break;
+     case '-': res.SetAt(j,Dont); break;
+     default:  res.SetAt(j,Rest);
+    }
+    if (Max!=0)
+      if ((Max==1)||((i+1)%Max == 0))
+      { res.SetAt(++j,'\n'); }  //res.SetAt(++j,'\r'); 
+  }
+  return res;
+}
+#else
+*/
 char* CTV::BitChar(char One,char Zero,char Dont,char Rest,int Max)
 { int i,j=0;
   if (Max!=0)  j = m_nBitLength/Max + 1;
@@ -1396,8 +1398,8 @@ CBV CTV::InvertBits(BOOL Part) const
  }
  return bvTag;
 }
-
-/*#ifndef _LINUX
+/*
+#ifndef _LINUX
 ///////////////////////////////////////////////////////////////////////////////
 ////////////////////////// Input/output operations ////////////////////////////
 //---------------- operator <<(CDumpContext& dc, const CTV& tv) --------

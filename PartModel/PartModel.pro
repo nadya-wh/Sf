@@ -5,8 +5,8 @@
 #-------------------------------------------------
 
 QT       += core
-
-QT       -= gui
+#QT       -= gui
+#QT       += list
 
 TARGET = PartModel
 CONFIG   += console
@@ -20,19 +20,32 @@ SOURCES += main.cpp \
     Com_Lib/Objects_sys.cpp \
     Com_Lib/Archive.cpp \
     Com_Lib/Objects.cpp \
-    Sf_elem.cpp \
     Common/Bm.cpp \
     Common/Bv.cpp \
     Common/Sop.cpp \
     Common/Sop_Invers.cpp \
     Common/Sop_Equiv.cpp \
     Common/Sop_Elim.cpp \
+    Com_Lib/Bufer.cpp \
     Common/Tv.cpp \
     Common/Tm_Invers.cpp \
     Common/Tm_Equiv.cpp \
     Common/Tm_Degen.cpp \
     Common/Tm.cpp \
-    Com_Lib/Bufer.cpp
+    ComBool/sTv.cpp \
+    ComBool/sTm.cpp \
+    ComBool/sBv.cpp \
+    ComBool/sBm.cpp \
+    Sf_elem.cpp \
+    Common/Sbf.cpp \
+    Sflog.cpp \
+    Sf_Write.cpp \
+    Sf_Read.cpp \
+    Sf_SDF.cpp \
+    Sf_brace.cpp \
+    Com_Lib/Brace.cpp \
+    Sf_methods.cpp \
+    Com_Lib/Dnf.cpp
 
 HEADERS += \
     sf.h \
@@ -42,4 +55,10 @@ HEADERS += \
     Common/BaseBool.h \
     Common/BaseTern.h \
     Common/Sop.h \
-    Com_Lib/bufer.h
+    Com_Lib/bufer.h \
+    ComBool/ShortTern.h \
+    ComBool/ShortBool.h \
+    Common/Sbf.h \
+    sflog.h \
+    Com_Lib/brace.h \
+    Com_Lib/dnf.h

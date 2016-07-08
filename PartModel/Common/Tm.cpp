@@ -3265,7 +3265,6 @@ void CTM::AssertValid() const
 
 #endif //_LINUX
 */
-
 //--------------------------------------------------Serialize(CArchive& ar)
 void CTM::Serialize(CArch& ar)
 { 
@@ -3360,7 +3359,6 @@ void CTM::CharBit(const CStringArray& s)   //new 11.02
 }
 #endif //_LINUX
 */
-
 void CTM::CharBit(char* s)
 {
   int j = 0, i = 0, max = 0, len;
