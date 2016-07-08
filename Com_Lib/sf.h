@@ -48,7 +48,7 @@ public:
   int m_First;
   int m_Last;
   int m_NumInSF;                // 29.12.97  - num of this var in the list of corresp. var.
-  string m_Neg; // "^" - если переменная с отрицанием, "" - если без, Кириенко, 24.02.00
+  string m_Neg; // "^" - РµСЃР»Рё РїРµСЂРµРјРµРЅРЅР°СЏ СЃ РѕС‚СЂРёС†Р°РЅРёРµРј, "" - РµСЃР»Рё Р±РµР·, РљРёСЂРёРµРЅРєРѕ, 24.02.00
 
   inline string GetName()  const  {return m_Name;}
   inline BYTE GetTyp()  const {return m_Typ;}
@@ -236,9 +236,9 @@ public:
   bool SetSdf(CSOP *SOP);
 
 //---------------------------------------- 20.03.2006
-//  Набор функций для работы с частичными функциями (матрица функций - 
-//  частичная). Признаком служит указание комментария /*T*/ в строке FUNCTION:
-//  если указан, то вторая матрица - троичная и может содержать '-'
+//  РќР°Р±РѕСЂ С„СѓРЅРєС†РёР№ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ С‡Р°СЃС‚РёС‡РЅС‹РјРё С„СѓРЅРєС†РёСЏРјРё (РјР°С‚СЂРёС†Р° С„СѓРЅРєС†РёР№ - 
+//  С‡Р°СЃС‚РёС‡РЅР°СЏ). РџСЂРёР·РЅР°РєРѕРј СЃР»СѓР¶РёС‚ СѓРєР°Р·Р°РЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ /*T*/ РІ СЃС‚СЂРѕРєРµ FUNCTION:
+//  РµСЃР»Рё СѓРєР°Р·Р°РЅ, С‚Рѕ РІС‚РѕСЂР°СЏ РјР°С‚СЂРёС†Р° - С‚СЂРѕРёС‡РЅР°СЏ Рё РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ '-'
   bool GetSbf(CBM *&TrMat_Zero, CBM *&TrMat_One, 
               CBM *&MatFun_Zero, CBM *&MatFun_One); 
   bool SetSbf(CBM *TrMat_Zero, CBM *TrMat_One, 
@@ -272,7 +272,7 @@ public:
   CSFunction          *m_Fun;
  //---------------------------- 29.04.1998     Krasilnikova; delete m_Bibl and m_IHaveError
 //................................................................................................................
-// Надо разбираться
+// РќР°РґРѕ СЂР°Р·Р±РёСЂР°С‚СЊСЃСЏ
   CMapValFrame         m_Attr;          
 //................................................................................................................
 
@@ -291,11 +291,11 @@ public:
   string              m_TypeComments;
   string              m_ConnectComments;
   string              m_NetComments;
-  string              m_FunComments; // /*T*/ - частичные функции! 20.03.2006
-// 20.03.2006     - внесены изменения для реализации формата SDF
-//                с частичными функциями. Признаком служит указание
-//                комментария /*T*/ в строке FUNCTION: если указан,
-//                то вторая матрица - троичная и может содержать '-'
+  string              m_FunComments; // /*T*/ - С‡Р°СЃС‚РёС‡РЅС‹Рµ С„СѓРЅРєС†РёРё! 20.03.2006
+// 20.03.2006     - РІРЅРµСЃРµРЅС‹ РёР·РјРµРЅРµРЅРёСЏ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё С„РѕСЂРјР°С‚Р° SDF
+//                СЃ С‡Р°СЃС‚РёС‡РЅС‹РјРё С„СѓРЅРєС†РёСЏРјРё. РџСЂРёР·РЅР°РєРѕРј СЃР»СѓР¶РёС‚ СѓРєР°Р·Р°РЅРёРµ
+//                РєРѕРјРјРµРЅС‚Р°СЂРёСЏ /*T*/ РІ СЃС‚СЂРѕРєРµ FUNCTION: РµСЃР»Рё СѓРєР°Р·Р°РЅ,
+//                С‚Рѕ РІС‚РѕСЂР°СЏ РјР°С‚СЂРёС†Р° - С‚СЂРѕРёС‡РЅР°СЏ Рё РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ '-'
 
 public:
   string GetListOutVar();
@@ -325,9 +325,9 @@ public:
   CSFVar *GetVarAndNumberForName(string as_Name, int &nIndex);  
                                           // as_Name can be Vector-name
 //-------------------------------------------------29.05.2000 Kirienko
-// То же, что и GetVarAndNumberForName(string as_Name, int &nIndex) 
-// только в качестве nIndex возвращает номер в m_SFVarArray, а
-// не номер среди однотипных (входных или выходных) pVar->m_NumInSF 
+// РўРѕ Р¶Рµ, С‡С‚Рѕ Рё GetVarAndNumberForName(string as_Name, int &nIndex) 
+// С‚РѕР»СЊРєРѕ РІ РєР°С‡РµСЃС‚РІРµ nIndex РІРѕР·РІСЂР°С‰Р°РµС‚ РЅРѕРјРµСЂ РІ m_SFVarArray, Р°
+// РЅРµ РЅРѕРјРµСЂ СЃСЂРµРґРё РѕРґРЅРѕС‚РёРїРЅС‹С… (РІС…РѕРґРЅС‹С… РёР»Рё РІС‹С…РѕРґРЅС‹С…) pVar->m_NumInSF 
 CSFVar *GetVarAndIndexForName(string as_Name, int &nIndex);  
 //--------
 
@@ -337,7 +337,7 @@ CSFVar *GetVarAndIndexForName(string as_Name, int &nIndex);
   bool GetNextVar(int &nIndex, CSFVar*&);
   int AddVar(CSFVar* pVar);
 
-  bool GetStartPositionForType(/*POSITION &pos*/);    //24.04.98  Кириенко
+  bool GetStartPositionForType(/*POSITION &pos*/);    //24.04.98  РљРёСЂРёРµРЅРєРѕ
   bool GetFirstType(CSFType *& pType/*, POSITION &pos*/) ;
   bool GetNextType(CSFType *& pType/*, POSITION &pos*/) ;
   void AddElemForType(CSFType *Type, string Elem);
@@ -349,13 +349,13 @@ CSFVar *GetVarAndIndexForName(string as_Name, int &nIndex);
   bool GetTypeForElem(string name, CSFType *& pSFType);
   int AddConnect(CSFConnect *pConnect);
   bool DeleteConnect(int nIndex);
-  // Кириенко 26.04.11 
-  // Вернуть для имени элемента указатель на раздел CONNECT  и его индекс
+  // РљРёСЂРёРµРЅРєРѕ 26.04.11 
+  // Р’РµСЂРЅСѓС‚СЊ РґР»СЏ РёРјРµРЅРё СЌР»РµРјРµРЅС‚Р° СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЂР°Р·РґРµР» CONNECT  Рё РµРіРѕ РёРЅРґРµРєСЃ
   int GetConnectForElem(string Name, CSFConnect *& pConnect);
 
-// Кардаш 06.04.2006
-  bool GetFirstTypeName(CSFType *& pType, string & buf) ;  //22.01.03  Кардаш
-  bool GetNextTypeName(CSFType *& pType, string & buf) ;  //22.01.03  Кардаш
+// РљР°СЂРґР°С€ 06.04.2006
+  bool GetFirstTypeName(CSFType *& pType, string & buf) ;  //22.01.03  РљР°СЂРґР°С€
+  bool GetNextTypeName(CSFType *& pType, string & buf) ;  //22.01.03  РљР°СЂРґР°С€
 //////
 
   bool GetFirstPareNet(map<string,string>::iterator& pos, string& one, string& two);
@@ -370,18 +370,18 @@ CSFVar *GetVarAndIndexForName(string as_Name, int &nIndex);
 
   void SetFun(CSFunction *pFun); 
   inline CSFunction *GetFun() {return m_Fun;}
-	void ChangeSubstr(string str1,string str2="");    //Кириенко 19 февраля 2015 г.
-// Заменить подстроку str1 на подстроку str2 в именах переменных в разделе CSFunction
+	void ChangeSubstr(string str1,string str2="");    //РљРёСЂРёРµРЅРєРѕ 19 С„РµРІСЂР°Р»СЏ 2015 Рі.
+// Р—Р°РјРµРЅРёС‚СЊ РїРѕРґСЃС‚СЂРѕРєСѓ str1 РЅР° РїРѕРґСЃС‚СЂРѕРєСѓ str2 РІ РёРјРµРЅР°С… РїРµСЂРµРјРµРЅРЅС‹С… РІ СЂР°Р·РґРµР»Рµ CSFunction
 
 
 //................................................................................................................
-// Надо разбираться!!!!!!!!!!!!!
+// РќР°РґРѕ СЂР°Р·Р±РёСЂР°С‚СЊСЃСЏ!!!!!!!!!!!!!
 //  inline bool GetError()  {return (bool)m_Attr.CheckAttr("ERROR", 1); }
 //  inline void SetExistError(bool bErr)   { m_Attr.SetAt("ERROR", (double)bErr);}
 //................................................................................................................
 
 /////////////////////////////////////////////////////////////////////
-//-------------------- Файл SF_brace.cpp-----------------
+//-------------------- Р¤Р°Р№Р» SF_brace.cpp-----------------
 //*** Litskevich 11.03.98 *******************************************
   bool GetBrace(CBrace *pBrace);
   bool SetBrace(CBrace *pBrace);
@@ -389,34 +389,34 @@ CSFVar *GetVarAndIndexForName(string as_Name, int &nIndex);
 //*******************************************************************                                                                     
 
 /////////////////////////////////////////////////////////////////////
-//-------------------- Файл SF_Write.cpp-----------------
+//-------------------- Р¤Р°Р№Р» SF_Write.cpp-----------------
   bool WriteSF(string FileName);
   bool WriteSF(vector <string>& Obj);
   void WriteVar(FILE* f, BYTE Typ, CSFVarArray *pVA);
   void WriteVar(vector <string>& Obj, BYTE Typ, CSFVarArray *pVA);
 
 /////////////////////////////////////////////////////////////////////
-//-------------------- Файл SF_Read.cpp-----------------
+//-------------------- Р¤Р°Р№Р» SF_Read.cpp-----------------
   bool ReadNextSF(FILE *fp, long& len);
   void InitSFAttrib();
-  int ReadSFByName(FILE *fp, string Name); // Кириенко 21.02.00
+  int ReadSFByName(FILE *fp, string Name); // РљРёСЂРёРµРЅРєРѕ 21.02.00
   int ReadSFFromFile(string PathToDir);
   int ReadSFFromLib(string Name,string PrivLib,string LogLib,
-                    string Lib_BMK,string LibSTRUCTURE); // Кириенко 21.01.02
-  bool ReadNextSF(vector <string>& Obj, int & index); //Кириенко 11.05.06
+                    string Lib_BMK,string LibSTRUCTURE); // РљРёСЂРёРµРЅРєРѕ 21.01.02
+  bool ReadNextSF(vector <string>& Obj, int & index); //РљРёСЂРёРµРЅРєРѕ 11.05.06
 
 /////////////////////////////////////////////////////////////////////
-//-------------------- Файл SF_methods.cpp-----------------
+//-------------------- Р¤Р°Р№Р» SF_methods.cpp-----------------
   bool LogToSdfWithoutElimination(void);
   bool SdfToLog();
-  //Определение числа каскадов в системе уравнений (возвр. значение)
-  //и CMapStringToPtr - соответствие "Имя переменной - номер каскада"
-  int Cascade (map <string, string>& NumOfCascade);  // Кириенко 21.01.02
+  //РћРїСЂРµРґРµР»РµРЅРёРµ С‡РёСЃР»Р° РєР°СЃРєР°РґРѕРІ РІ СЃРёСЃС‚РµРјРµ СѓСЂР°РІРЅРµРЅРёР№ (РІРѕР·РІСЂ. Р·РЅР°С‡РµРЅРёРµ)
+  //Рё CMapStringToPtr - СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ "РРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№ - РЅРѕРјРµСЂ РєР°СЃРєР°РґР°"
+  int Cascade (map <string, string>& NumOfCascade);  // РљРёСЂРёРµРЅРєРѕ 21.01.02
   
-  //Определение числа уровней схемы
-  int GetLevel();                         //03.04.2006 Кардаш С.Н. 
+  //РћРїСЂРµРґРµР»РµРЅРёРµ С‡РёСЃР»Р° СѓСЂРѕРІРЅРµР№ СЃС…РµРјС‹
+  int GetLevel();                         //03.04.2006 РљР°СЂРґР°С€ РЎ.Рќ. 
 
-  // Замена имени переменной в уравнениях,           Кириенко 25.05.2000 
+  // Р—Р°РјРµРЅР° РёРјРµРЅРё РїРµСЂРµРјРµРЅРЅРѕР№ РІ СѓСЂР°РІРЅРµРЅРёСЏС…,           РљРёСЂРёРµРЅРєРѕ 25.05.2000 
   bool RenameVar(map <string, string>* MultiPare);
 /////////////////////////////////////////////////////////////////////
 

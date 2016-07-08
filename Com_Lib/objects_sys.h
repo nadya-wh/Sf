@@ -31,7 +31,7 @@ extern void Seria(map <string, string>& ms, CArch& ar);
 
 //..................................................................................
 
-// Полная замена vector <double>
+// РџРѕР»РЅР°СЏ Р·Р°РјРµРЅР° vector <double>
 
 ///////////////////////////////////////////////////////////// CDoubleArray
 //
@@ -278,7 +278,7 @@ public:
 #endif
 
 //........................................................................................................
-// Надо разбираться
+// РќР°РґРѕ СЂР°Р·Р±РёСЂР°С‚СЊСЃСЏ
 
 //bool ReadDoc(CString FileName, CMapAttributes* pA, CMapProgModuls* pM,
 //             CMapStrategies* pS, CMapFrames* pF, CWinApp *pApp);

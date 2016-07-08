@@ -1,20 +1,20 @@
 /////////////////////////////////////////////////////////////////
 // Ver.1.1.1    15.02.2005   Russian / English
 // Ver.1.1.2    01.03.2006
-//              - добавлено 2 новых метода Кириенко 
+//              - РґРѕР±Р°РІР»РµРЅРѕ 2 РЅРѕРІС‹С… РјРµС‚РѕРґР° РљРёСЂРёРµРЅРєРѕ 
 // Ver.1.1.3    20.03.2006
-//              - Общая поправка формы, введение частичных функций,
-//                вынесены функции записи в файл Write_sf.cpp
-//                вынесен в Objects класс CMapStringToNode
-//                добавлена из SF_elem функция RenameVar
+//              - РћР±С‰Р°СЏ РїРѕРїСЂР°РІРєР° С„РѕСЂРјС‹, РІРІРµРґРµРЅРёРµ С‡Р°СЃС‚РёС‡РЅС‹С… С„СѓРЅРєС†РёР№,
+//                РІС‹РЅРµСЃРµРЅС‹ С„СѓРЅРєС†РёРё Р·Р°РїРёСЃРё РІ С„Р°Р№Р» Write_sf.cpp
+//                РІС‹РЅРµСЃРµРЅ РІ Objects РєР»Р°СЃСЃ CMapStringToNode
+//                РґРѕР±Р°РІР»РµРЅР° РёР· SF_elem С„СѓРЅРєС†РёСЏ RenameVar
 // Ver 1.1.5    06.04.2006
-//               включены две функции в CSF 
-//  BOOL GetFirstTypeName(CSFType *& pType, POSITION &pos,CString & buf) ;  //22.01.03  Кардаш
-//  BOOL GetNextTypeName(CSFType *& pType, POSITION &pos, CString & buf) ;  //22.01.03  Кардаш
-// 07.04.2006 Исключены по согласованию в виду повторения другими
-// 31.10.2007 Восстановлены, так как их прямые аналоги отсутствуют!
-//void ChangeSubstr(string str1,string str2="")    //Кириенко 19 февраля 2015 г.
-// Заменить подстроку str1 на подстроку str2 в именах переменных в разделе CSFunction 
+//               РІРєР»СЋС‡РµРЅС‹ РґРІРµ С„СѓРЅРєС†РёРё РІ CSF 
+//  BOOL GetFirstTypeName(CSFType *& pType, POSITION &pos,CString & buf) ;  //22.01.03  РљР°СЂРґР°С€
+//  BOOL GetNextTypeName(CSFType *& pType, POSITION &pos, CString & buf) ;  //22.01.03  РљР°СЂРґР°С€
+// 07.04.2006 РСЃРєР»СЋС‡РµРЅС‹ РїРѕ СЃРѕРіР»Р°СЃРѕРІР°РЅРёСЋ РІ РІРёРґСѓ РїРѕРІС‚РѕСЂРµРЅРёСЏ РґСЂСѓРіРёРјРё
+// 31.10.2007 Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅС‹, С‚Р°Рє РєР°Рє РёС… РїСЂСЏРјС‹Рµ Р°РЅР°Р»РѕРіРё РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚!
+//void ChangeSubstr(string str1,string str2="")    //РљРёСЂРёРµРЅРєРѕ 19 С„РµРІСЂР°Р»СЏ 2015 Рі.
+// Р—Р°РјРµРЅРёС‚СЊ РїРѕРґСЃС‚СЂРѕРєСѓ str1 РЅР° РїРѕРґСЃС‚СЂРѕРєСѓ str2 РІ РёРјРµРЅР°С… РїРµСЂРµРјРµРЅРЅС‹С… РІ СЂР°Р·РґРµР»Рµ CSFunction 
 /////////////////////////////////////////////////////////////////
 
 //#include <io.h>
@@ -206,7 +206,7 @@ bool CSF::GetNextInterVar(int &nIndex, CSFVar*& pVar)
 }
 
 //-------------------------------------------------------------------24.03.2000
-//                                                          Кириенко Н.А.
+//                                                          РљРёСЂРёРµРЅРєРѕ Рќ.Рђ.
 bool CSF::GetNextVar(int &nIndex, CSFVar*& pVar)
 {
   if (nIndex>=(int)m_SFVarArray.Avar.size())return false;
@@ -250,9 +250,9 @@ CSFVar *CSF::GetVarAndNumberForName(string as_Name, int &nIndex)     //as_Name c
 }
 
 //-------------------------------------------------------------------29.05.2000 Kirienko
-// То же, что и GetVarAndNumberForName(CString as_Name, int &nIndex) 
-// только в качестве nIndex возвращает номер в m_SFVarArray, а
-// не номер среди однотипных (входных или выходных) pVar->m_NumInSF 
+// РўРѕ Р¶Рµ, С‡С‚Рѕ Рё GetVarAndNumberForName(CString as_Name, int &nIndex) 
+// С‚РѕР»СЊРєРѕ РІ РєР°С‡РµСЃС‚РІРµ nIndex РІРѕР·РІСЂР°С‰Р°РµС‚ РЅРѕРјРµСЂ РІ m_SFVarArray, Р°
+// РЅРµ РЅРѕРјРµСЂ СЃСЂРµРґРё РѕРґРЅРѕС‚РёРїРЅС‹С… (РІС…РѕРґРЅС‹С… РёР»Рё РІС‹С…РѕРґРЅС‹С…) pVar->m_NumInSF 
 CSFVar *CSF::GetVarAndIndexForName(string as_Name, int &nIndex)     //as_Name can be Vector-name
 {
   string ls_Name;
@@ -434,8 +434,8 @@ int CSF::AddConnect(CSFConnect *pConnect)
   return m_ConnectArray.Add(pConnect);
 }
 
-//------------------------------------------------------------04.05.2000 Кириенко
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 17.11.2005 Кириенко - правка 26.04.2011
+//------------------------------------------------------------04.05.2000 РљРёСЂРёРµРЅРєРѕ
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 17.11.2005 РљРёСЂРёРµРЅРєРѕ - РїСЂР°РІРєР° 26.04.2011
 bool CSF::DeleteConnect(int nIndex)
 {
   CSFConnect * pCon;
@@ -467,8 +467,8 @@ CSFConnect *CSF::GetConnectForType(string Type)
   return NULL;
 }
 
-//-------------------------------------------------------------------26.04.11 Кириенко
-// Вернуть для имени элемента указатель раздел CONNECT  и его индекс
+//-------------------------------------------------------------------26.04.11 РљРёСЂРёРµРЅРєРѕ
+// Р’РµСЂРЅСѓС‚СЊ РґР»СЏ РёРјРµРЅРё СЌР»РµРјРµРЅС‚Р° СѓРєР°Р·Р°С‚РµР»СЊ СЂР°Р·РґРµР» CONNECT  Рё РµРіРѕ РёРЅРґРµРєСЃ
 int CSF::GetConnectForElem(string Name, CSFConnect *& pConnect)
 {
   //CSFConnect *pConnect;
@@ -480,7 +480,7 @@ int CSF::GetConnectForElem(string Name, CSFConnect *& pConnect)
   return 0;
 }
 
-//-------------------------------------------------------------------31.03.00 Кириенко Н.А. 
+//-------------------------------------------------------------------31.03.00 РљРёСЂРёРµРЅРєРѕ Рќ.Рђ. 
 bool CSF::GetTypeForElem(string name,CSFType *& pSFType)
 {
   string TypeName, Buf;
@@ -489,7 +489,7 @@ bool CSF::GetTypeForElem(string name,CSFType *& pSFType)
   // #ifdef ENG
   //     Buf="Absent TYPE for ";
   // #else
-  //     Buf="Нет TYPE для ";
+  //     Buf="РќРµС‚ TYPE РґР»СЏ ";
   // #endif
   //     Buf+=name;
   // #ifdef _LINUX
@@ -505,7 +505,7 @@ bool CSF::GetTypeForElem(string name,CSFType *& pSFType)
   // #ifdef ENG
   //     Buf="Absent TYPE ";
   // #else
-  //     Buf="Нет TYPE ";
+  //     Buf="РќРµС‚ TYPE ";
   // #endif
   //     Buf+=TypeName;
   // #ifdef _LINUX
@@ -518,7 +518,7 @@ bool CSF::GetTypeForElem(string name,CSFType *& pSFType)
   return true;
 }
 
-//------------------------------------------------------------------- 7.10.05 Кириенко Н.А. 
+//------------------------------------------------------------------- 7.10.05 РљРёСЂРёРµРЅРєРѕ Рќ.Рђ. 
 bool CSF::IsTypeInSF(string TypeName)
 {
   CSFType * pSFType;
@@ -604,7 +604,7 @@ int CSF::GetHierarSF(CMapStringToNode&    m_MapNode, int li_Hierar)
   return li_Hierar;
 }
 
-//-------------------------------------------------------------------24.04.98 Кириенко
+//-------------------------------------------------------------------24.04.98 РљРёСЂРёРµРЅРєРѕ
 bool CSF::GetStartPositionForType()  //POSITION &pos
 {
   m_TypeMap.itp = m_TypeMap.mtp.begin();
@@ -641,9 +641,9 @@ string CSF::GetListOutVar()
 }
 
 //-------------------------------------------------------
-void CSF::ChangeSubstr(string str1,string str2)    //Кириенко 19 февраля 2015 г.
-	// Заменить подстроку str1 на подстроку str2  
-	// в именах переменных в разделе CSFunction
+void CSF::ChangeSubstr(string str1,string str2)    //РљРёСЂРёРµРЅРєРѕ 19 С„РµРІСЂР°Р»СЏ 2015 Рі.
+	// Р—Р°РјРµРЅРёС‚СЊ РїРѕРґСЃС‚СЂРѕРєСѓ str1 РЅР° РїРѕРґСЃС‚СЂРѕРєСѓ str2  
+	// РІ РёРјРµРЅР°С… РїРµСЂРµРјРµРЅРЅС‹С… РІ СЂР°Р·РґРµР»Рµ CSFunction
 {
 	int i=0, j;
 	string buf;
