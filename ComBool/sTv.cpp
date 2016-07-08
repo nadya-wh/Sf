@@ -1,14 +1,14 @@
 /////////////////////////////////////////////////////////////////
 // Ver.2.1.4    09.04.2008
-//              GetUnDef - устранение ошибки
+//              GetUnDef - СѓСЃС‚СЂР°РЅРµРЅРёРµ РѕС€РёР±РєРё
 // Ver.2.1.3    28.03.2008
-//              SetOnes и SetZeros - исправлены для реализации в другой интерпретации
-//              в виде функций AddOnes и AddZeros
-//              Поправка функции LeftUnDef
+//              SetOnes Рё SetZeros - РёСЃРїСЂР°РІР»РµРЅС‹ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё РІ РґСЂСѓРіРѕР№ РёРЅС‚РµСЂРїСЂРµС‚Р°С†РёРё
+//              РІ РІРёРґРµ С„СѓРЅРєС†РёР№ AddOnes Рё AddZeros
+//              РџРѕРїСЂР°РІРєР° С„СѓРЅРєС†РёРё LeftUnDef
 // Ver.2.1.1     22.01.2008
-//               Добавлены функции конвертации данных базового класса троичных векторов
+//               Р”РѕР±Р°РІР»РµРЅС‹ С„СѓРЅРєС†РёРё РєРѕРЅРІРµСЂС‚Р°С†РёРё РґР°РЅРЅС‹С… Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР° С‚СЂРѕРёС‡РЅС‹С… РІРµРєС‚РѕСЂРѕРІ
 // Ver.2.1.0     07.07.2006
-//               Переход к LINUX
+//               РџРµСЂРµС…РѕРґ Рє LINUX
 
 /////////////////////////////////////////////////////////////////
 // Ver.1.1.0    24.06.2006   Russian == English
@@ -174,7 +174,7 @@ CsBV CsTV::GetDefs() const
 
 //------------------------- CsBV GetUnDefs -------------------------------------
 CsBV CsTV::GetUnDefs() const
-{ // Исправил Торопов 09.04.08
+{ // РСЃРїСЂР°РІРёР» РўРѕСЂРѕРїРѕРІ 09.04.08
   CsBV bv(m_bVect0, m_nBitLength);
   //bv = (~m_bVect1 | m_bVect0) >> (32 - m_nBitLength) << (32 - m_nBitLength);
   bv = (~(m_bVect1 | m_bVect0)) >> (32 - m_nBitLength) << (32 - m_nBitLength);
@@ -535,7 +535,7 @@ BOOL CsTV::IsOrthog(const CsBV& bv) const
 }
 
 //--------------------------- IsNeighb ----------------------------------------
-BOOL CsTV::IsNeighb(const CsTV& tv) const   //соседство
+BOOL CsTV::IsNeighb(const CsTV& tv) const   //СЃРѕСЃРµРґСЃС‚РІРѕ
 {
   ULONG  mas1, mas0;
   ASSERT(m_nBitLength==tv.m_nBitLength);
@@ -559,7 +559,7 @@ BOOL CsTV::IsNeighb(const CsBV& bv) const
 }
 
 //--------------------------- IsAdjac -----------------------------------------
-BOOL CsTV::IsAdjac(const CsTV& tv) const    //смежность
+BOOL CsTV::IsAdjac(const CsTV& tv) const    //СЃРјРµР¶РЅРѕСЃС‚СЊ
 {
   ULONG maska;
   ASSERT(m_nBitLength==tv.m_nBitLength);
@@ -646,7 +646,7 @@ STD(BOOL) operator<=(const CsTV& tv1, const CsTV& tv2)
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Operations on intervals /////////////////////////////
 //--------------------------- NumNeighb ---------------------------------------
-//номер компоненты, по кот.соседство,иначе -1
+//РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹, РїРѕ РєРѕС‚.СЃРѕСЃРµРґСЃС‚РІРѕ,РёРЅР°С‡Рµ -1
 int CsTV::NumNeighb(const CsTV& tv) const   
 {
   int num=-1;
@@ -659,7 +659,7 @@ int CsTV::NumNeighb(const CsTV& tv) const
   return num;
 }
 //--------------------------- NumNeighb ---------------------------------------
-//номер компоненты, по кот.соседство,иначе -1
+//РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹, РїРѕ РєРѕС‚.СЃРѕСЃРµРґСЃС‚РІРѕ,РёРЅР°С‡Рµ -1
 
 int CsTV::NumNeighb(const CsBV& bv) const   
 {
@@ -673,7 +673,7 @@ int CsTV::NumNeighb(const CsBV& bv) const
   return num;
 }
 //--------------------------- NumAdjacent -------------------------------------
-//номер компоненты, по кот.сьежны,иначе -1
+//РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹, РїРѕ РєРѕС‚.СЃСЊРµР¶РЅС‹,РёРЅР°С‡Рµ -1
 
 int CsTV::NumAdjac(const CsTV& tv) const  
 {
@@ -687,7 +687,7 @@ int CsTV::NumAdjac(const CsTV& tv) const
 }
 
 //--------------------------- NumAdjacent -------------------------------------
-//номер компоненты, по кот.смежны,иначе -1
+//РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹, РїРѕ РєРѕС‚.СЃРјРµР¶РЅС‹,РёРЅР°С‡Рµ -1
 
 int CsTV::NumAdjac(const CsBV& bv) const
 {
@@ -701,7 +701,7 @@ int CsTV::NumAdjac(const CsBV& bv) const
 }
 
 //--------------------------- Orthogon ----------------------------------------
-CsBV CsTV::Orthogon(const CsTV& tv) const    //мн-во ортогон.компонент
+CsBV CsTV::Orthogon(const CsTV& tv) const    //РјРЅ-РІРѕ РѕСЂС‚РѕРіРѕРЅ.РєРѕРјРїРѕРЅРµРЅС‚
 {
   ASSERT(m_nBitLength==tv.m_nBitLength);
   CsBV bvTag((m_bVect1 & tv.m_bVect0)|(m_bVect0 & tv.m_bVect1), 
@@ -710,7 +710,7 @@ CsBV CsTV::Orthogon(const CsTV& tv) const    //мн-во ортогон.компонент
 }
 
 //--------------------------- Orthogon ----------------------------------------
-CsBV CsTV::Orthogon(const CsBV& bv) const    //мн-во ортогон.компонент
+CsBV CsTV::Orthogon(const CsBV& bv) const    //РјРЅ-РІРѕ РѕСЂС‚РѕРіРѕРЅ.РєРѕРјРїРѕРЅРµРЅС‚
 { 
   ASSERT(m_nBitLength==bv.GetBitLength());
   CsBV bvTag((m_bVect1 & ~(ULONG)bv) |(m_bVect0 & (ULONG)bv),
@@ -719,7 +719,7 @@ CsBV CsTV::Orthogon(const CsBV& bv) const    //мн-во ортогон.компонент
 }
 
 //--------------------------- Intersec ----------------------------------------
-CsTV CsTV::Intersec(const CsTV& tv) const //рез-т миним.покрытия,если орт.- NULL
+CsTV CsTV::Intersec(const CsTV& tv) const //СЂРµР·-С‚ РјРёРЅРёРј.РїРѕРєСЂС‹С‚РёСЏ,РµСЃР»Рё РѕСЂС‚.- NULL
 {
   ASSERT(m_nBitLength==tv.m_nBitLength);
   CsTV tvTag;
@@ -735,7 +735,7 @@ CsTV CsTV::Intersec(const CsTV& tv) const //рез-т миним.покрытия,если орт.- NULL
 }
 
 //--------------------------- Concens -----------------------------------------
-CsTV CsTV::Concens(const CsTV& tv) const    //рез-т обобщ.склеивани
+CsTV CsTV::Concens(const CsTV& tv) const    //СЂРµР·-С‚ РѕР±РѕР±С‰.СЃРєР»РµРёРІР°РЅРё
 {
   ULONG maska;
   ASSERT(m_nBitLength==tv.m_nBitLength);
@@ -748,7 +748,7 @@ CsTV CsTV::Concens(const CsTV& tv) const    //рез-т обобщ.склеивани
 }
 
 //--------------------------- Concens -----------------------------------------
-CsTV CsTV::Concens(const CsBV& bv) const    //рез-т обобщ.склеивани
+CsTV CsTV::Concens(const CsBV& bv) const    //СЂРµР·-С‚ РѕР±РѕР±С‰.СЃРєР»РµРёРІР°РЅРё
 {
   ULONG maska;
   ASSERT(m_nBitLength==bv.GetBitLength());
@@ -761,7 +761,7 @@ CsTV CsTV::Concens(const CsBV& bv) const    //рез-т обобщ.склеивани
 }
 
 //--------------------------- MinCover ----------------------------------------
-CsTV CsTV::MinCover(const CsTV& tv) const    //рез-т миним.покрыт
+CsTV CsTV::MinCover(const CsTV& tv) const    //СЂРµР·-С‚ РјРёРЅРёРј.РїРѕРєСЂС‹С‚
 {
   ASSERT(m_nBitLength==tv.m_nBitLength);
   CsTV tvTag;
@@ -772,7 +772,7 @@ CsTV CsTV::MinCover(const CsTV& tv) const    //рез-т миним.покрыт
 }
 
 //--------------------------- MinCover ----------------------------------------
-CsTV CsTV::MinCover(const CsBV& bv) const    //рез-т миним.покрыти
+CsTV CsTV::MinCover(const CsBV& bv) const    //СЂРµР·-С‚ РјРёРЅРёРј.РїРѕРєСЂС‹С‚Рё
 {
   ASSERT(m_nBitLength==bv.GetBitLength());
   CsTV tvTag;
@@ -995,8 +995,8 @@ BOOL CsTV::Pogl(const ULONG Vect1,const ULONG Vect0,int BitLen) const
 
 
 //---------------------------------------------------------------------------
-// Конвертирование вектора tv из стандартного
-// представления в "короткое"(tvS)  
+// РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ РІРµРєС‚РѕСЂР° tv РёР· СЃС‚Р°РЅРґР°СЂС‚РЅРѕРіРѕ
+// РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РІ "РєРѕСЂРѕС‚РєРѕРµ"(tvS)  
 
 void CsTV::ToShort(CTV tv)
 {
@@ -1013,8 +1013,8 @@ void CsTV::ToShort(CTV tv)
 }
 
 //---------------------------------------------------------------------------
-// Конвертирование троичного вектора из "короткого"
-// представления (tvS) в стандартное (tv)  
+// РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ С‚СЂРѕРёС‡РЅРѕРіРѕ РІРµРєС‚РѕСЂР° РёР· "РєРѕСЂРѕС‚РєРѕРіРѕ"
+// РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ (tvS) РІ СЃС‚Р°РЅРґР°СЂС‚РЅРѕРµ (tv)  
 
 void CsTV::FromShort(CTV &tv)
 {

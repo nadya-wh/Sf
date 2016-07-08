@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////
 // Ver.1.0.0    07.04.2006   Russian / English
-//              включены некоторые методы класса CSF 
+//              РІРєР»СЋС‡РµРЅС‹ РЅРµРєРѕС‚РѕСЂС‹Рµ РјРµС‚РѕРґС‹ РєР»Р°СЃСЃР° CSF 
 
 /////////////////////////////////////////////////////////////////
 //    BOOL CSF::LogToSdfWithoutElimination(void)
@@ -59,7 +59,7 @@ bool CSF::LogToSdfWithoutElimination(void)
 #ifdef ENG
     AfxMessageBox("The LOG-section in SF-description is absent");
 #else
-    AfxMessageBox("В SF-описании отсутствует LOG-секция");
+    AfxMessageBox("Р’ SF-РѕРїРёСЃР°РЅРёРё РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ LOG-СЃРµРєС†РёСЏ");
 #endif
 #endif
 */
@@ -78,7 +78,7 @@ bool CSF::LogToSdfWithoutElimination(void)
 #ifdef ENG
         ls_ur ="Error in section of LOG SF-description: " + ls_ur;
 #else
-        ls_ur = "Ошибка в разделе LOG SF-описания: " + ls_ur;
+        ls_ur = "РћС€РёР±РєР° РІ СЂР°Р·РґРµР»Рµ LOG SF-РѕРїРёСЃР°РЅРёСЏ: " + ls_ur;
 #endif
         AfxMessageBox(ls_ur.c_str());
 #endif
@@ -134,7 +134,7 @@ bool CSF::LogToSdfWithoutElimination(void)
       sprintf(cbuf, "%u", ++num_first_inter_var);
       ls4 = name_var + cbuf;
       ls4 +='=' + ls5; 
-	  ls4 +=';';//добавить ; 
+	  ls4 +=';';//РґРѕР±Р°РІРёС‚СЊ ; 
 
 //      name_var1.Format("%s%d", name_var, num_first_inter_var);
       name_var1 = name_var + cbuf;  
@@ -181,7 +181,7 @@ bool CSF::LogToSdfWithoutElimination(void)
 #ifdef ENG
         ls_ur = "Error in section of LOG SF-description: " + ls_ur;
 #else
-        ls_ur = "Ошибка в разделе LOG SF-описания: " + ls_ur;
+        ls_ur = "РћС€РёР±РєР° РІ СЂР°Р·РґРµР»Рµ LOG SF-РѕРїРёСЃР°РЅРёСЏ: " + ls_ur;
 #endif
         AfxMessageBox(ls_ur.c_str());
 #endif
@@ -207,7 +207,7 @@ bad:
 #ifdef ENG
       lserr="Error in the equation " + lserr;
 #else
-      lserr="Ошибка в уравнении " + lserr;
+      lserr="РћС€РёР±РєР° РІ СѓСЂР°РІРЅРµРЅРёРё " + lserr;
 #endif
       AfxMessageBox(lserr.c_str());
 #endif
@@ -302,8 +302,8 @@ beg_kon:
             st0 = "In the given version of system the output variables"
             " should not be included into the right parts of the equations (variable " + pVar->m_Name;
 #else
-            st0 = "В данной версии системы выходные переменные"
-            " не должны входить в правые части уравнений (переменная " + pVar->m_Name;
+            st0 = "Р’ РґР°РЅРЅРѕР№ РІРµСЂСЃРёРё СЃРёСЃС‚РµРјС‹ РІС‹С…РѕРґРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ"
+            " РЅРµ РґРѕР»Р¶РЅС‹ РІС…РѕРґРёС‚СЊ РІ РїСЂР°РІС‹Рµ С‡Р°СЃС‚Рё СѓСЂР°РІРЅРµРЅРёР№ (РїРµСЂРµРјРµРЅРЅР°СЏ " + pVar->m_Name;
 #endif
             st0 += ')';
             AfxMessageBox(st0.c_str());
@@ -335,7 +335,7 @@ good_kon:
 }
 
 //-------------------------------------------------------------------
-// Перевод FUNCTION из SDF в LOG           Кириенко 02.05.2000
+// РџРµСЂРµРІРѕРґ FUNCTION РёР· SDF РІ LOG           РљРёСЂРёРµРЅРєРѕ 02.05.2000
 bool  CSF::SdfToLog()
 {
   string Buf, one, two, BufUr, Buf_copy;
@@ -350,7 +350,7 @@ bool  CSF::SdfToLog()
 #ifdef ENG
     Buf="SDF is absent in section FUNCTION";
 #else
-    Buf="В блоке FUNCTION нет SDF";
+    Buf="Р’ Р±Р»РѕРєРµ FUNCTION РЅРµС‚ SDF";
 #endif
 //#ifdef _LINUX
     printf("%s\n",Buf.c_str());
@@ -360,11 +360,11 @@ bool  CSF::SdfToLog()
 */
     return false;
   }
-  if(m_FunComments=="T"){     // 20.03.2006 Новости для частичных функций
+  if(m_FunComments=="T"){     // 20.03.2006 РќРѕРІРѕСЃС‚Рё РґР»СЏ С‡Р°СЃС‚РёС‡РЅС‹С… С„СѓРЅРєС†РёР№
 #ifdef ENG
     Buf="Partial functions are defined in section FUNCTION";
 #else
-    Buf="В блоке FUNCTION определены частичные функции";
+    Buf="Р’ Р±Р»РѕРєРµ FUNCTION РѕРїСЂРµРґРµР»РµРЅС‹ С‡Р°СЃС‚РёС‡РЅС‹Рµ С„СѓРЅРєС†РёРё";
 #endif
 //#ifdef _LINUX
     printf("%s\n",Buf.c_str());
@@ -388,7 +388,7 @@ bool  CSF::SdfToLog()
 
   for (j=0; j<stolbool; j++) {
 ////////////////////////////////////////////////////////////
-// Построение j-ого уравнения,
+// РџРѕСЃС‚СЂРѕРµРЅРёРµ j-РѕРіРѕ СѓСЂР°РІРЅРµРЅРёСЏ,
 
     FunEqualZero=0;
     if (!GetNextOutVar(sdvigvyh,pVar)) {
@@ -401,7 +401,7 @@ bool  CSF::SdfToLog()
          "Syntax error: Number of outputs and number of columns do not coincide");
 #else
          AfxMessageBox(
-         "Синтаксическая ошибка: не совпадают число выходов и столбцов");
+         "РЎРёРЅС‚Р°РєСЃРёС‡РµСЃРєР°СЏ РѕС€РёР±РєР°: РЅРµ СЃРѕРІРїР°РґР°СЋС‚ С‡РёСЃР»Рѕ РІС‹С…РѕРґРѕРІ Рё СЃС‚РѕР»Р±С†РѕРІ");
 #endif
 #endif
 */
@@ -412,7 +412,7 @@ bool  CSF::SdfToLog()
     BufUr = pVar->GetName();
     BufUr += " = ";
     Buf_copy=BufUr;
-// цикл по числу конъюнкций k.
+// С†РёРєР» РїРѕ С‡РёСЃР»Сѓ РєРѕРЅСЉСЋРЅРєС†РёР№ k.
     for (k=0; k<str;) {
       if (!m_Fun->GetTextLine(k,Buf)) break;
       //Buf.TrimRight();
@@ -431,7 +431,7 @@ bool  CSF::SdfToLog()
 #ifdef ENG
          "Syntax error: the rows of SDF-matrixes  are given incorrectly."
 #else
-         "Синтаксическая ошибка: неправильно заданы строки матриц в SDF"
+         "РЎРёРЅС‚Р°РєСЃРёС‡РµСЃРєР°СЏ РѕС€РёР±РєР°: РЅРµРїСЂР°РІРёР»СЊРЅРѕ Р·Р°РґР°РЅС‹ СЃС‚СЂРѕРєРё РјР°С‚СЂРёС† РІ SDF"
 #endif
          ,MB_ICONSTOP);
 #endif
@@ -456,7 +456,7 @@ bool  CSF::SdfToLog()
               "Syntax error: Number of inputs and number of columns do not coincide");
 #else
               AfxMessageBox(
-              "Синтаксическая ошибка: не совпадают число входов и столбцов");
+              "РЎРёРЅС‚Р°РєСЃРёС‡РµСЃРєР°СЏ РѕС€РёР±РєР°: РЅРµ СЃРѕРІРїР°РґР°СЋС‚ С‡РёСЃР»Рѕ РІС…РѕРґРѕРІ Рё СЃС‚РѕР»Р±С†РѕРІ");
 #endif
 #endif
 */
@@ -466,7 +466,7 @@ bool  CSF::SdfToLog()
           }
           if  (one.at(i)=='-') {
             chert++;
-// Пропустить одну входную переменную
+// РџСЂРѕРїСѓСЃС‚РёС‚СЊ РѕРґРЅСѓ РІС…РѕРґРЅСѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ
             continue;
           }
           if  (one.at(i)=='0') BufUr += "^";
@@ -494,7 +494,7 @@ bool  CSF::SdfToLog()
 #ifdef ENG
         AfxMessageBox("Error in the enumeration of a input variables, SdfToLog");
 #else
-        AfxMessageBox("Ошибка в перечне входных переменных, SdfToLog");
+        AfxMessageBox("РћС€РёР±РєР° РІ РїРµСЂРµС‡РЅРµ РІС…РѕРґРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…, SdfToLog");
 #endif
 #endif
 */
@@ -515,15 +515,15 @@ bool  CSF::SdfToLog()
 }
 
 //-------------------------------------------------------------------
-//Определение числа каскадов в системе уравнений (возвр. значение)
-//и CMapStringToPtr - соответствие "Имя переменной - номер каскада"
-//Число каскадов = число промежуточных переменных на самом длинном 
-//пути от выхода к входу.
-//Нулевая строка не содержит информации
-//первая строка - внутренние переменные, от которых зависят 
-//выходные (1 каскад)и т.д.
-//n-ая строка - нулевая, соответствует входным переменным.
-//Число каскадов = число строк BmK -1.
+//РћРїСЂРµРґРµР»РµРЅРёРµ С‡РёСЃР»Р° РєР°СЃРєР°РґРѕРІ РІ СЃРёСЃС‚РµРјРµ СѓСЂР°РІРЅРµРЅРёР№ (РІРѕР·РІСЂ. Р·РЅР°С‡РµРЅРёРµ)
+//Рё CMapStringToPtr - СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ "РРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№ - РЅРѕРјРµСЂ РєР°СЃРєР°РґР°"
+//Р§РёСЃР»Рѕ РєР°СЃРєР°РґРѕРІ = С‡РёСЃР»Рѕ РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… РЅР° СЃР°РјРѕРј РґР»РёРЅРЅРѕРј 
+//РїСѓС‚Рё РѕС‚ РІС‹С…РѕРґР° Рє РІС…РѕРґСѓ.
+//РќСѓР»РµРІР°СЏ СЃС‚СЂРѕРєР° РЅРµ СЃРѕРґРµСЂР¶РёС‚ РёРЅС„РѕСЂРјР°С†РёРё
+//РїРµСЂРІР°СЏ СЃС‚СЂРѕРєР° - РІРЅСѓС‚СЂРµРЅРЅРёРµ РїРµСЂРµРјРµРЅРЅС‹Рµ, РѕС‚ РєРѕС‚РѕСЂС‹С… Р·Р°РІРёСЃСЏС‚ 
+//РІС‹С…РѕРґРЅС‹Рµ (1 РєР°СЃРєР°Рґ)Рё С‚.Рґ.
+//n-Р°СЏ СЃС‚СЂРѕРєР° - РЅСѓР»РµРІР°СЏ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ РІС…РѕРґРЅС‹Рј РїРµСЂРµРјРµРЅРЅС‹Рј.
+//Р§РёСЃР»Рѕ РєР°СЃРєР°РґРѕРІ = С‡РёСЃР»Рѕ СЃС‚СЂРѕРє BmK -1.
 
 int CSF::Cascade (map <string,string>& NumOfCascade)
 {
@@ -535,13 +535,13 @@ int CSF::Cascade (map <string,string>& NumOfCascade)
   CBV bvE,bvC, bv1;
   char str[10];
 
-  // Перейти к SDF
+  // РџРµСЂРµР№С‚Рё Рє SDF
   if (LogToSdfWithoutElimination()==false)
   {
 #ifdef ENG
     Buf="Transformation error from LOG to SDF";
 #else
-    Buf="Ошибка при переходе LogToSdfWithoutElimination";
+    Buf="РћС€РёР±РєР° РїСЂРё РїРµСЂРµС…РѕРґРµ LogToSdfWithoutElimination";
 #endif
 //#ifdef _LINUX
     printf("%s\n", Buf.c_str());
@@ -555,7 +555,7 @@ int CSF::Cascade (map <string,string>& NumOfCascade)
 #ifdef ENG
     Buf="Error in section FUNCTION (SDF)";
 #else
-    Buf="Ошибка чтения раздела FUNCTION (SDF)";
+    Buf="РћС€РёР±РєР° С‡С‚РµРЅРёСЏ СЂР°Р·РґРµР»Р° FUNCTION (SDF)";
 #endif
 //#ifdef _LINUX
     printf("%s\n", Buf.c_str());
@@ -574,7 +574,7 @@ int CSF::Cascade (map <string,string>& NumOfCascade)
   CBV bvY((BYTE)1,m+y);
   CBM BmA(m+y,n+y), BmK, BmFT(pSop->GetFunBM(),0);
 
- // Формирование (m+y)*(n+y) матрицы аргументов BmA
+ // Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ (m+y)*(n+y) РјР°С‚СЂРёС†С‹ Р°СЂРіСѓРјРµРЅС‚РѕРІ BmA
   i=-1; bvE=bvA; bvE.SetBitAt(0,1);
   while((i=bvY.LeftOne(i))!=-1)
   { 
@@ -594,7 +594,7 @@ int CSF::Cascade (map <string,string>& NumOfCascade)
       BmA.SetRow(i,bvA);
     }
   }
- // Формирование k*y матрицы каскадов BmK
+ // Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ k*y РјР°С‚СЂРёС†С‹ РєР°СЃРєР°РґРѕРІ BmK
   for(i=0; i<m; i++) 
     bvK |= BmA.GetRowBv(i).Extract(n,y);
   while(!bvK.IsZero())
@@ -617,7 +617,7 @@ int CSF::Cascade (map <string,string>& NumOfCascade)
 #ifdef ENG
           AfxMessageBox("The loop is in the net");
 #else
-          AfxMessageBox("В схеме есть цикл");
+          AfxMessageBox("Р’ СЃС…РµРјРµ РµСЃС‚СЊ С†РёРєР»");
 #endif
 #endif
 */
@@ -625,8 +625,8 @@ int CSF::Cascade (map <string,string>& NumOfCascade)
         }
       }
   }
-//Составить список CMapStringToPtr
-// - соответствия "Имя переменной - номер каскада"
+//РЎРѕСЃС‚Р°РІРёС‚СЊ СЃРїРёСЃРѕРє CMapStringToPtr
+// - СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ "РРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№ - РЅРѕРјРµСЂ РєР°СЃРєР°РґР°"
   k = BmK.GetCountR();
   for(j=0; j<k; j++)
   {
@@ -650,8 +650,8 @@ int CSF::Cascade (map <string,string>& NumOfCascade)
   return (BmK.GetCountR());  
 }
 
-//-------------------------------------------------------------------28.03.2006 Кардаш С.Н.
-//   Подсчет числа ярусов
+//-------------------------------------------------------------------28.03.2006 РљР°СЂРґР°С€ РЎ.Рќ.
+//   РџРѕРґСЃС‡РµС‚ С‡РёСЃР»Р° СЏСЂСѓСЃРѕРІ
 int CSF::GetLevel()
 {
   int i, j=0, point, err, bin = 0, bin1 = 0, bin2 = 0, max_level = 0;
@@ -665,7 +665,7 @@ int CSF::GetLevel()
 //  POSITION pos=0, pos1=0;
   BOOL bRes, bRes1;
 
-///////////////// разбор раздела CONNECT  
+///////////////// СЂР°Р·Р±РѕСЂ СЂР°Р·РґРµР»Р° CONNECT  
   L.clear();  R.clear(); 
   LL.clear(); RR.clear();
   m_TypeMap.itp= m_TypeMap.mtp.begin();    //pos = 0; 
@@ -700,7 +700,7 @@ int CSF::GetLevel()
       }
     } 
   }
-///////////////// разбор раздела OUT
+///////////////// СЂР°Р·Р±РѕСЂ СЂР°Р·РґРµР»Р° OUT
   pConnect = GetConnectForType("OUT");       
    pConnect->iCon = pConnect->m_Connect.begin();  //pos1 = 0;
   for(bRes1 = (pConnect->GetFirstPare(left,right)); bRes1;  
@@ -716,13 +716,13 @@ int CSF::GetLevel()
     LL.push_back(Beg); RR.push_back(End);
     bin1++;
   }
-///// перебор пар
+///// РїРµСЂРµР±РѕСЂ РїР°СЂ
   for(i = 0; i < bin; i++) { 
     str = L.at(i);         
     if(str != "$$$")    continue;
     Beg = R.at(i);
     if(Beg == "$$$")     continue;
-    for(j = 0; j < bin1; j++) {  // поиск по внутренним
+    for(j = 0; j < bin1; j++) {  // РїРѕРёСЃРє РїРѕ РІРЅСѓС‚СЂРµРЅРЅРёРј
       left = LL.at(j);
       if(left != Beg)    continue;
       End = RR.at(j);
@@ -747,10 +747,10 @@ int CSF::GetLevel()
 ERR:   return err;
 }
 
-//-------------------------------------------------------------------25.05.2000 Кириенко
-// Замена имени переменной в уравнениях, в списке внешних переменных
-// m_SFVarArray. В таблица отображений:
-// Слева - что менять, справа - на что менять
+//-------------------------------------------------------------------25.05.2000 РљРёСЂРёРµРЅРєРѕ
+// Р—Р°РјРµРЅР° РёРјРµРЅРё РїРµСЂРµРјРµРЅРЅРѕР№ РІ СѓСЂР°РІРЅРµРЅРёСЏС…, РІ СЃРїРёСЃРєРµ РІРЅРµС€РЅРёС… РїРµСЂРµРјРµРЅРЅС‹С…
+// m_SFVarArray. Р’ С‚Р°Р±Р»РёС†Р° РѕС‚РѕР±СЂР°Р¶РµРЅРёР№:
+// РЎР»РµРІР° - С‡С‚Рѕ РјРµРЅСЏС‚СЊ, СЃРїСЂР°РІР° - РЅР° С‡С‚Рѕ РјРµРЅСЏС‚СЊ
 bool  CSF::RenameVar(map <string, string>* MultiPare)
 {
   map <string,string> :: iterator ii;
@@ -770,17 +770,17 @@ bool  CSF::RenameVar(map <string, string>* MultiPare)
     buf1=buf.substr(0,index);
     index1=index;
     while(GetNextInpName(buf,index,bufname)!=-1){
-// Переписать все, что до bufname
+// РџРµСЂРµРїРёСЃР°С‚СЊ РІСЃРµ, С‡С‚Рѕ РґРѕ bufname
       buf2=buf.substr(index1,index-index1);
       index2=buf2.find(bufname)+index1;
       buf1+=buf2.substr(0,index2-index1);
-// Есть ли имя в списке соответствий имен?
+// Р•СЃС‚СЊ Р»Рё РёРјСЏ РІ СЃРїРёСЃРєРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёР№ РёРјРµРЅ?
       //if (MultiPare->Lookup(bufname,two)==0){
       ii = MultiPare->find(bufname); 
-      if (ii == MultiPare->end()) {   // Если нет, то переписать имя в уравнение
+      if (ii == MultiPare->end()) {   // Р•СЃР»Рё РЅРµС‚, С‚Рѕ РїРµСЂРµРїРёСЃР°С‚СЊ РёРјСЏ РІ СѓСЂР°РІРЅРµРЅРёРµ
         buf1+=bufname;
       }
-      else { // Если есть, то заменить на  Two
+      else { // Р•СЃР»Рё РµСЃС‚СЊ, С‚Рѕ Р·Р°РјРµРЅРёС‚СЊ РЅР°  Two
         two = MultiPare->at(bufname); 
         buf1+=two;
       }
@@ -790,7 +790,7 @@ bool  CSF::RenameVar(map <string, string>* MultiPare)
     pFunNew->AddTextLine(buf1);
   }
   SetFun(pFunNew);
-//Просмотреть переменные и удалить те, что заменены
+//РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ РїРµСЂРµРјРµРЅРЅС‹Рµ Рё СѓРґР°Р»РёС‚СЊ С‚Рµ, С‡С‚Рѕ Р·Р°РјРµРЅРµРЅС‹
   for (k=0;k< (int)m_SFVarArray.Avar.size();k++ ){
     pVar=m_SFVarArray.GetAt(k);
     //if (MultiPare->Lookup(pVar->m_Name,two)!=0){

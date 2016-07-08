@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////
 // Ver.1.1.0    20.03.2005   Russian / English 
-//              - выделены отдельно методы вывода SF-файлов
+//              - РІС‹РґРµР»РµРЅС‹ РѕС‚РґРµР»СЊРЅРѕ РјРµС‚РѕРґС‹ РІС‹РІРѕРґР° SF-С„Р°Р№Р»РѕРІ
 // Ver.1.1.1    07.04.2005 
-// Ver.1.1.6    16.05.2005 - убрана очистка массива в Write_SF
+// Ver.1.1.6    16.05.2005 - СѓР±СЂР°РЅР° РѕС‡РёСЃС‚РєР° РјР°СЃСЃРёРІР° РІ Write_SF
 /////////////////////////////////////////////////////////////////
-// Методы класса   CSF:
+// РњРµС‚РѕРґС‹ РєР»Р°СЃСЃР°   CSF:
 //      bool CSF::WriteSF(string FileName)
 //      bool CSF::WriteSF(vector <string>& Obj)
 //      void CSF::WriteVar(CFile& f, BYTE Typ, CSFVarArray *pVA)
@@ -300,7 +300,7 @@ FILE* f;
 #ifdef ENG
     Buf="Error at record of a file " + FileName;
 #else
-    Buf="Ошибка при записи файла " + FileName;
+    Buf="РћС€РёР±РєР° РїСЂРё Р·Р°РїРёСЃРё С„Р°Р№Р»Р° " + FileName;
 #endif
     AfxMessageBox(Buf.c_str());
 #endif

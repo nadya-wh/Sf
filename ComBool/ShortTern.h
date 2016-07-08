@@ -1,21 +1,21 @@
 /////////////////////////////////////////////////////////////////
 // Ver.2.1.5    28.03.2008
-//              SetOnes и SetZeros - исправлены для реализации в другой интерпретации
-//              в виде функций AddOnes и AddZeros
-//              Поправка функции LeftUnDef
+//              SetOnes Рё SetZeros - РёСЃРїСЂР°РІР»РµРЅС‹ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё РІ РґСЂСѓРіРѕР№ РёРЅС‚РµСЂРїСЂРµС‚Р°С†РёРё
+//              РІ РІРёРґРµ С„СѓРЅРєС†РёР№ AddOnes Рё AddZeros
+//              РџРѕРїСЂР°РІРєР° С„СѓРЅРєС†РёРё LeftUnDef
 // Ver.2.1.4     22.01.2008
-//               Добавлены функции конвертации данных базового класса троичных векторов и матриц
-//               а также функции DorD для класса троичных матриц
+//               Р”РѕР±Р°РІР»РµРЅС‹ С„СѓРЅРєС†РёРё РєРѕРЅРІРµСЂС‚Р°С†РёРё РґР°РЅРЅС‹С… Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР° С‚СЂРѕРёС‡РЅС‹С… РІРµРєС‚РѕСЂРѕРІ Рё РјР°С‚СЂРёС†
+//               Р° С‚Р°РєР¶Рµ С„СѓРЅРєС†РёРё DorD РґР»СЏ РєР»Р°СЃСЃР° С‚СЂРѕРёС‡РЅС‹С… РјР°С‚СЂРёС†
 // Ver.2.1.3     22.02.2007
-//               В функции Add можно не указать второго операнда
-//               и тогда к текущей добавятся все строки матрицы
-//               Новая функция RemoveAllRows();
+//               Р’ С„СѓРЅРєС†РёРё Add РјРѕР¶РЅРѕ РЅРµ СѓРєР°Р·Р°С‚СЊ РІС‚РѕСЂРѕРіРѕ РѕРїРµСЂР°РЅРґР°
+//               Рё С‚РѕРіРґР° Рє С‚РµРєСѓС‰РµР№ РґРѕР±Р°РІСЏС‚СЃСЏ РІСЃРµ СЃС‚СЂРѕРєРё РјР°С‚СЂРёС†С‹
+//               РќРѕРІР°СЏ С„СѓРЅРєС†РёСЏ RemoveAllRows();
 // Ver.2.1.2     10.07.2006
-//               поправка AreConsens
+//               РїРѕРїСЂР°РІРєР° AreConsens
 // Ver.2.1.1     08.07.2006
-//               поправка GetRowTv
+//               РїРѕРїСЂР°РІРєР° GetRowTv
 // Ver.2.1.0     07.07.2006
-//               Переход к LINUX
+//               РџРµСЂРµС…РѕРґ Рє LINUX
 
 /////////////////////////////////////////////////////////////////
 // Ver.1.1     11.02.2005
@@ -53,7 +53,7 @@ public:
   CsTV(const CsTV& tvSrc);
   CsTV(const CsBV& bv1Src,const CsBV& bv0Src);
   CsTV(int nLenBit,char value='n'); 
-      //1,0,-,+ - тр.вектор в кодировке 10,01,00,11,'n'-без инициализ-ии
+      //1,0,-,+ - С‚СЂ.РІРµРєС‚РѕСЂ РІ РєРѕРґРёСЂРѕРІРєРµ 10,01,00,11,'n'-Р±РµР· РёРЅРёС†РёР°Р»РёР·-РёРё
   CsTV(const ULONG pbt1,const ULONG pbt0,int nLenBit);
   CsTV(const char* pch);
   ~CsTV(){};
@@ -118,10 +118,10 @@ public:
 
 //************ Logic Operations of weighting, finding and casing **************
 
-  int  CountDefs() const;       // число 1 и 0
-  int  CountUnDefs() const;       // число 1 и 0
-  int  CountOnes() const;       // число 1
-  int  CountZeros() const;      // число и 0
+  int  CountDefs() const;       // С‡РёСЃР»Рѕ 1 Рё 0
+  int  CountUnDefs() const;       // С‡РёСЃР»Рѕ 1 Рё 0
+  int  CountOnes() const;       // С‡РёСЃР»Рѕ 1
+  int  CountZeros() const;      // С‡РёСЃР»Рѕ Рё 0
   int LeftUnDef(int nNext = -1) const;
   int LeftDef(int nNext = -1) const;
   int LeftOne(int nNext = -1) const;
@@ -133,22 +133,22 @@ public:
 
 //******************************* Compareing operations ***********************
   BOOL IsEmpty() const;
-  BOOL IsCorrect() const;  // кодировка 11 не корректна
-  BOOL IsBool() const;     // вектор булев ?
-  BOOL IsTrivial() const;  // все '-'
+  BOOL IsCorrect() const;  // РєРѕРґРёСЂРѕРІРєР° 11 РЅРµ РєРѕСЂСЂРµРєС‚РЅР°
+  BOOL IsBool() const;     // РІРµРєС‚РѕСЂ Р±СѓР»РµРІ ?
+  BOOL IsTrivial() const;  // РІСЃРµ '-'
   BOOL IsOne() const;
   BOOL IsZero() const;
   BOOL ExistZero() const;
   BOOL ExistOne() const;
   BOOL IsOrthog(const CsTV& tv) const;
   BOOL IsOrthog(const CsBV& bv) const;
-  BOOL IsNeighb(const CsTV& tv) const; //соседство
-  BOOL IsNeighb(const CsBV& bv) const; //соседство
-  BOOL IsAdjac(const CsTV& tv) const;  //смежность
-  BOOL IsAdjac(const CsBV& bv) const;  //смежность
-  BOOL IsCover(const CsTV& tv) const;  // 1 поглощает 2
-  BOOL IsCover(const CsBV& bv) const;  // 1 поглощает 2
-  BOOL IsIntersec(const CsTV& tv) const;//пересекаютс
+  BOOL IsNeighb(const CsTV& tv) const; //СЃРѕСЃРµРґСЃС‚РІРѕ
+  BOOL IsNeighb(const CsBV& bv) const; //СЃРѕСЃРµРґСЃС‚РІРѕ
+  BOOL IsAdjac(const CsTV& tv) const;  //СЃРјРµР¶РЅРѕСЃС‚СЊ
+  BOOL IsAdjac(const CsBV& bv) const;  //СЃРјРµР¶РЅРѕСЃС‚СЊ
+  BOOL IsCover(const CsTV& tv) const;  // 1 РїРѕРіР»РѕС‰Р°РµС‚ 2
+  BOOL IsCover(const CsBV& bv) const;  // 1 РїРѕРіР»РѕС‰Р°РµС‚ 2
+  BOOL IsIntersec(const CsTV& tv) const;//РїРµСЂРµСЃРµРєР°СЋС‚СЃ
   FSTD(BOOL) operator==(const CsTV& tv1, const CsTV& tv2);
   FSTD(BOOL) operator==(const CsTV& tv1, const CsBV& bv2);
   FSTD(BOOL) operator==(const CsBV& bv1, const CsTV& tv2);
@@ -162,18 +162,18 @@ public:
 
 //************************** Operations on intervals **************************
 
-  int NumNeighb(const CsTV& tv) const;  //номер компоненты соседства
-  int NumNeighb(const CsBV& bv) const;  //номер компоненты соседства
-  int NumAdjac(const CsTV& tv) const;   //номер компоненты смежности
-  int NumAdjac(const CsBV& bv) const;   //номер компоненты смежности
+  int NumNeighb(const CsTV& tv) const;  //РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃРѕСЃРµРґСЃС‚РІР°
+  int NumNeighb(const CsBV& bv) const;  //РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃРѕСЃРµРґСЃС‚РІР°
+  int NumAdjac(const CsTV& tv) const;   //РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃРјРµР¶РЅРѕСЃС‚Рё
+  int NumAdjac(const CsBV& bv) const;   //РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃРјРµР¶РЅРѕСЃС‚Рё
   CsBV Orthogon(const CsTV& tv) const;
   CsBV Orthogon(const CsBV& bv) const;
-  CsTV Intersec(const CsTV& tv) const;  //CsTV = Empty,если не пересекаютс
-  CsTV Concens(const CsTV& tv) const;   //рез-т обобщ.склеивани
-  CsTV Concens(const CsBV& tv) const;   //рез-т обобщ.склеивани
+  CsTV Intersec(const CsTV& tv) const;  //CsTV = Empty,РµСЃР»Рё РЅРµ РїРµСЂРµСЃРµРєР°СЋС‚СЃ
+  CsTV Concens(const CsTV& tv) const;   //СЂРµР·-С‚ РѕР±РѕР±С‰.СЃРєР»РµРёРІР°РЅРё
+  CsTV Concens(const CsBV& tv) const;   //СЂРµР·-С‚ РѕР±РѕР±С‰.СЃРєР»РµРёРІР°РЅРё
   CsTV MinCover(const CsTV& tv) const;
   CsTV MinCover(const CsBV& tv) const;
-  CsBM CsTVtoCsBM() const;        //перевод тр.вектора в мн-во булевых
+  CsBM CsTVtoCsBM() const;        //РїРµСЂРµРІРѕРґ С‚СЂ.РІРµРєС‚РѕСЂР° РІ РјРЅ-РІРѕ Р±СѓР»РµРІС‹С…
 
 //**************************** Operations on TERNARY VECTOR PARTS *************
 //********************************** Logic operations *************************
@@ -321,7 +321,7 @@ public:
   int Add(char symb='-',int nCount=1);
   void SetRowGrow(int nRow, const CsTV& newRow);
   void SetRowGrow(int nRow, const CsTM& tm, int ntmRow);
-  void InsertRow(int nRow, const CsTV& newRow, int nCount = 1);  //несколько копий
+  void InsertRow(int nRow, const CsTV& newRow, int nCount = 1);  //РЅРµСЃРєРѕР»СЊРєРѕ РєРѕРїРёР№
   void InsertRow(int nRow,int nStartRow, const CsTM& tm,int nCount = 1);
   void RemoveRow(int nRow, int nCount = 1);
   void ExchangeRow(int nRow1,int nRow2,int nCount = 1);
@@ -343,7 +343,7 @@ public:
   void Clear(char symb='-',int nRow=-1);
 
 //********************************** Logic operations *************************
-  void InvertDefs(int nRow=-1); //инвертировать опр.значения строк или одной стр.
+  void InvertDefs(int nRow=-1); //РёРЅРІРµСЂС‚РёСЂРѕРІР°С‚СЊ РѕРїСЂ.Р·РЅР°С‡РµРЅРёСЏ СЃС‚СЂРѕРє РёР»Рё РѕРґРЅРѕР№ СЃС‚СЂ.
 
 //******************** Operations of weighting, finding and casing ************
   int CountUnDefs(int nRow = -1) const;
@@ -373,22 +373,22 @@ public:
   int RightOne(int nRow, int nPrev, ULONG mask) const;
   int RightZero(int nRow, int nPrev, ULONG mask) const;
 
-  int FindUnDefR (int nRow=-1) const; // все '-'
-  int FindDefR (int nRow=-1) const;   // нет '-'
-  int FindOneR (int nRow=-1) const;   // все '1'
-  int FindZeroR (int nRow=-1) const;  // все '0'
+  int FindUnDefR (int nRow=-1) const; // РІСЃРµ '-'
+  int FindDefR (int nRow=-1) const;   // РЅРµС‚ '-'
+  int FindOneR (int nRow=-1) const;   // РІСЃРµ '1'
+  int FindZeroR (int nRow=-1) const;  // РІСЃРµ '0'
   int FindUnDefR (ULONG mask, int nFRow=-1) const;
-  int FindDefR (ULONG mask,int nFRow=-1) const;   // нет '-'
+  int FindDefR (ULONG mask,int nFRow=-1) const;   // РЅРµС‚ '-'
   int FindOneR (ULONG mask, int nFRow=-1) const;
   int FindZeroR (ULONG mask, int nFRow=-1) const;
   int FindR (const CsTV& tv, int nFRow=-1) const;
   int FindR (const CsBV& bv, int nFRow=-1) const;
 
 //******************************* Matrix compareing operations ****************
-  BOOL IsCorrect(int nRow = -1) const;  //new кодировка 11 не корректна
-  BOOL IsBool(int nRow = -1) const;     //new матрица булева ?
+  BOOL IsCorrect(int nRow = -1) const;  //new РєРѕРґРёСЂРѕРІРєР° 11 РЅРµ РєРѕСЂСЂРµРєС‚РЅР°
+  BOOL IsBool(int nRow = -1) const;     //new РјР°С‚СЂРёС†Р° Р±СѓР»РµРІР° ?
   BOOL IsBool(const ULONG mask,int nRow=-1)  const;
-  BOOL IsTrivial(int nRow = -1) const;  //new все '-'
+  BOOL IsTrivial(int nRow = -1) const;  //new РІСЃРµ '-'
   BOOL IsTrivial(const ULONG mask,int nRow=-1) const;
   BOOL IsOne(int nRow = -1) const;
   BOOL IsOne(const ULONG mask,int nRow)  const;
@@ -467,7 +467,7 @@ public:
   CsTV MinCover(const ULONG mask,int nRow1,const CsTV& tv) const;
   CsTV MinCover(int nRow1,const CsBV& bv) const;
   CsTV MinCover(const ULONG mask,int nRow1,const CsBV& bv) const;
-  CsBM CsTMtoCsBM(void) const; // раскрыть интервалы
+  CsBM CsTMtoCsBM(void) const; // СЂР°СЃРєСЂС‹С‚СЊ РёРЅС‚РµСЂРІР°Р»С‹
 
 //**************************** Operations on TERNARY VECTOR PARTS *************
 //****************************** Row Logic operations *************************

@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////
 // Ver.1.0.0    20.03.2006   Russian / English
-//              - Вынесены в этот файл все функции Get/Set SDF CSFunction
-//                и CSF::SdfToLog()
+//              - Р’С‹РЅРµСЃРµРЅС‹ РІ СЌС‚РѕС‚ С„Р°Р№Р» РІСЃРµ С„СѓРЅРєС†РёРё Get/Set SDF CSFunction
+//                Рё CSF::SdfToLog()
 // Ver.1.0.1    07.04.2006
-//              метод CSF::SdfToLog() перенесен в файл SF_methods.cpp
+//              РјРµС‚РѕРґ CSF::SdfToLog() РїРµСЂРµРЅРµСЃРµРЅ РІ С„Р°Р№Р» SF_methods.cpp
 /////////////////////////////////////////////////////////////////
 
 #include <vector>
@@ -140,7 +140,7 @@ bool CSFunction::GetSbf(CBM *&pTrMat_Zero, CBM *&pTrMat_One,
 bool CSFunction::SetSdf(CBM *pTrMat_Zero, CBM *pTrMat_One, CBM *pMatFun)
 {
   if (m_Typ != "SDF")  m_Typ = "SDF";
-  // Контроль соответствия размеров матриц
+  // РљРѕРЅС‚СЂРѕР»СЊ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ СЂР°Р·РјРµСЂРѕРІ РјР°С‚СЂРёС†
   if (pTrMat_Zero->GetCountR() !=  pTrMat_One->GetCountR()) return FALSE;
   if (pTrMat_Zero->GetCountR() !=  pMatFun->GetCountR()) return FALSE;
   if (pTrMat_Zero->GetCountC() !=  pTrMat_One->GetCountC()) return FALSE;
@@ -178,7 +178,7 @@ bool CSFunction::SetSbf(CBM *pTrMat_Zero, CBM *pTrMat_One,
   CBM *pMatFun_Zero, CBM *pMatFun_One)
 {
   if (m_Typ != "SDF")  m_Typ = "SDF";
-  // Контроль соответствия размеров матриц
+  // РљРѕРЅС‚СЂРѕР»СЊ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ СЂР°Р·РјРµСЂРѕРІ РјР°С‚СЂРёС†
   if (pTrMat_Zero->GetCountR() !=  pTrMat_One->GetCountR()) return FALSE;
   if (pTrMat_Zero->GetCountR() !=  pMatFun_One->GetCountR()) return FALSE;
   if (pTrMat_Zero->GetCountR() !=  pMatFun_Zero->GetCountR()) return FALSE;

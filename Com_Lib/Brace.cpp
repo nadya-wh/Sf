@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////
 // Ver.1.1.1    15.02.2005   Russian == English
-// Ver.1.1.2    07.04.2006  мелочи
+// Ver.1.1.2    07.04.2006  РјРµР»РѕС‡Рё
 /////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
@@ -139,7 +139,7 @@ void CBrace::SetDNF(int nDNF,CDNF DNF)
       m_DnfArray.Adnf.resize(nDNF);
       m_DnfArray.Adnf[nDNF] = &DNF;
     }
-     //SetAtGrow  - конец
+     //SetAtGrow  - РєРѕРЅРµС†
  
  
   bv.Zero();                                 

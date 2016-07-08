@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////
-// Äàííûé ìîäóëü âêëþ÷àåòñÿ êàê â ñèñòåìó ÑÀÏÐ, òàê è â ïðîãðàììó ESS!!!
+// Ð”Ð°Ð½Ð½Ñ‹Ð¹ Ð¼Ð¾Ð´ÑƒÐ»ÑŒ Ð²ÐºÐ»ÑŽÑ‡Ð°ÐµÑ‚ÑÑ ÐºÐ°Ðº Ð² ÑÐ¸ÑÑ‚ÐµÐ¼Ñƒ Ð¡ÐÐŸÐ , Ñ‚Ð°Ðº Ð¸ Ð² Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñƒ ESS!!!
 //----------------------------------------------------------------------
 // objects_sys.cpp 
 //------------------------------------------------------------
@@ -171,8 +171,8 @@ void CMapValFrame::SetAt(string key, double newValue)
 //       AfxMessageBox("Procedure has set a attribute " + key +
 //         " which is not required");
 // #else
-//       AfxMessageBox("Ïðîåêòíàÿ îïåðàöèÿ óñòàíîâèëà àòðèáóò " + key +
-//                     ", êîòîðûé íå òðåáóåòñÿ");
+//       AfxMessageBox("ÐŸÑ€Ð¾ÐµÐºÑ‚Ð½Ð°Ñ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ñ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ð»Ð° Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚ " + key +
+//                     ", ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð½Ðµ Ñ‚Ñ€ÐµÐ±ÑƒÐµÑ‚ÑÑ");
 // #endif
 // #endif
 //     }
@@ -187,7 +187,7 @@ void CMapValFrame::SetAt(string key, double newValue)
 // #ifdef ENG
 //       AfxMessageBox("Procedure hasn't set the attribute " + 
 // #else
-//       AfxMessageBox("Ïðîåêòíàÿ îïåðàöèÿ íå óñòàíîâèëà àòðèáóò " + 
+//       AfxMessageBox("ÐŸÑ€Ð¾ÐµÐºÑ‚Ð½Ð°Ñ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ñ Ð½Ðµ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ð»Ð° Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚ " + 
 // #endif
 //         work.GetAt(j) );
 // #endif
@@ -214,7 +214,7 @@ int CMapValFrame::GetAt(CMapAttributes* m_pMapAttributes, string key,
   return pKnAttr->m_Type;
 }
 
-//--------------------------------------------- 29.04.1998 Êðàñèëüíèêîâà
+//--------------------------------------------- 29.04.1998 ÐšÑ€Ð°ÑÐ¸Ð»ÑŒÐ½Ð¸ÐºÐ¾Ð²Ð°
 bool CMapValFrame::CheckAttr(string key, string Value)
 {
   string sRes;
@@ -224,7 +224,7 @@ bool CMapValFrame::CheckAttr(string key, string Value)
   return( sRes == Value);
 }
 
-//--------------------------------------------- 29.04.1998 Êðàñèëüíèêîâà
+//--------------------------------------------- 29.04.1998 ÐšÑ€Ð°ÑÐ¸Ð»ÑŒÐ½Ð¸ÐºÐ¾Ð²Ð°
 bool CMapValFrame::CheckAttr(string key, double Value)
 {
   string sRes;
@@ -556,8 +556,8 @@ BOOL ReadDoc(CString FileName,
   lsw1 = "Target";
   lsw2 = "Final target";
 #else
-  lsw1 = "Öåëü";
-  lsw2 = "Êîíå÷íàÿ öåëü";
+  lsw1 = "Ð¦ÐµÐ»ÑŒ";
+  lsw2 = "ÐšÐ¾Ð½ÐµÑ‡Ð½Ð°Ñ Ñ†ÐµÐ»ÑŒ";
 #endif
   if (pF->Lookup(lsw1, pFr)) {
     for (li= 0; li< pFr->m_ArraySlots.GetSize(); li++)  {
