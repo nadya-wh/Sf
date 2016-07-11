@@ -1187,7 +1187,7 @@ const CTM& CTM::operator =(const CTM& tm)
 const CTM& CTM::operator =(const char* pch)
 {
   char * s;
-#ifdef _LINUX
+#if defined(_LINUX) || defined(__APPLE__)
   s = strdup(pch);
 #else
   s = _strdup(pch);

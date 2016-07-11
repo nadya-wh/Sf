@@ -20,8 +20,14 @@ using namespace std;
 #include "../Common/Sbf.h"
 
 
-//#ifdef _LINUX
-#include <io.h>
+#if defined(__APPLE__)
+    #include <sys/uio.h>
+#elif defined(_LINUX)
+    #include <sys/io.h>
+#else
+    #include <io.h>
+#endif
+
 #undef _DEBUG
 typedef unsigned char BYTE; 
 typedef unsigned long ULONG; 

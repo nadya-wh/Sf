@@ -16,10 +16,12 @@ enum    MINSF{NOMIN, MIN};
 #include "../Com_Lib/objects_sys.h"
 #include "../Com_Lib/archive.h"
 
-#ifdef _LINUX
-#include <sys/io.h>
+#if defined(__APPLE__)
+    #include <sys/uio.h>
+#elif defined(_LINUX)
+    #include <sys/io.h>
 #else
-#include <io.h>
+    #include <io.h>
 #endif
 
 class CDNF;

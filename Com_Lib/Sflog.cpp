@@ -1735,7 +1735,7 @@ int CSFLog::GetNumTerms(CFunc *pFunc1, vector <int *> *pAB_Rab)
 	}
 SetPIN();
 CFuncSystemToNewFunction();
-#ifdef _LINUX
+#if defined(_LINUX) || defined(__APPLE__)
 unlink ("~Term");
 #else
 _unlink ("~Term");
