@@ -37,8 +37,13 @@ using namespace std;
 #include "../Common/Sop.h"
 
 
-//#ifdef _LINUX
-#include <io.h>
+#if defined(__APPLE__)
+    #include <sys/uio.h>
+#elif defined(_LINUX)
+    #include <sys/io.h>
+#else
+    #include <io.h>
+#endif
 #undef _DEBUG
 typedef unsigned char BYTE; 
 typedef unsigned long ULONG; 
@@ -652,7 +657,7 @@ int CSF::ReadSFFromFile(string Path)
 {
   string Buf;
   bool bRes;
-#ifdef _LINUX
+#if defined(_LINUX) || defined(__APPLE__)
   if (access(Path.c_str(),0) != -1 ){ // Файл существует?
 #else
   if (_access(Path.c_str(),0) != -1 ){ // Файл существует?

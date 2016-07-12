@@ -274,81 +274,81 @@ int GetNamePrevVar(string& buf, int &pos, string& bufname)
 //--------------- convert string from DOS - coding to Windows - coding
 string TrDosToWin(string buf)
 {
-  int c;
-  for (int i=0; i< (int)buf.length(); i++)  {
-    c = buf[i];
-    switch(c)  {
-      case -127: buf[i] ='А'; break;
-      case -126: buf[i] ='В'; break;
-      case -125: buf[i] ='Г'; break;
-      case -124: buf[i] ='Д'; break;
-      case -123: buf[i] ='Е'; break;
-      case -122: buf[i] ='Ж'; break;
-      case -121: buf[i] ='З'; break;
-      case -120: buf[i] ='И'; break;
-      case -119: buf[i] ='Й'; break;
-      case -118: buf[i] ='К'; break;
-      case -117: buf[i] ='Л'; break;
-      case -116: buf[i] ='М'; break;
-      case -115: buf[i] ='Н'; break;
-      case -114: buf[i] ='О'; break;
-      case -113: buf[i] ='П'; break;
-      case -112: buf[i] ='Р'; break;
-      case -111: buf[i] ='С'; break;
-      case -110: buf[i] ='Т'; break;
-      case -109: buf[i] ='У'; break;
-      case -108: buf[i] ='Ф'; break;
-      case -107: buf[i] ='Х'; break;
-      case -106: buf[i] ='Ц'; break;
-      case -105: buf[i] ='Ч'; break;
-      case -104: buf[i] ='Ш'; break;
-      case -103: buf[i] ='Щ'; break;
-      case -102: buf[i] ='Ъ'; break;
-      case -101: buf[i] ='Ы'; break;
-      case -100: buf[i] ='Ь'; break;
-      case -99: buf[i] ='Э'; break;
-      case -98: buf[i] ='Ю'; break;
-      case -97: buf[i] ='Я'; break;
+//  int c;
+//  for (int i=0; i< (int)buf.length(); i++)  {
+//    c = buf[i];
+//    switch(c)  {
+//      case -127: buf[i] ='А'; break;
+//      case -126: buf[i] ='В'; break;
+//      case -125: buf[i] ='Г'; break;
+//      case -124: buf[i] ='Д'; break;
+//      case -123: buf[i] ='Е'; break;
+//      case -122: buf[i] ='Ж'; break;
+//      case -121: buf[i] ='З'; break;
+//      case -120: buf[i] ='И'; break;
+//      case -119: buf[i] ='Й'; break;
+//      case -118: buf[i] ='К'; break;
+//      case -117: buf[i] ='Л'; break;
+//      case -116: buf[i] ='М'; break;
+//      case -115: buf[i] ='Н'; break;
+//      case -114: buf[i] ='О'; break;
+//      case -113: buf[i] ='П'; break;
+//      case -112: buf[i] ='Р'; break;
+//      case -111: buf[i] ='С'; break;
+//      case -110: buf[i] ='Т'; break;
+//      case -109: buf[i] ='У'; break;
+//      case -108: buf[i] ='Ф'; break;
+//      case -107: buf[i] ='Х'; break;
+//      case -106: buf[i] ='Ц'; break;
+//      case -105: buf[i] ='Ч'; break;
+//      case -104: buf[i] ='Ш'; break;
+//      case -103: buf[i] ='Щ'; break;
+//      case -102: buf[i] ='Ъ'; break;
+//      case -101: buf[i] ='Ы'; break;
+//      case -100: buf[i] ='Ь'; break;
+//      case -99: buf[i] ='Э'; break;
+//      case -98: buf[i] ='Ю'; break;
+//      case -97: buf[i] ='Я'; break;
 
-      case -96:  buf[i] ='а'; break;
-      case -95:  buf[i] ='б'; break;
-      case -94:  buf[i] ='в'; break;
-      case -93:  buf[i] ='г'; break;
-      case -92:  buf[i] ='д'; break;
-      case -91: buf[i] ='е'; break;
-      case -90: buf[i] ='ж'; break;
-      case -89: buf[i] ='з'; break;
-      case -88: buf[i] ='и'; break;
-      case -87: buf[i] ='й'; break;
-      case -86: buf[i] ='к'; break;
-      case -85: buf[i] ='л'; break;
-      case -84: buf[i] ='м'; break;
-      case -83: buf[i] ='н'; break;
-      case -82: buf[i] ='о'; break;
-      case -81: buf[i] ='п'; break;
+//      case -96:  buf[i] ='а'; break;
+//      case -95:  buf[i] ='б'; break;
+//      case -94:  buf[i] ='в'; break;
+//      case -93:  buf[i] ='г'; break;
+//      case -92:  buf[i] ='д'; break;
+//      case -91: buf[i] ='е'; break;
+//      case -90: buf[i] ='ж'; break;
+//      case -89: buf[i] ='з'; break;
+//      case -88: buf[i] ='и'; break;
+//      case -87: buf[i] ='й'; break;
+//      case -86: buf[i] ='к'; break;
+//      case -85: buf[i] ='л'; break;
+//      case -84: buf[i] ='м'; break;
+//      case -83: buf[i] ='н'; break;
+//      case -82: buf[i] ='о'; break;
+//      case -81: buf[i] ='п'; break;
 
-      case -32: buf[i] ='р'; break;
-      case -31: buf[i] ='с'; break;
-      case -30: buf[i] ='т'; break;
-      case -29: buf[i] ='у'; break;
-      case -28: buf[i] ='ф'; break;
-      case -27: buf[i] ='х'; break;
-      case -26: buf[i] ='ц'; break;
-      case -25: buf[i] ='ч'; break;
-      case -24: buf[i] ='ш'; break;
-      case -23: buf[i] ='щ'; break;
-      case -22: buf[i] ='ъ'; break;
-      case -21: buf[i] ='ы'; break;
-      case -20: buf[i] ='ь'; break;
-      case -19: buf[i] ='э'; break;
-      case -18: buf[i] ='ю'; break;
-      case -17: buf[i] ='я'; break;
+//      case -32: buf[i] ='р'; break;
+//      case -31: buf[i] ='с'; break;
+//      case -30: buf[i] ='т'; break;
+//      case -29: buf[i] ='у'; break;
+//      case -28: buf[i] ='ф'; break;
+//      case -27: buf[i] ='х'; break;
+//      case -26: buf[i] ='ц'; break;
+//      case -25: buf[i] ='ч'; break;
+//      case -24: buf[i] ='ш'; break;
+//      case -23: buf[i] ='щ'; break;
+//      case -22: buf[i] ='ъ'; break;
+//      case -21: buf[i] ='ы'; break;
+//      case -20: buf[i] ='ь'; break;
+//      case -19: buf[i] ='э'; break;
+//      case -18: buf[i] ='ю'; break;
+//      case -17: buf[i] ='я'; break;
 
-      default:  if (c == 32)
-                  i = i;
-                break;
-    }
-  }
+//      default:  if (c == 32)
+//                  i = i;
+//                break;
+//    }
+//  }
   return buf;
 }
 

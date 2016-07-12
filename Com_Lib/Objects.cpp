@@ -158,10 +158,10 @@ void CMapAttributes::PrintMapAttribs(string FileName)
 
   try
   {
-#ifndef _LINUX
-    _unlink(FileName.c_str());
-#else
+#if defined(_LINUX) || defined(__APPLE__)
     unlink(FileName.c_str());
+#else
+    _unlink(FileName.c_str());
 #endif
     FILE *out;
     out =fopen(FileName.c_str(),"w");
@@ -208,10 +208,10 @@ void CMapAttributes::PrintFullAttribs(string FileName)
   int Count=0;
   try
   {
-#ifndef _LINUX
-    _unlink(FileName.c_str());
-#else
+#if defined(_LINUX) || defined(__APPLE__)
     unlink(FileName.c_str());
+#else
+    _unlink(FileName.c_str());
 #endif
     FILE *out;
     out =fopen(FileName.c_str(),"w");
@@ -487,10 +487,10 @@ void CMapProgModuls::PrintFullProgs(string FileName)
   {
     s1 = "------------------------------\n";
     endl = "\n";
-#ifndef _LINUX
-    _unlink(FileName.c_str());
-#else
+#if defined(_LINUX) || defined(__APPLE__)
     unlink(FileName.c_str());
+#else
+    _unlink(FileName.c_str());
 #endif
     //CFile f(FileName, CFile::modeCreate | CFile::modeWrite);
     FILE *out;

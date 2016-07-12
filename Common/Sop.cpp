@@ -576,17 +576,10 @@ if(i==-1) {q=m+m_NumInterVar; i=0;}
 else q=i+1;
 for(i; i<q; i++) {
   if(i<m) 
-#ifdef _LINUX
+
     sprintf(buff,"f%d",i);
-#else
-    sprintf_s(buff, 20, "f%d",i);
-#endif
   else 
-#ifdef _LINUX
     sprintf(buff,"y%d",i-m); 
-#else
-    sprintf_s(buff,20, "y%d",i-m); 
-#endif
   ss+=buff; ss+="="; 
   bvR=m_bmFun.GetColumnBv(i);
   if((d=bvR.CountBit())>1) ss+='(';
@@ -600,17 +593,10 @@ for(i; i<q; i++) {
       a=1;
       if (m_tmCon.GetBitAt(c,k)=='0') ss+='^';
       if(k<n) 
-#ifdef _LINUX
+
         sprintf(buff,"x%d",k);
-#else
-        sprintf_s(buff, 20, "x%d",k);
-#endif
       else 
-#ifdef _LINUX
         sprintf(buff,"y%d",k-n);
-#else
-        sprintf_s(buff,20,"y%d",k-n);
-#endif
       ss+=buff;
     }
     if(bvR.LeftOne(c)!=-1) ss+='+';
@@ -646,17 +632,10 @@ else q=i+1;
 for(i; i<q; i++) 
 {
   if(i<m) 
-#ifdef _LINUX
+
     sprintf(buff,"f%d",i);
-#else
-    sprintf_s(buff,20,"f%d",i);
-#endif
   else 
-#ifdef _LINUX
     sprintf(buff, "y%d", i-m); 
-#else
-    sprintf_s(buff, 20,"y%d",i-m); 
-#endif
   ss+=buff; ss+="="; 
   b=i; g=0; 
 M1: bvR=m_bmFun.GetColumnBv(b);
@@ -673,11 +652,7 @@ M2: while((c=bvR.LeftOne(c))!=-1)
         a=1;
         if (m_tmCon.GetBitAt(c,k)=='0') ss+='^';
         if(k<n) {
-#ifdef _LINUX
           sprintf(buff,"x%d",k); 
-#else
-          sprintf_s(buff, 20, "x%d",k); 
-#endif
           ss+=buff;
         }
         else {
@@ -722,17 +697,10 @@ if(i==-1) {q=m+m_NumInterVar; i=0;}
 else q=i+1;
 for(i; i<q; i++) {
   if(i<m) 
-#ifdef _LINUX
+
     sprintf(buff,"f%d",i);
-#else
-    sprintf_s(buff, 20, "f%d",i);
-#endif
   else 
-#ifdef _LINUX
     sprintf(buff,"y%d",i-m); 
-#else
-    sprintf_s(buff, 20, "y%d",i-m); 
-#endif
   ss=buff; ss+="=";
   bvR=m_bmFun.GetColumnBv(i);
   if((d=bvR.CountBit())>1) ss+='(';
@@ -748,17 +716,9 @@ for(i; i<q; i++) {
       a=1;
       if (m_tmCon.GetBitAt(c,k)=='0') ss+='^';
       if(k<n) 
-#ifdef _LINUX
         sprintf(buff,"x%d",k);
-#else
-        sprintf_s(buff,20,"x%d",k);
-#endif
       else 
-#ifdef _LINUX
         sprintf(buff,"y%d",k-n);
-#else
-        sprintf_s(buff,20,"y%d",k-n);
-#endif
       ss+=buff;
     }
     if((e=ss.length())>lengRow) 
@@ -800,17 +760,10 @@ else q=i+1;
 for(i; i<q; i++) 
 { 
   if(i<m) 
-#ifdef _LINUX
+
     sprintf(buff,"f%d",i);
-#else
-    sprintf_s(buff, 20, "f%d",i);
-#endif
   else 
-#ifdef _LINUX
     sprintf(buff,"y%d",i-m); 
-#else
-    sprintf_s(buff, 20, "y%d",i-m); 
-#endif
   ss=buff; ss+="="; 
   b=i; g=0; 
 M1: bvR=m_bmFun.GetColumnBv(b);
@@ -827,11 +780,8 @@ M2: while((c=bvR.LeftOne(c))!=-1)
         a=1;
         if (m_tmCon.GetBitAt(c,k)=='0') ss+='^';
         if(k<n) {
-#ifdef _LINUX
+
           sprintf(buff,"x%d",k);
-#else
-          sprintf_s(buff,20,"x%d",k);
-#endif
           ss+=buff;
         }
         else 
