@@ -1,19 +1,19 @@
 /////////////////////////////////////////////////////////////////
 // Ver.1.1.1    15.02.2005   Russian / English
-//              - выделены отдельно методы ввода SF-файлов
+//              - РІС‹РґРµР»РµРЅС‹ РѕС‚РґРµР»СЊРЅРѕ РјРµС‚РѕРґС‹ РІРІРѕРґР° SF-С„Р°Р№Р»РѕРІ
 // Ver.1.1.2    17.03.2006   Russian / English
-//              - поправка форматирования, частичные функции
+//              - РїРѕРїСЂР°РІРєР° С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёСЏ, С‡Р°СЃС‚РёС‡РЅС‹Рµ С„СѓРЅРєС†РёРё
 // Ver.1.1.3    07.04.2006
-//     - два метода перенесены из файла SFKir и частично изменены
+//     - РґРІР° РјРµС‚РѕРґР° РїРµСЂРµРЅРµСЃРµРЅС‹ РёР· С„Р°Р№Р»Р° SFKir Рё С‡Р°СЃС‚РёС‡РЅРѕ РёР·РјРµРЅРµРЅС‹
 // Ver.1.1.4    04.05.2006
-//     - добавлен метод ReadNextSF(CStringArray& Obj,...
+//     - РґРѕР±Р°РІР»РµРЅ РјРµС‚РѕРґ ReadNextSF(CStringArray& Obj,...
 // Ver.1.1.5    26.10.2007
-//     - поправка расчета длины файла при наличии комментария в строке TITLE
-//       (в функции ReadSFByName)
+//     - РїРѕРїСЂР°РІРєР° СЂР°СЃС‡РµС‚Р° РґР»РёРЅС‹ С„Р°Р№Р»Р° РїСЂРё РЅР°Р»РёС‡РёРё РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РІ СЃС‚СЂРѕРєРµ TITLE
+//       (РІ С„СѓРЅРєС†РёРё ReadSFByName)
 // Ver.1.1.6    25.06.2008
-//     - добавлено выбрасывание пробелов при извлечении имени экземпляра в разделе CONNECT
+//     - РґРѕР±Р°РІР»РµРЅРѕ РІС‹Р±СЂР°СЃС‹РІР°РЅРёРµ РїСЂРѕР±РµР»РѕРІ РїСЂРё РёР·РІР»РµС‡РµРЅРёРё РёРјРµРЅРё СЌРєР·РµРјРїР»СЏСЂР° РІ СЂР°Р·РґРµР»Рµ CONNECT
 /////////////////////////////////////////////////////////////////
-// Методы класса   CSF:
+// РњРµС‚РѕРґС‹ РєР»Р°СЃСЃР°   CSF:
 //    bool CSF::ReadNextSF(CFile *fp, DWORD& len)
 //    void CSF::InitSFAttrib()
 //    int  CSF::ReadSFByName(CFile *fp, DWORD& len,string Name)
@@ -37,8 +37,13 @@ using namespace std;
 #include "../Common/Sop.h"
 
 
-//#ifdef _LINUX
-#include <io.h>
+#if defined(__APPLE__)
+    #include <sys/uio.h>
+#elif defined(_LINUX)
+    #include <sys/io.h>
+#else
+    #include <io.h>
+#endif
 #undef _DEBUG
 typedef unsigned char BYTE; 
 typedef unsigned long ULONG; 
@@ -82,7 +87,7 @@ bool CSF::ReadNextSF(FILE* fp, long& len)
 #ifdef ENG
   InvalidSect = "Wrong section ";
 #else
-  InvalidSect = "Неверный раздел ";
+  InvalidSect = "РќРµРІРµСЂРЅС‹Р№ СЂР°Р·РґРµР» ";
 #endif
 
   if (GetFileLine(fp, buf,len, comments) !=0 )  {           //TITLE
@@ -203,7 +208,7 @@ bool CSF::ReadNextSF(FILE* fp, long& len)
     InvalidMessage(InvalidSect, "INP");
     return false;
   }
-  NumInSF=0;  // 25.02.00 правила Кириенко, чтобы формировался номер m_NumInSF;
+  NumInSF=0;  // 25.02.00 РїСЂР°РІРёР»Р° РљРёСЂРёРµРЅРєРѕ, С‡С‚РѕР±С‹ С„РѕСЂРјРёСЂРѕРІР°Р»СЃСЏ РЅРѕРјРµСЂ m_NumInSF;
   inp_var:
   if (GetFileLine(fp, buf,len, comments) !=0 )  {           //INP
     pos =0;
@@ -526,7 +531,7 @@ err_func: InvalidMessage(InvalidSect, "FUNCTION");
 #ifdef ENG
     buf = "Error in SF-description:" + buf;
 #else
-    buf = "Ошибка в SF-описании: " + buf;
+    buf = "РћС€РёР±РєР° РІ SF-РѕРїРёСЃР°РЅРёРё: " + buf;
 #endif
     AfxMessageBox(buf.c_str());
 #endif
@@ -595,7 +600,7 @@ int CSF::ReadSFByName(FILE* fp, string Name)
     }
     dwPosition = ftell(fp); //    dwPosition = fp->GetPosition();
   }
-  if (m_Title!=Name) { return 1; }  //SF-описание не найдено в файле
+  if (m_Title!=Name) { return 1; }  //SF-РѕРїРёСЃР°РЅРёРµ РЅРµ РЅР°Р№РґРµРЅРѕ РІ С„Р°Р№Р»Рµ
   
   len = len1;
 //  len = _filelength( fn );
@@ -611,7 +616,7 @@ int CSF::ReadSFByName(FILE* fp, string Name)
 #ifdef ENG
     Buf="Error when SF-description reading";
 #else
-    Buf="Ошибка при чтении SF-описания";
+    Buf="РћС€РёР±РєР° РїСЂРё С‡С‚РµРЅРёРё SF-РѕРїРёСЃР°РЅРёСЏ";
 #endif
     AfxMessageBox(Buf.c_str());
 #endif
@@ -630,20 +635,20 @@ int CSF::ReadSFFromLib(string Name, string PrivLib, string LogLib,
 
   Path = LogLib + "\\"+Name+".sf"; 
   Res = ReadSFFromFile(Path);
-  if (Res >= 0) return Res; // Найден или сбой
+  if (Res >= 0) return Res; // РќР°Р№РґРµРЅ РёР»Рё СЃР±РѕР№
   
   Path = PrivLib + "\\"+Name+".sf"; 
   Res = ReadSFFromFile(Path);
-  if (Res >= 0) return Res; // Найден или сбой
+  if (Res >= 0) return Res; // РќР°Р№РґРµРЅ РёР»Рё СЃР±РѕР№
 
   Path = Lib_BMK+"\\"+Name+".sf"; 
   Res = ReadSFFromFile(Path);
-  if (Res >= 0) return Res; // Найден или сбой
+  if (Res >= 0) return Res; // РќР°Р№РґРµРЅ РёР»Рё СЃР±РѕР№
 
   Path = LibSTRUCTURE + "\\"+Name+".sf"; 
   Res = ReadSFFromFile(Path);
-  if (Res >= 0) return Res; // Найден или сбой
-  return -1; // SF-описание не найдено в библиотеках
+  if (Res >= 0) return Res; // РќР°Р№РґРµРЅ РёР»Рё СЃР±РѕР№
+  return -1; // SF-РѕРїРёСЃР°РЅРёРµ РЅРµ РЅР°Р№РґРµРЅРѕ РІ Р±РёР±Р»РёРѕС‚РµРєР°С…
 }
 
 //---------------------------------------------------------------
@@ -652,13 +657,13 @@ int CSF::ReadSFFromFile(string Path)
 {
   string Buf;
   bool bRes;
-#ifdef _LINUX
-  if (access(Path.c_str(),0) != -1 ){ // Файл существует?
+#if defined(_LINUX) || defined(__APPLE__)
+  if (access(Path.c_str(),0) != -1 ){ // Р¤Р°Р№Р» СЃСѓС‰РµСЃС‚РІСѓРµС‚?
 #else
-  if (_access(Path.c_str(),0) != -1 ){ // Файл существует?
+  if (_access(Path.c_str(),0) != -1 ){ // Р¤Р°Р№Р» СЃСѓС‰РµСЃС‚РІСѓРµС‚?
 #endif
     try
-    {     // чтение исходного SF- описания из файла
+    {     // С‡С‚РµРЅРёРµ РёСЃС…РѕРґРЅРѕРіРѕ SF- РѕРїРёСЃР°РЅРёСЏ РёР· С„Р°Р№Р»Р°
       FILE* f;
       f = fopen(Path.c_str(), "r");
 //      int fn =_fileno( f );
@@ -677,12 +682,12 @@ int CSF::ReadSFFromFile(string Path)
 #ifdef ENG
         Buf = "Error at reading SF-description " + Path;
 #else
-        Buf = "Ошибка при чтении SF-опиcания " + Path;
+        Buf = "РћС€РёР±РєР° РїСЂРё С‡С‚РµРЅРёРё SF-РѕРїРёcР°РЅРёСЏ " + Path;
 #endif
         AfxMessageBox(Buf.c_str());
 #endif
 */
-        return 1; // Сбой при чтении SF-опиcания 
+        return 1; // РЎР±РѕР№ РїСЂРё С‡С‚РµРЅРёРё SF-РѕРїРёcР°РЅРёСЏ 
       }
     }    
 /*
@@ -700,20 +705,20 @@ int CSF::ReadSFFromFile(string Path)
 #ifdef ENG
       Buf = ("Error at reading " + Path);
 #else
-      Buf = ("Ошибка при чтении файла " + Path);
+      Buf = ("РћС€РёР±РєР° РїСЂРё С‡С‚РµРЅРёРё С„Р°Р№Р»Р° " + Path);
 #endif
       AfxMessageBox(Buf.c_str());
 #endif
 */
-      return 1; // Сбой при чтении файла 
+      return 1; // РЎР±РѕР№ РїСЂРё С‡С‚РµРЅРёРё С„Р°Р№Р»Р° 
     }
 //    END_CATCH
     return 0;
   }
-  return -1; // SF-описание не найдено
+  return -1; // SF-РѕРїРёСЃР°РЅРёРµ РЅРµ РЅР°Р№РґРµРЅРѕ
 }
 //---------------------------------------------------------------
-bool CSF::ReadNextSF(vector <string>& Obj, int & index) //Кириенко 11.05.06
+bool CSF::ReadNextSF(vector <string>& Obj, int & index) //РљРёСЂРёРµРЅРєРѕ 11.05.06
 {
   string buf, buf1, buf2, bufname, comments, InvalidSect;
   int i, nRes, pos, first, last,NumInSF, ii, size;
@@ -723,7 +728,7 @@ bool CSF::ReadNextSF(vector <string>& Obj, int & index) //Кириенко 11.05.06
 #ifdef ENG
   InvalidSect = "Wrong section ";
 #else
-  InvalidSect = "Неверный раздел ";
+  InvalidSect = "РќРµРІРµСЂРЅС‹Р№ СЂР°Р·РґРµР» ";
 #endif
 size=Obj.size();
 for (ii=0; ii<size; ii++) {
@@ -842,7 +847,7 @@ if (GetLineFromStringArray(Obj, buf, index, comments) !=0 )  {           // FORM
     InvalidMessage(InvalidSect, "INP");
     return false;
   }
-  NumInSF=0;  // 25.02.00 правила Кириенко, чтобы формировался номер m_NumInSF;
+  NumInSF=0;  // 25.02.00 РїСЂР°РІРёР»Р° РљРёСЂРёРµРЅРєРѕ, С‡С‚РѕР±С‹ С„РѕСЂРјРёСЂРѕРІР°Р»СЃСЏ РЅРѕРјРµСЂ m_NumInSF;
   inp_var:
   if (GetLineFromStringArray(Obj, buf, index, comments)!=0 ) {//INP
     pos =0;
@@ -1175,7 +1180,7 @@ err_func:
 #ifdef ENG
     buf = "Error in SF-description:" + buf;
 #else
-    buf = "Ошибка в SF-описании:" + buf;
+    buf = "РћС€РёР±РєР° РІ SF-РѕРїРёСЃР°РЅРёРё:" + buf;
 #endif
     AfxMessageBox(buf.c_str());
 #endif

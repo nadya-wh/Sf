@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////
 // Ver.1.1.1    15.02.2005   Russian == English
-// Ver.1.1.2    07.04.2006  мелочи
+// Ver.1.1.2    07.04.2006  РјРµР»РѕС‡Рё
 /////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
@@ -18,8 +18,14 @@ using namespace std;
 #include "../Com_Lib/brace.h"
 
 
-//#ifdef _LINUX
-#include <io.h>
+#if defined(__APPLE__)
+    #include <sys/uio.h>
+#elif defined(_LINUX)
+    #include <sys/io.h>
+#else
+    #include <io.h>
+#endif
+
 #undef _DEBUG
 typedef unsigned char BYTE; 
 typedef unsigned long ULONG; 
@@ -139,7 +145,7 @@ void CBrace::SetDNF(int nDNF,CDNF DNF)
       m_DnfArray.Adnf.resize(nDNF);
       m_DnfArray.Adnf[nDNF] = &DNF;
     }
-     //SetAtGrow  - конец
+     //SetAtGrow  - РєРѕРЅРµС†
  
  
   bv.Zero();                                 

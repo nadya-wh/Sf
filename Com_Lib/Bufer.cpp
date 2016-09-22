@@ -9,7 +9,7 @@ using namespace std;
 const int  SIZE_BUFER     =   500;
 const int  GROW_BY_LARGE  =   100;
 
-//˝ÚÓÚ Ù‡ÈÎ ÌÂÓ·ıÓ‰ËÏ ‰Îˇ ‡·ÓÚ˚ ÔÓ„‡ÏÏ˚ Ò˜ËÚ˚‚‡ÌËˇ SF-ÓÔËÒ‡ÌËˇ ËÁ Ù‡ÈÎ‡
+//—ç—Ç–æ—Ç —Ñ–∞–π–ª –Ω–µ–æ–±—Ö–æ–¥–∏–º –¥–ª—è —Ä–∞–±–æ—Ç—ã –ø—Ä–æ–≥—Ä–∞–º–º—ã —Å—á–∏—Ç—ã–≤–∞–Ω–∏—è SF-–æ–ø–∏—Å–∞–Ω–∏—è –∏–∑ —Ñ–∞–π–ª–∞
 /////////////////////////////////////////////////////////////////////////////
 // Bufer
 //---------------------------------------------------------------
@@ -67,13 +67,13 @@ nach:
     goto end_for_comment;
   }
 
- // œÓÒÚÓÂÌËÂ ÒÚÓÍË ·ÂÁ ÍÓÏÏÂÌÚ‡ËÂ‚
+ // –ü–æ—Å—Ç—Ä–æ–µ–Ω–∏–µ —Å—Ç—Ä–æ–∫–∏ –±–µ–∑ –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–µ–≤
   nRes =buf.find("/*");
-  if (nRes >=0)  {           //ÒÚÓÍ‡ ÒÓ‰ÂÊËÚ Ì‡˜‡ÎÓ ÍÓÏÏÂÌÚ‡ËÂ‚ */
+  if (nRes >=0)  {           //—Å—Ç—Ä–æ–∫–∞ —Å–æ–¥–µ—Ä–∂–∏—Ç –Ω–∞—á–∞–ª–æ –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–µ–≤ */
     bComment = true;
     szComments =  buf.substr(nRes+2, buf.length() - nRes);
     buf1 = buf.substr(0,nRes);
-    if ((nRes =buf.find("*/")) <0)  {  // ÒÚÓÍ‡ ÌÂ ÒÓ‰ÂÊËÚ ÍÓÌˆ‡ ÍÓÏÏÂÌÚ‡ËÂ‚
+    if ((nRes =buf.find("*/")) <0)  {  // —Å—Ç—Ä–æ–∫–∞ –Ω–µ —Å–æ–¥–µ—Ä–∂–∏—Ç –∫–æ–Ω—Ü–∞ –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–µ–≤
       szComments +=  endl;
       buf = "";
       goto nach;
@@ -274,81 +274,81 @@ int GetNamePrevVar(string& buf, int &pos, string& bufname)
 //--------------- convert string from DOS - coding to Windows - coding
 string TrDosToWin(string buf)
 {
-  int c;
-  for (int i=0; i< (int)buf.length(); i++)  {
-    c = buf[i];
-    switch(c)  {
-      case -127: buf[i] ='¿'; break;
-      case -126: buf[i] ='¬'; break;
-      case -125: buf[i] ='√'; break;
-      case -124: buf[i] ='ƒ'; break;
-      case -123: buf[i] ='≈'; break;
-      case -122: buf[i] ='∆'; break;
-      case -121: buf[i] ='«'; break;
-      case -120: buf[i] ='»'; break;
-      case -119: buf[i] ='…'; break;
-      case -118: buf[i] =' '; break;
-      case -117: buf[i] ='À'; break;
-      case -116: buf[i] ='Ã'; break;
-      case -115: buf[i] ='Õ'; break;
-      case -114: buf[i] ='Œ'; break;
-      case -113: buf[i] ='œ'; break;
-      case -112: buf[i] ='–'; break;
-      case -111: buf[i] ='—'; break;
-      case -110: buf[i] ='“'; break;
-      case -109: buf[i] ='”'; break;
-      case -108: buf[i] ='‘'; break;
-      case -107: buf[i] ='’'; break;
-      case -106: buf[i] ='÷'; break;
-      case -105: buf[i] ='◊'; break;
-      case -104: buf[i] ='ÿ'; break;
-      case -103: buf[i] ='Ÿ'; break;
-      case -102: buf[i] ='⁄'; break;
-      case -101: buf[i] ='€'; break;
-      case -100: buf[i] ='‹'; break;
-      case -99: buf[i] ='›'; break;
-      case -98: buf[i] ='ﬁ'; break;
-      case -97: buf[i] ='ﬂ'; break;
+//  int c;
+//  for (int i=0; i< (int)buf.length(); i++)  {
+//    c = buf[i];
+//    switch(c)  {
+//      case -127: buf[i] ='–ê'; break;
+//      case -126: buf[i] ='–í'; break;
+//      case -125: buf[i] ='–ì'; break;
+//      case -124: buf[i] ='–î'; break;
+//      case -123: buf[i] ='–ï'; break;
+//      case -122: buf[i] ='–ñ'; break;
+//      case -121: buf[i] ='–ó'; break;
+//      case -120: buf[i] ='–ò'; break;
+//      case -119: buf[i] ='–ô'; break;
+//      case -118: buf[i] ='–ö'; break;
+//      case -117: buf[i] ='–õ'; break;
+//      case -116: buf[i] ='–ú'; break;
+//      case -115: buf[i] ='–ù'; break;
+//      case -114: buf[i] ='–û'; break;
+//      case -113: buf[i] ='–ü'; break;
+//      case -112: buf[i] ='–†'; break;
+//      case -111: buf[i] ='–°'; break;
+//      case -110: buf[i] ='–¢'; break;
+//      case -109: buf[i] ='–£'; break;
+//      case -108: buf[i] ='–§'; break;
+//      case -107: buf[i] ='–•'; break;
+//      case -106: buf[i] ='–¶'; break;
+//      case -105: buf[i] ='–ß'; break;
+//      case -104: buf[i] ='–®'; break;
+//      case -103: buf[i] ='–©'; break;
+//      case -102: buf[i] ='–™'; break;
+//      case -101: buf[i] ='–´'; break;
+//      case -100: buf[i] ='–¨'; break;
+//      case -99: buf[i] ='–≠'; break;
+//      case -98: buf[i] ='–Æ'; break;
+//      case -97: buf[i] ='–Ø'; break;
 
-      case -96:  buf[i] ='‡'; break;
-      case -95:  buf[i] ='·'; break;
-      case -94:  buf[i] ='‚'; break;
-      case -93:  buf[i] ='„'; break;
-      case -92:  buf[i] ='‰'; break;
-      case -91: buf[i] ='Â'; break;
-      case -90: buf[i] ='Ê'; break;
-      case -89: buf[i] ='Á'; break;
-      case -88: buf[i] ='Ë'; break;
-      case -87: buf[i] ='È'; break;
-      case -86: buf[i] ='Í'; break;
-      case -85: buf[i] ='Î'; break;
-      case -84: buf[i] ='Ï'; break;
-      case -83: buf[i] ='Ì'; break;
-      case -82: buf[i] ='Ó'; break;
-      case -81: buf[i] ='Ô'; break;
+//      case -96:  buf[i] ='–∞'; break;
+//      case -95:  buf[i] ='–±'; break;
+//      case -94:  buf[i] ='–≤'; break;
+//      case -93:  buf[i] ='–≥'; break;
+//      case -92:  buf[i] ='–¥'; break;
+//      case -91: buf[i] ='–µ'; break;
+//      case -90: buf[i] ='–∂'; break;
+//      case -89: buf[i] ='–∑'; break;
+//      case -88: buf[i] ='–∏'; break;
+//      case -87: buf[i] ='–π'; break;
+//      case -86: buf[i] ='–∫'; break;
+//      case -85: buf[i] ='–ª'; break;
+//      case -84: buf[i] ='–º'; break;
+//      case -83: buf[i] ='–Ω'; break;
+//      case -82: buf[i] ='–æ'; break;
+//      case -81: buf[i] ='–ø'; break;
 
-      case -32: buf[i] =''; break;
-      case -31: buf[i] ='Ò'; break;
-      case -30: buf[i] ='Ú'; break;
-      case -29: buf[i] ='Û'; break;
-      case -28: buf[i] ='Ù'; break;
-      case -27: buf[i] ='ı'; break;
-      case -26: buf[i] ='ˆ'; break;
-      case -25: buf[i] ='˜'; break;
-      case -24: buf[i] ='¯'; break;
-      case -23: buf[i] ='˘'; break;
-      case -22: buf[i] ='˙'; break;
-      case -21: buf[i] ='˚'; break;
-      case -20: buf[i] ='¸'; break;
-      case -19: buf[i] ='˝'; break;
-      case -18: buf[i] ='˛'; break;
-      case -17: buf[i] ='ˇ'; break;
+//      case -32: buf[i] ='—Ä'; break;
+//      case -31: buf[i] ='—Å'; break;
+//      case -30: buf[i] ='—Ç'; break;
+//      case -29: buf[i] ='—É'; break;
+//      case -28: buf[i] ='—Ñ'; break;
+//      case -27: buf[i] ='—Ö'; break;
+//      case -26: buf[i] ='—Ü'; break;
+//      case -25: buf[i] ='—á'; break;
+//      case -24: buf[i] ='—à'; break;
+//      case -23: buf[i] ='—â'; break;
+//      case -22: buf[i] ='—ä'; break;
+//      case -21: buf[i] ='—ã'; break;
+//      case -20: buf[i] ='—å'; break;
+//      case -19: buf[i] ='—ç'; break;
+//      case -18: buf[i] ='—é'; break;
+//      case -17: buf[i] ='—è'; break;
 
-      default:  if (c == 32)
-                  i = i;
-                break;
-    }
-  }
+//      default:  if (c == 32)
+//                  i = i;
+//                break;
+//    }
+//  }
   return buf;
 }
 
@@ -383,8 +383,8 @@ void PrintMap(CMapStringToString *pMap, CString as_file)
 
 //---------------------------------------------------------------
 int GetNextInpName(string& bufur, int& j, string& bufname)
-// œÓ˜ËÚ‡Ú¸ Ó˜ÂÂ‰ÌÓÂ ËÏˇ ÔÂÂÏÂÌÌÓÈ ‚ Û‡‚ÌÂÌËË  ËËÂÌÍÓ 29.05.200
-// j - Ì‡˜‡ÎÓ ÔÓËÒÍ‡
+// –ü—Ä–æ—á–∏—Ç–∞—Ç—å –æ—á–µ—Ä–µ–¥–Ω–æ–µ –∏–º—è –ø–µ—Ä–µ–º–µ–Ω–Ω–æ–π –≤ —É—Ä–∞–≤–Ω–µ–Ω–∏–∏ –ö–∏—Ä–∏–µ–Ω–∫–æ 29.05.200
+// j - –Ω–∞—á–∞–ª–æ –ø–æ–∏—Å–∫–∞
 {      
   int pr = 0;// i = 0, 
   bufname = "";
@@ -392,17 +392,17 @@ int GetNextInpName(string& bufur, int& j, string& bufname)
          ||(bufur[j]=='^')||(bufur[j]=='(')|| (bufur[j]==')')
          ||(bufur[j]=='*')||(bufur[j]=='+'))) {
     if (bufur[j]=='(') {
-      if (pr==0) pr=1;  // ( ÔÂÂ‰ ËÏÂÌÂÏ
-      if (pr==2) pr=4;  // *( ÔÂÂ‰ ËÏÂÌÂÏ
-      if (pr==3) pr=5;  // +( ÔÂÂ‰ ËÏÂÌÂÏ
-      if (pr==6) pr=9;  // ^( ÔÂÂ‰ ËÏÂÌÂÏ
+      if (pr==0) pr=1;  // ( –ø–µ—Ä–µ–¥ –∏–º–µ–Ω–µ–º
+      if (pr==2) pr=4;  // *( –ø–µ—Ä–µ–¥ –∏–º–µ–Ω–µ–º
+      if (pr==3) pr=5;  // +( –ø–µ—Ä–µ–¥ –∏–º–µ–Ω–µ–º
+      if (pr==6) pr=9;  // ^( –ø–µ—Ä–µ–¥ –∏–º–µ–Ω–µ–º
       j++;  continue;
     }
-    if (bufur[j]=='*') {pr=2;j++;  continue;} // * ÔÂÂ‰ ËÏÂÌÂÏ
-    if (bufur[j]=='+') {pr=3;j++;  continue;} // + ÔÂÂ‰ ËÏÂÌÂÏ
-    if ((bufur[j]=='^')&&(pr==0)) {pr=6;j++;continue;}// ^ ÔÂÂ‰ ËÏÂÌÂÏ
-    if ((bufur[j]=='^')&&(pr==2)) {pr=7;j++;continue;}// *^ ÔÂÂ‰ ËÏÂÌÂÏ
-    if ((bufur[j]=='^')&&(pr==3)) {pr=8;j++;continue;}// +^ ÔÂÂ‰ ËÏÂÌÂÏ
+    if (bufur[j]=='*') {pr=2;j++;  continue;} // * –ø–µ—Ä–µ–¥ –∏–º–µ–Ω–µ–º
+    if (bufur[j]=='+') {pr=3;j++;  continue;} // + –ø–µ—Ä–µ–¥ –∏–º–µ–Ω–µ–º
+    if ((bufur[j]=='^')&&(pr==0)) {pr=6;j++;continue;}// ^ –ø–µ—Ä–µ–¥ –∏–º–µ–Ω–µ–º
+    if ((bufur[j]=='^')&&(pr==2)) {pr=7;j++;continue;}// *^ –ø–µ—Ä–µ–¥ –∏–º–µ–Ω–µ–º
+    if ((bufur[j]=='^')&&(pr==3)) {pr=8;j++;continue;}// +^ –ø–µ—Ä–µ–¥ –∏–º–µ–Ω–µ–º
     j++;
   }
   if (j >= (int)bufur.length())  return 0;
@@ -442,13 +442,13 @@ nach:
     goto end_for_comment;
   }
 
- // œÓÒÚÓÂÌËÂ ÒÚÓÍË ·ÂÁ ÍÓÏÏÂÌÚ‡ËÂ‚
+ // –ü–æ—Å—Ç—Ä–æ–µ–Ω–∏–µ —Å—Ç—Ä–æ–∫–∏ –±–µ–∑ –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–µ–≤
   nRes =buf.find("/*");
-  if (nRes >=0)  {           //ÒÚÓÍ‡ ÒÓ‰ÂÊËÚ Ì‡˜‡ÎÓ ÍÓÏÏÂÌÚ‡ËÂ‚
+  if (nRes >=0)  {           //—Å—Ç—Ä–æ–∫–∞ —Å–æ–¥–µ—Ä–∂–∏—Ç –Ω–∞—á–∞–ª–æ –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–µ–≤
     bComment = true;
     szComments =  buf.substr(nRes+2, buf.length() - nRes);
     buf1 = buf.substr(0,nRes);
-    if ((nRes =buf.find("*/")) <0)  {  // ÒÚÓÍ‡ ÌÂ ÒÓ‰ÂÊËÚ ÍÓÌˆ‡ ÍÓÏÏÂÌÚ‡ËÂ‚
+    if ((nRes =buf.find("*/")) <0)  {  // —Å—Ç—Ä–æ–∫–∞ –Ω–µ —Å–æ–¥–µ—Ä–∂–∏—Ç –∫–æ–Ω—Ü–∞ –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–µ–≤
       szComments +=  endl;
       buf = "";
       goto nach;

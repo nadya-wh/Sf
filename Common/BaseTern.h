@@ -1,17 +1,17 @@
 /////////////////////////////////////////////////////////////////
 // Ver.2.1.3    28.03.2008
-//              SetOnes и SetZeros - исправлены для реализации в другой интерпретации
-//              в виде функций AddOnes и AddZeros
+//              SetOnes Рё SetZeros - РёСЃРїСЂР°РІР»РµРЅС‹ РґР»СЏ СЂРµР°Р»РёР·Р°С†РёРё РІ РґСЂСѓРіРѕР№ РёРЅС‚РµСЂРїСЂРµС‚Р°С†РёРё
+//              РІ РІРёРґРµ С„СѓРЅРєС†РёР№ AddOnes Рё AddZeros
 // Ver.2.1.1     22.02.2007
-//               Новая функция RemoveAllRows - сохраняет размерность по столбцам
-//               Поправка Add - теперь можно всю матрицу при втором 
-//               операнде = -1
+//               РќРѕРІР°СЏ С„СѓРЅРєС†РёСЏ RemoveAllRows - СЃРѕС…СЂР°РЅСЏРµС‚ СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ РїРѕ СЃС‚РѕР»Р±С†Р°Рј
+//               РџРѕРїСЂР°РІРєР° Add - С‚РµРїРµСЂСЊ РјРѕР¶РЅРѕ РІСЃСЋ РјР°С‚СЂРёС†Сѓ РїСЂРё РІС‚РѕСЂРѕРј 
+//               РѕРїРµСЂР°РЅРґРµ = -1
 // Ver.2.1.0     07.07.2006
-//               Переход к LINUX. Поправки в BitChar
+//               РџРµСЂРµС…РѕРґ Рє LINUX. РџРѕРїСЂР°РІРєРё РІ BitChar
 
 /////////////////////////////////////////////////////////////////
 // Ver.2.0.9     19.06.2006
-// Ver.2.0.8     04.05.2006  // ошибка в inline GetByteOne
+// Ver.2.0.8     04.05.2006  // РѕС€РёР±РєР° РІ inline GetByteOne
 // Ver.2.0.7     21.04.2006
 // Ver.2.0.6     05.04.2006
 // Ver.2.0.5     02.04.2006
@@ -25,10 +25,10 @@
 
 // Ver.1.0.2     18.12.2000
 // Ver.1.0.1     21.10.1999
-//               ошибка в  int CBM,CTM::Add(BOOL bit,int nCount)
+//               РѕС€РёР±РєР° РІ  int CBM,CTM::Add(BOOL bit,int nCount)
 // Ver.1.0.0     07.12.1998
-//               В CTV добавлены ф-ии IsOne, IsZero,
-//               В CTM - ExistOne, ExistZero
+//               Р’ CTV РґРѕР±Р°РІР»РµРЅС‹ С„-РёРё IsOne, IsZero,
+//               Р’ CTM - ExistOne, ExistZero
 
 /////////////////////////////////////////////////////////////////
 // Ternary vector
@@ -44,7 +44,7 @@
 #endif
 
 ////////////////////////////////////////////////////////////////////////////
-//Черемисинова Л.Д.
+//Р§РµСЂРµРјРёСЃРёРЅРѕРІР° Р›.Р”.
 // Ternary vector and Ternary matrix
 
 /////////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,7 @@ public:
   CTV(const CTV& tvSrc);
   CTV(const CBV& bv1Src,const CBV& bv0Src);
   CTV(int nLenBit,char value='n'); 
-      //1,0,-,+ - тр.вектор в кодировке 10,01,00,11,'n'-без инициализ-ии
+      //1,0,-,+ - С‚СЂ.РІРµРєС‚РѕСЂ РІ РєРѕРґРёСЂРѕРІРєРµ 10,01,00,11,'n'-Р±РµР· РёРЅРёС†РёР°Р»РёР·-РёРё
   CTV(const BYTE* pbt1,const BYTE* pbt0,int nLenBit);
   CTV(const char* pch);
   ~CTV();
@@ -131,10 +131,10 @@ public:
 
 //************ Logic Operations of weighting, finding and casing **************
 
-  int  CountDefs() const;       // число 1 и 0
-  int  CountUnDefs() const;       // число 1 и 0
-  int  CountOnes() const;       // число 1
-  int  CountZeros() const;      // число и 0
+  int  CountDefs() const;       // С‡РёСЃР»Рѕ 1 Рё 0
+  int  CountUnDefs() const;       // С‡РёСЃР»Рѕ 1 Рё 0
+  int  CountOnes() const;       // С‡РёСЃР»Рѕ 1
+  int  CountZeros() const;      // С‡РёСЃР»Рѕ Рё 0
   int LeftUnDef(int nNext = -1) const;
   int LeftDef(int nNext = -1) const;
   int LeftOne(int nNext = -1) const;
@@ -151,22 +151,22 @@ public:
 
 //******************************* Compareing operations ***********************
   BOOL IsEmpty() const;
-  BOOL IsCorrect() const;  // кодировка 11 не корректна
-  BOOL IsBool() const;     // вектор булев ?
-  BOOL IsTrivial() const;  // все '-'
+  BOOL IsCorrect() const;  // РєРѕРґРёСЂРѕРІРєР° 11 РЅРµ РєРѕСЂСЂРµРєС‚РЅР°
+  BOOL IsBool() const;     // РІРµРєС‚РѕСЂ Р±СѓР»РµРІ ?
+  BOOL IsTrivial() const;  // РІСЃРµ '-'
   BOOL IsOne() const;
   BOOL IsZero() const;
   BOOL ExistZero() const;
   BOOL ExistOne() const;
   BOOL IsOrthog(const CTV& tv) const;
   BOOL IsOrthog(const CBV& bv) const;
-  BOOL IsNeighb(const CTV& tv) const; //соседство
-  BOOL IsNeighb(const CBV& bv) const; //соседство
-  BOOL IsAdjac(const CTV& tv) const;  //смежность
-  BOOL IsAdjac(const CBV& bv) const;  //смежность
-  BOOL IsCover(const CTV& tv) const;  // 1 поглощает 2
-  BOOL IsCover(const CBV& bv) const;  // 1 поглощает 2
-  BOOL IsIntersec(const CTV& tv) const;//пересекаютс
+  BOOL IsNeighb(const CTV& tv) const; //СЃРѕСЃРµРґСЃС‚РІРѕ
+  BOOL IsNeighb(const CBV& bv) const; //СЃРѕСЃРµРґСЃС‚РІРѕ
+  BOOL IsAdjac(const CTV& tv) const;  //СЃРјРµР¶РЅРѕСЃС‚СЊ
+  BOOL IsAdjac(const CBV& bv) const;  //СЃРјРµР¶РЅРѕСЃС‚СЊ
+  BOOL IsCover(const CTV& tv) const;  // 1 РїРѕРіР»РѕС‰Р°РµС‚ 2
+  BOOL IsCover(const CBV& bv) const;  // 1 РїРѕРіР»РѕС‰Р°РµС‚ 2
+  BOOL IsIntersec(const CTV& tv) const;//РїРµСЂРµСЃРµРєР°СЋС‚СЃ
   FSTD(BOOL) operator==(const CTV& tv1, const CTV& tv2);
   FSTD(BOOL) operator==(const CTV& tv1, const CBV& bv2);
   FSTD(BOOL) operator==(const CBV& bv1, const CTV& tv2);
@@ -180,18 +180,18 @@ public:
 
 //************************** Operations on intervals **************************
 
-  int NumNeighb(const CTV& tv) const;  //номер компоненты соседства
-  int NumNeighb(const CBV& bv) const;  //номер компоненты соседства
-  int NumAdjac(const CTV& tv) const;   //номер компоненты смежности
-  int NumAdjac(const CBV& bv) const;   //номер компоненты смежности
+  int NumNeighb(const CTV& tv) const;  //РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃРѕСЃРµРґСЃС‚РІР°
+  int NumNeighb(const CBV& bv) const;  //РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃРѕСЃРµРґСЃС‚РІР°
+  int NumAdjac(const CTV& tv) const;   //РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃРјРµР¶РЅРѕСЃС‚Рё
+  int NumAdjac(const CBV& bv) const;   //РЅРѕРјРµСЂ РєРѕРјРїРѕРЅРµРЅС‚С‹ СЃРјРµР¶РЅРѕСЃС‚Рё
   CBV Orthogon(const CTV& tv) const;
   CBV Orthogon(const CBV& bv) const;
-  CTV Intersec(const CTV& tv) const;  //CTV = Empty,если не пересекаютс
-  CTV Concens(const CTV& tv) const;   //рез-т обобщ.склеивани
-  CTV Concens(const CBV& tv) const;   //рез-т обобщ.склеивани
+  CTV Intersec(const CTV& tv) const;  //CTV = Empty,РµСЃР»Рё РЅРµ РїРµСЂРµСЃРµРєР°СЋС‚СЃ
+  CTV Concens(const CTV& tv) const;   //СЂРµР·-С‚ РѕР±РѕР±С‰.СЃРєР»РµРёРІР°РЅРё
+  CTV Concens(const CBV& tv) const;   //СЂРµР·-С‚ РѕР±РѕР±С‰.СЃРєР»РµРёРІР°РЅРё
   CTV MinCover(const CTV& tv) const;
   CTV MinCover(const CBV& tv) const;
-  CBM CTVtoCBM() const;               //перевод тр.вектора в мн-во булевых
+  CBM CTVtoCBM() const;               //РїРµСЂРµРІРѕРґ С‚СЂ.РІРµРєС‚РѕСЂР° РІ РјРЅ-РІРѕ Р±СѓР»РµРІС‹С…
 
 //**************************** Operations on TERNARY VECTOR PARTS *************
 //********************************** Logic operations *************************
@@ -379,11 +379,11 @@ public:
 
 //**************************** Working with rows (changing their number) ******
   int Add(const CTV& tv);
-  int Add(const CTM& tm, int ntmRow=-1);  //22.02.2007 перестала inline
+  int Add(const CTM& tm, int ntmRow=-1);  //22.02.2007 РїРµСЂРµСЃС‚Р°Р»Р° inline
   int Add(char symb='-',int nCount=1);
   void SetRowGrow(int nRow, const CTV& newRow);
   void SetRowGrow(int nRow, const CTM& tm, int ntmRow);
-  void InsertRow(int nRow, const CTV& newRow, int nCount = 1);  //несколько копий
+  void InsertRow(int nRow, const CTV& newRow, int nCount = 1);  //РЅРµСЃРєРѕР»СЊРєРѕ РєРѕРїРёР№
   void InsertRow(int nRow,int nStartRow, const CTM& tm,int nCount = 1);
   void RemoveRow(int nRow, int nCount = 1);
   void ExchangeRow(int nRow1,int nRow2,int nCount = 1);
@@ -398,7 +398,7 @@ public:
   void Clear(char symb='-',int nRow=-1);
 
 //********************************** Logic operations *************************
-  void InvertDefs(int nRow=-1); //инвертировать опр.значения строк или одной стр.
+  void InvertDefs(int nRow=-1); //РёРЅРІРµСЂС‚РёСЂРѕРІР°С‚СЊ РѕРїСЂ.Р·РЅР°С‡РµРЅРёСЏ СЃС‚СЂРѕРє РёР»Рё РѕРґРЅРѕР№ СЃС‚СЂ.
 
 //**************************** Operations of concatinations *******************
   void Concat(const CTM& tm);
@@ -432,22 +432,22 @@ public:
   int RightOne(int nRow, int nPrev,BYTE* mask) const;
   int RightZero(int nRow, int nPrev,BYTE* mask) const;
 
-  int FindUnDefR (int nRow=-1) const; // все '-'
-  int FindDefR (int nRow=-1) const;   // нет '-'
-  int FindOneR (int nRow=-1) const;   // все '1'
-  int FindZeroR (int nRow=-1) const;  // все '0'
+  int FindUnDefR (int nRow=-1) const; // РІСЃРµ '-'
+  int FindDefR (int nRow=-1) const;   // РЅРµС‚ '-'
+  int FindOneR (int nRow=-1) const;   // РІСЃРµ '1'
+  int FindZeroR (int nRow=-1) const;  // РІСЃРµ '0'
   int FindUnDefR (BYTE* mask, int nFRow=-1) const;
-  int FindDefR (BYTE* mask,int nFRow=-1) const;   // нет '-'
+  int FindDefR (BYTE* mask,int nFRow=-1) const;   // РЅРµС‚ '-'
   int FindOneR (BYTE* mask, int nFRow=-1) const;
   int FindZeroR (BYTE* mask, int nFRow=-1) const;
   int FindR (const CTV& tv, int nFRow=-1) const;
   int FindR (const CBV& bv, int nFRow=-1) const;
 
 //******************************* Matrix compareing operations ****************
-  BOOL IsCorrect(int nRow = -1) const;  //new кодировка 11 не корректна
-  BOOL IsBool(int nRow = -1) const;     //new матрица булева ?
+  BOOL IsCorrect(int nRow = -1) const;  //new РєРѕРґРёСЂРѕРІРєР° 11 РЅРµ РєРѕСЂСЂРµРєС‚РЅР°
+  BOOL IsBool(int nRow = -1) const;     //new РјР°С‚СЂРёС†Р° Р±СѓР»РµРІР° ?
   BOOL IsBool(const BYTE* mask,int nRow=-1)  const;
-  BOOL IsTrivial(int nRow = -1) const;  //new все '-'
+  BOOL IsTrivial(int nRow = -1) const;  //new РІСЃРµ '-'
   BOOL IsTrivial(const BYTE* mask,int nRow=-1) const;
   BOOL IsOne(int nRow = -1) const;
   BOOL IsOne(const BYTE* mask,int nRow)  const;
@@ -526,7 +526,7 @@ public:
   CTV MinCover(const BYTE* mask,int nRow1,const CTV& tv) const;
   CTV MinCover(int nRow1,const CBV& bv) const;
   CTV MinCover(const BYTE* mask,int nRow1,const CBV& bv) const;
-  CBM CTMtoCBM(void) const; // раскрыть интервалы
+  CBM CTMtoCBM(void) const; // СЂР°СЃРєСЂС‹С‚СЊ РёРЅС‚РµСЂРІР°Р»С‹
 
 //**************************** Operations on TERNARY VECTOR PARTS *************
 //****************************** Row Logic operations *************************

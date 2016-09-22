@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////
-// Данный модуль включается как в систему САПР, так и в программу ESS!!!
+// Р”Р°РЅРЅС‹Р№ РјРѕРґСѓР»СЊ РІРєР»СЋС‡Р°РµС‚СЃСЏ РєР°Рє РІ СЃРёСЃС‚РµРјСѓ РЎРђРџР , С‚Р°Рє Рё РІ РїСЂРѕРіСЂР°РјРјСѓ ESS!!!
 //----------------------------------------------------------------------
 // objects.cpp : implementation of the CObject class
 //------------------------------------------------------------
@@ -158,10 +158,10 @@ void CMapAttributes::PrintMapAttribs(string FileName)
 
   try
   {
-#ifndef _LINUX
-    _unlink(FileName.c_str());
-#else
+#if defined(_LINUX) || defined(__APPLE__)
     unlink(FileName.c_str());
+#else
+    _unlink(FileName.c_str());
 #endif
     FILE *out;
     out =fopen(FileName.c_str(),"w");
@@ -191,7 +191,7 @@ void CMapAttributes::PrintMapAttribs(string FileName)
 //#ifdef ENG
 //    AfxMessageBox("Error at the record of file ");
 //#else
-//    AfxMessageBox("Ошибка при записи файла ");
+//    AfxMessageBox("РћС€РёР±РєР° РїСЂРё Р·Р°РїРёСЃРё С„Р°Р№Р»Р° ");
 //#endif
 //#endif
     return;
@@ -208,10 +208,10 @@ void CMapAttributes::PrintFullAttribs(string FileName)
   int Count=0;
   try
   {
-#ifndef _LINUX
-    _unlink(FileName.c_str());
-#else
+#if defined(_LINUX) || defined(__APPLE__)
     unlink(FileName.c_str());
+#else
+    _unlink(FileName.c_str());
 #endif
     FILE *out;
     out =fopen(FileName.c_str(),"w");
@@ -248,7 +248,7 @@ void CMapAttributes::PrintFullAttribs(string FileName)
 //#ifdef ENG
 //    AfxMessageBox("Error at the record of file ");
 //#else
-//    AfxMessageBox("Ошибка при записи файла ");
+//    AfxMessageBox("РћС€РёР±РєР° РїСЂРё Р·Р°РїРёСЃРё С„Р°Р№Р»Р° ");
 //#endif
 //#endif
     return;
@@ -487,10 +487,10 @@ void CMapProgModuls::PrintFullProgs(string FileName)
   {
     s1 = "------------------------------\n";
     endl = "\n";
-#ifndef _LINUX
-    _unlink(FileName.c_str());
-#else
+#if defined(_LINUX) || defined(__APPLE__)
     unlink(FileName.c_str());
+#else
+    _unlink(FileName.c_str());
 #endif
     //CFile f(FileName, CFile::modeCreate | CFile::modeWrite);
     FILE *out;
@@ -517,10 +517,10 @@ void CMapProgModuls::PrintFullProgs(string FileName)
         s1 += endl +"   ";
       }
 #else
-        s1 += w + "\t\t- условие запуска";
+        s1 += w + "\t\t- СѓСЃР»РѕРІРёРµ Р·Р°РїСѓСЃРєР°";
         s1 += endl + "   ";
       if (!pProgMod->m_Undo) {
-        s1 += "Нет возможности отката!";
+        s1 += "РќРµС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РѕС‚РєР°С‚Р°!";
         s1 += endl + "   ";
       }
 #endif
@@ -528,7 +528,7 @@ void CMapProgModuls::PrintFullProgs(string FileName)
       if (pProgMod->m_ParamNames.size()>0) 
       {
 #ifndef ENG
-        s1 += "Параметры запуска: ";
+        s1 += "РџР°СЂР°РјРµС‚СЂС‹ Р·Р°РїСѓСЃРєР°: ";
 #else
         s1 += "Start parameters: ";
 #endif
@@ -543,7 +543,7 @@ void CMapProgModuls::PrintFullProgs(string FileName)
       if (pProgMod->m_AttrNames.size()>0) 
       {
 #ifndef ENG
-        s1 += "Устанавливаемые атрибуты: ";
+        s1 += "РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРјС‹Рµ Р°С‚СЂРёР±СѓС‚С‹: ";
 #else
         s1 += "Established attributes: ";
 #endif
@@ -555,7 +555,7 @@ void CMapProgModuls::PrintFullProgs(string FileName)
         s1 += endl +"   ";
       }
 #ifndef ENG
-      s1 += "Тип модуля: ";
+      s1 += "РўРёРї РјРѕРґСѓР»СЏ: ";
 #else
       s1 += "Type of modul: ";
 #endif
@@ -567,10 +567,10 @@ void CMapProgModuls::PrintFullProgs(string FileName)
       case 2:s1 += "Special DOS program"; break;
       case 3:s1 += "Internal for Windows"; break;
 #else
-      case 0:s1 += "приложение Windows"; break; 
-      case 1:s1 += "приложение DOS"; break;
-      case 2:s1 += "специальный DOS"; break;
-      case 3:s1 += "внутренний Windows"; break;
+      case 0:s1 += "РїСЂРёР»РѕР¶РµРЅРёРµ Windows"; break; 
+      case 1:s1 += "РїСЂРёР»РѕР¶РµРЅРёРµ DOS"; break;
+      case 2:s1 += "СЃРїРµС†РёР°Р»СЊРЅС‹Р№ DOS"; break;
+      case 3:s1 += "РІРЅСѓС‚СЂРµРЅРЅРёР№ Windows"; break;
 #endif
       }
       s1 += endl +endl+"------------------------------";
@@ -597,7 +597,7 @@ void CMapProgModuls::PrintFullProgs(string FileName)
 //#ifdef ENG
 //    AfxMessageBox("Error at the record of file ");
 //#else
-//    AfxMessageBox("Ошибка при записи файла ");
+//    AfxMessageBox("РћС€РёР±РєР° РїСЂРё Р·Р°РїРёСЃРё С„Р°Р№Р»Р° ");
 //#endif
 //#endif
     return;

@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Ver.1.1.0     05.04.2004   Russian <> English
-// Ver.1.1.1     07.04.2004   форматирование
-// Ver.1.1.2     19.05.2006 поправка SetPIN
+// Ver.1.1.1     07.04.2004   С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёРµ
+// Ver.1.1.2     19.05.2006 РїРѕРїСЂР°РІРєР° SetPIN
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
@@ -144,7 +144,7 @@ bool CFunc::InitFunc(string buf)
 //#ifdef ENG
 //    AfxMessageBox("Input variables are absent");
 //#else
-//    AfxMessageBox("Ошибка в записи входных переменных уравнения");
+//    AfxMessageBox("РћС€РёР±РєР° РІ Р·Р°РїРёСЃРё РІС…РѕРґРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… СѓСЂР°РІРЅРµРЅРёСЏ");
 //#endif
 //#endif
     return false;
@@ -168,7 +168,7 @@ bool CFunc::InitFunc(string buf)
 //#ifdef ENG
 //    AfxMessageBox("Syntax error. '=' is absent");
 //#else
-//    AfxMessageBox("Ошибка в записи уравнения. Отсутствует =");
+//    AfxMessageBox("РћС€РёР±РєР° РІ Р·Р°РїРёСЃРё СѓСЂР°РІРЅРµРЅРёСЏ. РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ =");
 //#endif
 //#endif
     delete pCon;
@@ -198,16 +198,16 @@ NextInpName:
   if(m_InVarArray.Add(pVar)<size) delete pVar;
       
   if ((pr==1)||(pr==4)||(pr==5)||(pr==9)) {
-    // Скобочная форма, уравнение задается строкой m_right
+    // РЎРєРѕР±РѕС‡РЅР°СЏ С„РѕСЂРјР°, СѓСЂР°РІРЅРµРЅРёРµ Р·Р°РґР°РµС‚СЃСЏ СЃС‚СЂРѕРєРѕР№ m_right
     pr=6;
-    // Освободить память от уже сформированных продукций
+    // РћСЃРІРѕР±РѕРґРёС‚СЊ РїР°РјСЏС‚СЊ РѕС‚ СѓР¶Рµ СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅС‹С… РїСЂРѕРґСѓРєС†РёР№
     m_ConArray.RemoveAll();
     delete pCon;
-// Переписать входные переменные в списки входных
+// РџРµСЂРµРїРёСЃР°С‚СЊ РІС…РѕРґРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ РІ СЃРїРёСЃРєРё РІС…РѕРґРЅС‹С…
 NextInpName1:        
     pr = GetNextInpName(bufur,j, bufname);
     if (bufname.size() ==0) {
-      goto Prov;//К чтению следующего уравнения
+      goto Prov;//Рљ С‡С‚РµРЅРёСЋ СЃР»РµРґСѓСЋС‰РµРіРѕ СѓСЂР°РІРЅРµРЅРёСЏ
     }
     pVar = new CSFVar(bufname, 'i',0,0);
     pVar->m_Neg = "";
@@ -217,7 +217,7 @@ NextInpName1:
     goto NextInpName1;
   }  
   if ((pr==2)||(pr==0)||(pr==6)||(pr==7)) {                                 
-     // Продолжить формирование продукции
+     // РџСЂРѕРґРѕР»Р¶РёС‚СЊ С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ РїСЂРѕРґСѓРєС†РёРё
     pVar2=new CSFVar(bufname, 'i',0,0);    
     if ((pr==6)||(pr==7)) pVar2->m_Neg = "^";
     else pVar2->m_Neg = ""; 
@@ -227,7 +227,7 @@ NextInpName1:
       goto NextInpName;
   }
   if ((pr==3)||(pr==8)) {
-    // следует формировать новую конъюнкцию
+    // СЃР»РµРґСѓРµС‚ С„РѕСЂРјРёСЂРѕРІР°С‚СЊ РЅРѕРІСѓСЋ РєРѕРЅСЉСЋРЅРєС†РёСЋ
     m_ConArray.Add(pCon);
     pCon = new CCon();   
     pVar2=new CSFVar(bufname, 'i',0,0);
@@ -247,7 +247,7 @@ Prov:
 //-------------------------------------------------------
 bool CFunc::ReplaceName(CSFVar *pVar, CSFVar *pVar1, int k)
 {
-// Заменить имя в символьной записи уравнения (в левой и правой частях)
+// Р—Р°РјРµРЅРёС‚СЊ РёРјСЏ РІ СЃРёРјРІРѕР»СЊРЅРѕР№ Р·Р°РїРёСЃРё СѓСЂР°РІРЅРµРЅРёСЏ (РІ Р»РµРІРѕР№ Рё РїСЂР°РІРѕР№ С‡Р°СЃС‚СЏС…)
   int last,num; 
   int l;
   string bufname;
@@ -264,7 +264,7 @@ bool CFunc::ReplaceName(CSFVar *pVar, CSFVar *pVar1, int k)
 //#ifdef ENG
 //    AfxMessageBox("Input variables are absent");
 //#else
-//    AfxMessageBox("Ошибка в записи входных переменных уравнения");
+//    AfxMessageBox("РћС€РёР±РєР° РІ Р·Р°РїРёСЃРё РІС…РѕРґРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… СѓСЂР°РІРЅРµРЅРёСЏ");
 //#endif
 //#endif
     return false;
@@ -280,7 +280,7 @@ bool CFunc::ReplaceName(CSFVar *pVar, CSFVar *pVar1, int k)
 //#ifdef ENG
 //    AfxMessageBox("Syntax error. '=' is absent");
 //#else
-//    AfxMessageBox("Ошибка в записи уравнения. Отсутствует =");
+//    AfxMessageBox("РћС€РёР±РєР° РІ Р·Р°РїРёСЃРё СѓСЂР°РІРЅРµРЅРёСЏ. РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ =");
 //#endif
 //#endif
     return false;
@@ -304,7 +304,7 @@ bool CFunc::ReplaceName(CSFVar *pVar, CSFVar *pVar1, int k)
   m_Right1.erase(0,last);
   m_Right+=m_Right1;
 
-// Просмотреть m_Right и ликвидировать ситуацию ^^   
+// РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ m_Right Рё Р»РёРєРІРёРґРёСЂРѕРІР°С‚СЊ СЃРёС‚СѓР°С†РёСЋ ^^   
     
   while ((l=m_Right.find("^^"))>=0) {
     m_Right[l++]=' ';
@@ -329,13 +329,13 @@ bool CFunc::Set_m_Right()
       pVar=pCon->m_ConVarArray.GetAt(l);
       m_Right=m_Right+pVar->m_Neg+pVar->m_Name +"*";
     }
-    //m_Right=m_Right.Left(m_Right.GetLength()-1) ; //убрать "*"
+    //m_Right=m_Right.Left(m_Right.GetLength()-1) ; //СѓР±СЂР°С‚СЊ "*"
     //m_Right+=m_Right+"+";
 
     m_Right[m_Right.size() - 1]='+';
 
   }
-  //m_Right=m_Right.Left(m_Right.GetLength()-1) ; //убрать "+"
+  //m_Right=m_Right.Left(m_Right.GetLength()-1) ; //СѓР±СЂР°С‚СЊ "+"
   //m_Right=m_Right+";";
   m_Right[m_Right.size() - 1]=';';
 
@@ -354,7 +354,7 @@ bool CFunc::Open_Brace()
   int i;  
   
   pSFNew = new CSF;    
-// Построить заголовочную часть описания pSFLogNew   
+// РџРѕСЃС‚СЂРѕРёС‚СЊ Р·Р°РіРѕР»РѕРІРѕС‡РЅСѓСЋ С‡Р°СЃС‚СЊ РѕРїРёСЃР°РЅРёСЏ pSFLogNew   
   pSFNew->SetTitle("~~~temp");  
   pSFNew->SetProject("pr");
   pSFNew->SetAuthor("K");
@@ -377,8 +377,8 @@ bool CFunc::Open_Brace()
 //#ifdef ENG
 //    AfxMessageBox("Error in the process 'Open brace'");
 //#else
-//    AfxMessageBox("Ошибка при переходе LogToSdfWithoutElimination.\n"
-//      "Раскрытие скобок в уравнении.");
+//    AfxMessageBox("РћС€РёР±РєР° РїСЂРё РїРµСЂРµС…РѕРґРµ LogToSdfWithoutElimination.\n"
+//      "Р Р°СЃРєСЂС‹С‚РёРµ СЃРєРѕР±РѕРє РІ СѓСЂР°РІРЅРµРЅРёРё.");
 //#endif
 //#endif
     m_InVarArray.RemoveAll();
@@ -393,7 +393,7 @@ bool CFunc::Open_Brace()
 //#ifdef ENG
 //    AfxMessageBox("Error at the reading of part FUNCTION in the process 'Open brace'");
 //#else
-//    AfxMessageBox("Ошибка чтения раздела FUNCTION.\nРаскрытие скобок в уравнении.");
+//    AfxMessageBox("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ СЂР°Р·РґРµР»Р° FUNCTION.\nР Р°СЃРєСЂС‹С‚РёРµ СЃРєРѕР±РѕРє РІ СѓСЂР°РІРЅРµРЅРёРё.");
 //#endif
 //#endif
     delete pSOP;
@@ -410,7 +410,7 @@ bool CFunc::Open_Brace()
 //#ifdef ENG
 //    AfxMessageBox("Error at the writing of part FUNCTION in the process 'Open brace'");
 //#else
-//    AfxMessageBox("Ошибка записи раздела FUNCTION.\nРаскрытие скобок в уравнении.");
+//    AfxMessageBox("РћС€РёР±РєР° Р·Р°РїРёСЃРё СЂР°Р·РґРµР»Р° FUNCTION.\nР Р°СЃРєСЂС‹С‚РёРµ СЃРєРѕР±РѕРє РІ СѓСЂР°РІРЅРµРЅРёРё.");
 //#endif
 //#endif
     delete pSOP;
@@ -426,8 +426,8 @@ bool CFunc::Open_Brace()
 //#ifdef ENG
 //    AfxMessageBox("Error in the process 'Open brace'");
 //#else
-//    AfxMessageBox("Ошибка при переходе SdfToLog().\n"
-//                  "Раскрытие скобок в уравнении.");
+//    AfxMessageBox("РћС€РёР±РєР° РїСЂРё РїРµСЂРµС…РѕРґРµ SdfToLog().\n"
+//                  "Р Р°СЃРєСЂС‹С‚РёРµ СЃРєРѕР±РѕРє РІ СѓСЂР°РІРЅРµРЅРёРё.");
 //#endif
 //#endif
     delete pSOP;
@@ -443,8 +443,8 @@ bool CFunc::Open_Brace()
 //#ifdef ENG
 //    AfxMessageBox("Error at the getting a row in the process 'Open brace'");
 //#else
-//    AfxMessageBox("Ошибка при получении строки из блока FUNCTION.\n"
-//      "Раскрытие скобок в уравнении.");
+//    AfxMessageBox("РћС€РёР±РєР° РїСЂРё РїРѕР»СѓС‡РµРЅРёРё СЃС‚СЂРѕРєРё РёР· Р±Р»РѕРєР° FUNCTION.\n"
+//      "Р Р°СЃРєСЂС‹С‚РёРµ СЃРєРѕР±РѕРє РІ СѓСЂР°РІРЅРµРЅРёРё.");
 //#endif
 //#endif
     delete pSOP;
@@ -491,7 +491,7 @@ void CFunc::print_CFunc(string FileName)
 #ifdef ENG
   bufer += "Input variables: ";
 #else
-  bufer += "Входные переменные: ";  
+  bufer += "Р’С…РѕРґРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ: ";  
 #endif
   for (j=0; j<(int)m_InVarArray.Avar.size(); j++) {  
     pVar = m_InVarArray.GetAt(j);        
@@ -501,7 +501,7 @@ void CFunc::print_CFunc(string FileName)
 #ifdef ENG
   bufer += "Productions: ";
 #else
-  bufer += "Продукции: ";
+  bufer += "РџСЂРѕРґСѓРєС†РёРё: ";
 #endif
   if ((l=m_ConArray.arCon.size())==0) goto kon;
   for (i=0; i<l; i++) {
@@ -531,15 +531,15 @@ kon:
 //---------------------------------------------------------------
 string CFunc::ReplaceAllNames(map <string, string>* ShortNames)
 {
-  string bufur;  //Формирование нового уравнения
+  string bufur;  //Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ РЅРѕРІРѕРіРѕ СѓСЂР°РІРЅРµРЅРёСЏ
   int last,num; 
-  int l; // начало поиска
+  int l; // РЅР°С‡Р°Р»Рѕ РїРѕРёСЃРєР°
   string bufname, newname, w;
   map <string, string>::iterator iMss;	
 
   l=0;
   last=0;
-//Определить имя выходной переменной
+//РћРїСЂРµРґРµР»РёС‚СЊ РёРјСЏ РІС‹С…РѕРґРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№
   if (GetNextInpName(m_Right, l,bufname)== -1)
 	  {
 //#ifdef _LINUX
@@ -548,14 +548,14 @@ string CFunc::ReplaceAllNames(map <string, string>* ShortNames)
 //#ifdef ENG
 //		  AfxMessageBox("Output variables are absent");
 //#else
-//		  AfxMessageBox("Ошибка в записи выходных переменных уравнения");
+//		  AfxMessageBox("РћС€РёР±РєР° РІ Р·Р°РїРёСЃРё РІС‹С…РѕРґРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… СѓСЂР°РІРЅРµРЅРёСЏ");
 //#endif
 //#endif
 		  return "";
 	  }  
 
-// if (ShortNames->Lookup( bufname, newname )==0) //май, 27, 2010 Кириенко
-//   newname=bufname;                             //май, 27, 2010 Кириенко
+// if (ShortNames->Lookup( bufname, newname )==0) //РјР°Р№, 27, 2010 РљРёСЂРёРµРЅРєРѕ
+//   newname=bufname;                             //РјР°Р№, 27, 2010 РљРёСЂРёРµРЅРєРѕ
   iMss = ShortNames->find(bufname);
   if (iMss == ShortNames->end()) 
     newname=bufname; 
@@ -570,7 +570,7 @@ string CFunc::ReplaceAllNames(map <string, string>* ShortNames)
 //#ifdef ENG
 //		AfxMessageBox("Syntax error. '=' is absent");
 //#else
-//		AfxMessageBox("Ошибка в записи уравнения. Отсутствует =");
+//		AfxMessageBox("РћС€РёР±РєР° РІ Р·Р°РїРёСЃРё СѓСЂР°РІРЅРµРЅРёСЏ. РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ =");
 //#endif
 //#endif
 		return "";
@@ -580,20 +580,20 @@ string CFunc::ReplaceAllNames(map <string, string>* ShortNames)
   last=l;
   while(GetNextInpName(m_Right, l,bufname)!= -1)
   {
-//ShortNames->Lookup( bufname, newname );//май, 27, 2010 Кириенко
-// Редактирование  май, 27, 2010 Кириенко
-// if (ShortNames->Lookup( bufname, newname )==0) //май, 27, 2010 Кириенко
-//   newname=bufname;                             //май, 27, 2010 Кириенко
+//ShortNames->Lookup( bufname, newname );//РјР°Р№, 27, 2010 РљРёСЂРёРµРЅРєРѕ
+// Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ  РјР°Р№, 27, 2010 РљРёСЂРёРµРЅРєРѕ
+// if (ShortNames->Lookup( bufname, newname )==0) //РјР°Р№, 27, 2010 РљРёСЂРёРµРЅРєРѕ
+//   newname=bufname;                             //РјР°Р№, 27, 2010 РљРёСЂРёРµРЅРєРѕ
 
     iMss = ShortNames->find(bufname);
     if (iMss == ShortNames->end()) 
          newname=bufname;
     else newname= iMss->second;
-//переписать в bufur все, что до l-символа
+//РїРµСЂРµРїРёСЃР°С‚СЊ РІ bufur РІСЃРµ, С‡С‚Рѕ РґРѕ l-СЃРёРјРІРѕР»Р°
     num=bufname.size();
 //bufur+=m_Right.Mid(last,l-num-last);
     bufur+=m_Right.substr(last,l-num-last);
-//переписать новое имя
+//РїРµСЂРµРїРёСЃР°С‚СЊ РЅРѕРІРѕРµ РёРјСЏ
     bufur+=newname;
     last=l;
   }
@@ -733,8 +733,8 @@ int CFuncSystem::GetVarArrayFuncSystem(CSFVarArray &InpArray,
 {return 1;}
 //-------------------------------------------------------
 int CFuncSystem::GetNumInpVarInNewFuncSystem(CFunc * pFunc)
-  // Опр. число входных и промежуточных переменных уравнения и            
-  // формируемой системы.                    
+  // РћРїСЂ. С‡РёСЃР»Рѕ РІС…РѕРґРЅС‹С… Рё РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… СѓСЂР°РІРЅРµРЅРёСЏ Рё            
+  // С„РѕСЂРјРёСЂСѓРµРјРѕР№ СЃРёСЃС‚РµРјС‹.                    
 {     
 // #ifdef _DEBUG
 //   AssertValid(); pFunc->AssertValid();
@@ -742,14 +742,14 @@ int CFuncSystem::GetNumInpVarInNewFuncSystem(CFunc * pFunc)
   int nRes;
   int rab1 = m_InVarArray.Avar.size();
   for (int i=0; i< (int)pFunc->m_InVarArray.Avar.size(); i++) {
-    if((nRes=m_InVarArray.IsVarInArray(pFunc->m_InVarArray.Avar[i])==(-1)))  ///????????? Надо разбираться
+    if((nRes=m_InVarArray.IsVarInArray(pFunc->m_InVarArray.Avar[i])==(-1)))  ///????????? РќР°РґРѕ СЂР°Р·Р±РёСЂР°С‚СЊСЃСЏ
       rab1++; 
   }
   return rab1;
 } 
 //-------------------------------------------------------
 int CFuncSystem::AddFunc (CFunc * pFunc)
-// Добавить уравнение pFunc в CFuncSystem
+// Р”РѕР±Р°РІРёС‚СЊ СѓСЂР°РІРЅРµРЅРёРµ pFunc РІ CFuncSystem
 {
   CSFVar * pVar1, *pVar2;
   int size;
@@ -766,7 +766,7 @@ int CFuncSystem::AddFunc (CFunc * pFunc)
 }
 //-------------------------------------------------------
 bool CFuncSystem::DeleteFunc(int i)
-// Удалить уравнение с номером i из системы   
+// РЈРґР°Р»РёС‚СЊ СѓСЂР°РІРЅРµРЅРёРµ СЃ РЅРѕРјРµСЂРѕРј i РёР· СЃРёСЃС‚РµРјС‹   
 { 
   CSFVar * pVar;
   CFunc *pFunc,*pFunc1;
@@ -781,7 +781,7 @@ bool CFuncSystem::DeleteFunc(int i)
   for (j=0; j<(int)m_InVarArray.Avar.size();j++) {
     pVar=m_InVarArray.Avar[j];
     if (pFunc->m_InVarArray.IsNameInArray(pVar)>=0) {
-// Надо посмотреть есть ли эта переменная в других уравнениях?
+// РќР°РґРѕ РїРѕСЃРјРѕС‚СЂРµС‚СЊ РµСЃС‚СЊ Р»Рё СЌС‚Р° РїРµСЂРµРјРµРЅРЅР°СЏ РІ РґСЂСѓРіРёС… СѓСЂР°РІРЅРµРЅРёСЏС…?
       for (k=0; k< (int) m_FuncArray.arFun.size();k++) {
         if (k==i) continue;
         pFunc1=m_FuncArray.arFun[k];    
@@ -796,7 +796,7 @@ Yes: continue;
 }
 //-------------------------------------------------------
 bool CFuncSystem::DelFunc (CFunc * pFunc)
-// Удалить функцию pFunc из CFuncSystem
+// РЈРґР°Р»РёС‚СЊ С„СѓРЅРєС†РёСЋ pFunc РёР· CFuncSystem
 {       
   int i, j, k, m;
   CFunc * pFunc1, *pFunc2;
@@ -827,7 +827,7 @@ next:
     for (k=0; k<(int)m_InVarArray.Avar.size(); k++)  {
       pVar=m_InVarArray.Avar[k];
       if (pFunc1->m_InVarArray.IsNameInArray(pVar)>=0) {  
-// Надо посмотреть есть ли эта переменная в других уравнениях?
+// РќР°РґРѕ РїРѕСЃРјРѕС‚СЂРµС‚СЊ РµСЃС‚СЊ Р»Рё СЌС‚Р° РїРµСЂРµРјРµРЅРЅР°СЏ РІ РґСЂСѓРіРёС… СѓСЂР°РІРЅРµРЅРёСЏС…?
         for (m=0; m<(int)m_FuncArray.arFun.size();m++) {
           if (m==i) continue;
           pFunc2=m_FuncArray.arFun[m];    
@@ -846,8 +846,8 @@ Yes: continue;
 //---------------------------------------------------------------
 bool CFuncSystem::Replace(CSFVar *pVar,CSFVar *pVar1,int k)
 {       
-// Заменить имена переменных в системе уравнений в соответствии
-// с удалением уравнения A=B или A=^B. В pVar - А, в pVar1 - В 
+// Р—Р°РјРµРЅРёС‚СЊ РёРјРµРЅР° РїРµСЂРµРјРµРЅРЅС‹С… РІ СЃРёСЃС‚РµРјРµ СѓСЂР°РІРЅРµРЅРёР№ РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё
+// СЃ СѓРґР°Р»РµРЅРёРµРј СѓСЂР°РІРЅРµРЅРёСЏ A=B РёР»Рё A=^B. Р’ pVar - Рђ, РІ pVar1 - Р’ 
 
   int i, j, l;
   CFunc * pFunc;
@@ -860,36 +860,36 @@ bool CFuncSystem::Replace(CSFVar *pVar,CSFVar *pVar1,int k)
 // #endif   
 
   if (k==2){
-// Для ситуации 2 найти уравнение с выходной переменной
-// pVar1  и заменить ее на pVar в m_OutVar и в m_Right  
+// Р”Р»СЏ СЃРёС‚СѓР°С†РёРё 2 РЅР°Р№С‚Рё СѓСЂР°РІРЅРµРЅРёРµ СЃ РІС‹С…РѕРґРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№
+// pVar1  Рё Р·Р°РјРµРЅРёС‚СЊ РµРµ РЅР° pVar РІ m_OutVar Рё РІ m_Right  
     for (i=0; i<(int)m_FuncArray.arFun.size();i++) {
       pFunc=m_FuncArray.arFun[i];
       if (pFunc->m_OutVar.m_Name==pVar1->m_Name){
         pFunc->m_OutVar=pVar;
-// далее заменить pVar1 на pVar в m_Right
+// РґР°Р»РµРµ Р·Р°РјРµРЅРёС‚СЊ pVar1 РЅР° pVar РІ m_Right
         pFunc->ReplaceName(pVar1, pVar,0);      
       }
     }
   }
   if (k==4){
-// Для ситуации 4 найти уравнение с выходной переменной
-// pVar  и заменить ее на pVar1 в m_OutVar и в m_Right  
+// Р”Р»СЏ СЃРёС‚СѓР°С†РёРё 4 РЅР°Р№С‚Рё СѓСЂР°РІРЅРµРЅРёРµ СЃ РІС‹С…РѕРґРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№
+// pVar  Рё Р·Р°РјРµРЅРёС‚СЊ РµРµ РЅР° pVar1 РІ m_OutVar Рё РІ m_Right  
     for (i=0; i<(int)m_FuncArray.arFun.size();i++) {
       pFunc=m_FuncArray.arFun[i];
       if (pFunc->m_OutVar.m_Name==pVar->m_Name){
         pFunc->m_OutVar=pVar1;
-// далее заменить pVar на pVar1 в m_Right
+// РґР°Р»РµРµ Р·Р°РјРµРЅРёС‚СЊ pVar РЅР° pVar1 РІ m_Right
         pFunc->ReplaceName(pVar, pVar1,0);    
       }
     }
   }  
   
   if (k==1||k==3||k==4) {
-// Для ситуации 1 в каждом уравнении с входными переменными
-// pVar заменить их на pVar1 в m_InVarArray, pFunc->m_InVarArray,
-// pFunc->m_ConArray, и в m_Right 
-// Для ситуации 3 заменять на переменную с отрицанием а затем
-// обработать на предмет двойного отрицания
+// Р”Р»СЏ СЃРёС‚СѓР°С†РёРё 1 РІ РєР°Р¶РґРѕРј СѓСЂР°РІРЅРµРЅРёРё СЃ РІС…РѕРґРЅС‹РјРё РїРµСЂРµРјРµРЅРЅС‹РјРё
+// pVar Р·Р°РјРµРЅРёС‚СЊ РёС… РЅР° pVar1 РІ m_InVarArray, pFunc->m_InVarArray,
+// pFunc->m_ConArray, Рё РІ m_Right 
+// Р”Р»СЏ СЃРёС‚СѓР°С†РёРё 3 Р·Р°РјРµРЅСЏС‚СЊ РЅР° РїРµСЂРµРјРµРЅРЅСѓСЋ СЃ РѕС‚СЂРёС†Р°РЅРёРµРј Р° Р·Р°С‚РµРј
+// РѕР±СЂР°Р±РѕС‚Р°С‚СЊ РЅР° РїСЂРµРґРјРµС‚ РґРІРѕР№РЅРѕРіРѕ РѕС‚СЂРёС†Р°РЅРёСЏ
     if ((i=m_InVarArray.IsNameInArray(pVar))>=0){  
       if (m_InVarArray.IsNameInArray(pVar1)==-1){
         m_InVarArray.Avar[i]->m_Name=pVar1->m_Name;
@@ -991,7 +991,7 @@ void CFuncSystem::print_CFuncSystem(string FileName)
 #ifdef ENG
   bufer += "Input variables: " + endl;
 #else
-  bufer += "Входные переменные: " + endl;
+  bufer += "Р’С…РѕРґРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ: " + endl;
 #endif
   l=(int)m_InVarArray.Avar.size();
   j=0;
@@ -1006,7 +1006,7 @@ void CFuncSystem::print_CFuncSystem(string FileName)
 #ifdef ENG
   bufer += endl + "Equations: ";
 #else
-  bufer += endl + "Уравнения: ";
+  bufer += endl + "РЈСЂР°РІРЅРµРЅРёСЏ: ";
 #endif
   m=(int)m_FuncArray.arFun.size();
   for (j=0; j<m; j++) {
@@ -1018,7 +1018,7 @@ void CFuncSystem::print_CFuncSystem(string FileName)
 #ifdef ENG
     bufer += "Productions: ";
 #else
-    bufer += "Продукции: ";
+    bufer += "РџСЂРѕРґСѓРєС†РёРё: ";
 #endif
     l=pFunc->m_ConArray.arCon.size();
     for (int i=0; i<l; i++) {
@@ -1054,12 +1054,12 @@ void CFuncSystem::print_CFuncSystem(string FileName)
 // -------------------------------------------------------
 // void CFuncSystem::Dump(CDumpContext& dc) const
 // {  
-//  dc<<"Список входных переменных ";
+//  dc<<"РЎРїРёСЃРѕРє РІС…РѕРґРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… ";
 //   dc<<"List of inputs: ";  
 //   dc <<"\r\n";
 //   m_InVarArray.Dump(dc);
 //   dc <<"\r\n";
-//  dc<<"Список уравнений: ";
+//  dc<<"РЎРїРёСЃРѕРє СѓСЂР°РІРЅРµРЅРёР№: ";
 //   dc<<"List of equations: ";
 //   dc <<"\r\n";
 //   m_FuncArray.Dump(dc);
@@ -1118,7 +1118,7 @@ void CSFLog::SetFuncSystem(CFuncSystem *pFuncSystem)
 
 //-------------------------------------------------------
 bool  CSFLog::CFuncSystemToNewFunction() 
-// Получить из CFuncSystem CFunction
+// РџРѕР»СѓС‡РёС‚СЊ РёР· CFuncSystem CFunction
 {                            
   CSFunction *pFun;
 // #ifdef _DEBUG
@@ -1136,9 +1136,9 @@ bool  CSFLog::CFuncSystemToNewFunction()
 
 //---------------------------------------------------------------
 bool CSFLog::ReplaceConnectFunc()
-// Подставить в исходную систему все уравнения связей
-// Для каждого уравнения связи 1) Удалить его из системы 
-// 2) Для оставшейся подсистемы произвести переименование 
+// РџРѕРґСЃС‚Р°РІРёС‚СЊ РІ РёСЃС…РѕРґРЅСѓСЋ СЃРёСЃС‚РµРјСѓ РІСЃРµ СѓСЂР°РІРЅРµРЅРёСЏ СЃРІСЏР·РµР№
+// Р”Р»СЏ РєР°Р¶РґРѕРіРѕ СѓСЂР°РІРЅРµРЅРёСЏ СЃРІСЏР·Рё 1) РЈРґР°Р»РёС‚СЊ РµРіРѕ РёР· СЃРёСЃС‚РµРјС‹ 
+// 2) Р”Р»СЏ РѕСЃС‚Р°РІС€РµР№СЃСЏ РїРѕРґСЃРёСЃС‚РµРјС‹ РїСЂРѕРёР·РІРµСЃС‚Рё РїРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ 
 {
   CFunc *pFunc, *pFunc1;
   CCon *pCon;    
@@ -1157,15 +1157,15 @@ bool CSFLog::ReplaceConnectFunc()
     if (pFunc->m_ConArray.arCon.size()==1){
       pCon=pFunc->m_ConArray.GetAt(0);
       if (pCon->m_ConVarArray.Avar.size()==1) {
-// Это уравнение связи
+// Р­С‚Рѕ СѓСЂР°РІРЅРµРЅРёРµ СЃРІСЏР·Рё
 //        rab2=0;
 //        rab3=0;
-        pVar=&pFunc->m_OutVar;  // Левая переменная             
-        pVar1=pCon->m_ConVarArray.GetAt(0); // Правая переменная
+        pVar=&pFunc->m_OutVar;  // Р›РµРІР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ             
+        pVar1=pCon->m_ConVarArray.GetAt(0); // РџСЂР°РІР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ
         if (m_FuncSystem.m_InVarArray.IsNameInArray(pVar)>=0){
-// Левая переменная является промежуточной             
-//Ситуация 1 - вместо левой переменной везде подставляется
-//правая (j=1), если надо, то с отрицанием (j=3)              
+// Р›РµРІР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ СЏРІР»СЏРµС‚СЃСЏ РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅРѕР№             
+//РЎРёС‚СѓР°С†РёСЏ 1 - РІРјРµСЃС‚Рѕ Р»РµРІРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№ РІРµР·РґРµ РїРѕРґСЃС‚Р°РІР»СЏРµС‚СЃСЏ
+//РїСЂР°РІР°СЏ (j=1), РµСЃР»Рё РЅР°РґРѕ, С‚Рѕ СЃ РѕС‚СЂРёС†Р°РЅРёРµРј (j=3)              
           j=1;
           if ((int)pFunc->m_Right.find('^')>=0) j=3; 
           m_FuncSystem.Replace(pVar,pVar1,j);
@@ -1174,20 +1174,20 @@ bool CSFLog::ReplaceConnectFunc()
           SetPIN();
         }                
         else {  
-// Левая переменная не является промежуточной                 
+// Р›РµРІР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅРѕР№                 
 //          rab2=0;
 //          rab3=0;
           if (m_FuncSystem.m_InVarArray.IsNameInArray(pVar1)>=0){
-// Правая переменная является промежуточной
+// РџСЂР°РІР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ СЏРІР»СЏРµС‚СЃСЏ РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅРѕР№
             if ((int)pFunc->m_Right.find('^')>=0) continue;
-// Если есть отрицание правой переменной, то подстановку не осуществлять
-// Если нет отрицания правой переменной, то Ситуация 2 -
-// (j=2) подстановить в pFunc->m_OutVar.m_Name вместо 
-// правой переменной левую, если правая больше нигде не встречается
-// в правых частях системы
-// Чтобы проверить, встречается ли в правых частях pVar1, надо 
-// просмотреть все уравнения, кроме i-того и посмотреть pVar1  
-// в  m_InVarArray
+// Р•СЃР»Рё РµСЃС‚СЊ РѕС‚СЂРёС†Р°РЅРёРµ РїСЂР°РІРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№, С‚Рѕ РїРѕРґСЃС‚Р°РЅРѕРІРєСѓ РЅРµ РѕСЃСѓС‰РµСЃС‚РІР»СЏС‚СЊ
+// Р•СЃР»Рё РЅРµС‚ РѕС‚СЂРёС†Р°РЅРёСЏ РїСЂР°РІРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№, С‚Рѕ РЎРёС‚СѓР°С†РёСЏ 2 -
+// (j=2) РїРѕРґСЃС‚Р°РЅРѕРІРёС‚СЊ РІ pFunc->m_OutVar.m_Name РІРјРµСЃС‚Рѕ 
+// РїСЂР°РІРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№ Р»РµРІСѓСЋ, РµСЃР»Рё РїСЂР°РІР°СЏ Р±РѕР»СЊС€Рµ РЅРёРіРґРµ РЅРµ РІСЃС‚СЂРµС‡Р°РµС‚СЃСЏ
+// РІ РїСЂР°РІС‹С… С‡Р°СЃС‚СЏС… СЃРёСЃС‚РµРјС‹
+// Р§С‚РѕР±С‹ РїСЂРѕРІРµСЂРёС‚СЊ, РІСЃС‚СЂРµС‡Р°РµС‚СЃСЏ Р»Рё РІ РїСЂР°РІС‹С… С‡Р°СЃС‚СЏС… pVar1, РЅР°РґРѕ 
+// РїСЂРѕСЃРјРѕС‚СЂРµС‚СЊ РІСЃРµ СѓСЂР°РІРЅРµРЅРёСЏ, РєСЂРѕРјРµ i-С‚РѕРіРѕ Рё РїРѕСЃРјРѕС‚СЂРµС‚СЊ pVar1  
+// РІ  m_InVarArray
             j=2;
             for (k=0; k<(int)m_FuncSystem.m_FuncArray.arFun.size(); k++) {
               if (i==k) continue;
@@ -1230,7 +1230,7 @@ bool CSFLog::ReplaceConnectFunc()
 
 //-------------------------------------------------------
 bool CSFLog::CSFunctionToCFuncSystem()
-// Получить из CSFunction CFuncSystem   
+// РџРѕР»СѓС‡РёС‚СЊ РёР· CSFunction CFuncSystem   
 {
   int i,j,pos,pos1,pr,k,size;
   string buf, buf1;
@@ -1252,7 +1252,7 @@ bool CSFLog::CSFunctionToCFuncSystem()
 //#ifdef ENG
 //    AfxMessageBox("Section FUNCTION is not LOG");
 //#else
-//    AfxMessageBox("B SF-описании нет раздела FUNCTION");
+//    AfxMessageBox("B SF-РѕРїРёСЃР°РЅРёРё РЅРµС‚ СЂР°Р·РґРµР»Р° FUNCTION");
 //#endif
 //#endif
     return false;                    
@@ -1264,7 +1264,7 @@ bool CSFLog::CSFunctionToCFuncSystem()
 //#ifdef ENG
 //		AfxMessageBox("Section FUNCTION is absent in SF-description");
 //#else
-//		AfxMessageBox("Раздел FUNCTION не является LOG");
+//		AfxMessageBox("Р Р°Р·РґРµР» FUNCTION РЅРµ СЏРІР»СЏРµС‚СЃСЏ LOG");
 //#endif
 //#endif
 		return false;                    
@@ -1289,7 +1289,7 @@ NextFunc:
 //#ifdef ENG
 //        AfxMessageBox("Error equation. No ';'");
 //#else
-//        AfxMessageBox("Ошибка в записи уравнения. Нет ';'.");
+//        AfxMessageBox("РћС€РёР±РєР° РІ Р·Р°РїРёСЃРё СѓСЂР°РІРЅРµРЅРёСЏ. РќРµС‚ ';'.");
 //#endif
 //#endif
         delete pFunc;
@@ -1309,7 +1309,7 @@ AfterOpen:
 //#ifdef ENG
 //      AfxMessageBox("Error in equation, output");
 //#else
-//      AfxMessageBox("Ошибка в записи Вых. перем.уравнения");
+//      AfxMessageBox("РћС€РёР±РєР° РІ Р·Р°РїРёСЃРё Р’С‹С…. РїРµСЂРµРј.СѓСЂР°РІРЅРµРЅРёСЏ");
 //#endif
 //#endif
       delete pFunc;
@@ -1331,7 +1331,7 @@ AfterOpen:
 //#ifdef ENG
 //      AfxMessageBox("Error in equation. No =");
 //#else
-//      AfxMessageBox("Ошибка в записи уравнения. Отсутствует =");
+//      AfxMessageBox("РћС€РёР±РєР° РІ Р·Р°РїРёСЃРё СѓСЂР°РІРЅРµРЅРёСЏ. РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ =");
 //#endif
 //#endif
       delete pFunc;
@@ -1356,7 +1356,7 @@ NextInpName:    // read next Conuction;
 //#ifdef ENG
 //        pFunc->m_Right = "Error: incorrect name of variable\n" + pFunc->m_Right;
 //#else
-//        pFunc->m_Right = "Ошибка! Имя переменной = 1 \n" + pFunc->m_Right;
+//        pFunc->m_Right = "РћС€РёР±РєР°! РРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№ = 1 \n" + pFunc->m_Right;
 //#endif
 //         AfxMessageBox(pFunc->m_Right.c_str());
 //#endif
@@ -1379,21 +1379,21 @@ NextInpName:    // read next Conuction;
     if (m_FuncSystem.m_InVarArray.Add(pVar1)<size)delete pVar1;  
         
     if ((pr==1)||(pr==4)||(pr==5)||(pr==9)) {
-// Скобочная форма, по строке m_right построить ДНФ функции 
-// и продолжить построение m_ConArray 
+// РЎРєРѕР±РѕС‡РЅР°СЏ С„РѕСЂРјР°, РїРѕ СЃС‚СЂРѕРєРµ m_right РїРѕСЃС‚СЂРѕРёС‚СЊ Р”РќР¤ С„СѓРЅРєС†РёРё 
+// Рё РїСЂРѕРґРѕР»Р¶РёС‚СЊ РїРѕСЃС‚СЂРѕРµРЅРёРµ m_ConArray 
          
 /*                
-// Скобочная форма, уравнение задается строкой m_right
+// РЎРєРѕР±РѕС‡РЅР°СЏ С„РѕСЂРјР°, СѓСЂР°РІРЅРµРЅРёРµ Р·Р°РґР°РµС‚СЃСЏ СЃС‚СЂРѕРєРѕР№ m_right
    pr=6;
 */
-   // Освободить память от уже сформированных продукций
+   // РћСЃРІРѕР±РѕРґРёС‚СЊ РїР°РјСЏС‚СЊ РѕС‚ СѓР¶Рµ СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅС‹С… РїСЂРѕРґСѓРєС†РёР№
       pFunc->m_ConArray.RemoveAll();
       delete pCon;
-// Переписать входные переменные в списки входных
+// РџРµСЂРµРїРёСЃР°С‚СЊ РІС…РѕРґРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ РІ СЃРїРёСЃРєРё РІС…РѕРґРЅС‹С…
 NextInpName1:        
       pr = GetNextInpName(bufur,j, bufname);
       if (bufname.size() ==0) {
-// В строке m_right раскрыть скобки
+// Р’ СЃС‚СЂРѕРєРµ m_right СЂР°СЃРєСЂС‹С‚СЊ СЃРєРѕР±РєРё
         if (pFunc->Open_Brace()==false)return false;
         bufur=pFunc->m_Right;                    
         goto  AfterOpen;       
@@ -1405,7 +1405,7 @@ NextInpName1:
       goto NextInpName1;
     }  
     if ((pr==2)||(pr==0)||(pr==6)||(pr==7)) {                                 
-        // Продолжить формирование продукции
+        // РџСЂРѕРґРѕР»Р¶РёС‚СЊ С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ РїСЂРѕРґСѓРєС†РёРё
       pVar2=new CSFVar(bufname, 'i',0,0);
       if ((pr==6)||(pr==7)) pVar2->m_Neg = "^";
       else pVar2->m_Neg = ""; 
@@ -1415,7 +1415,7 @@ NextInpName1:
       goto NextInpName;
     }
     if ((pr==3)||(pr==8)) {
-      // следует формировать новую конъюнкцию
+      // СЃР»РµРґСѓРµС‚ С„РѕСЂРјРёСЂРѕРІР°С‚СЊ РЅРѕРІСѓСЋ РєРѕРЅСЉСЋРЅРєС†РёСЋ
       pFunc->m_ConArray.Add(pCon);
       pCon = new CCon();   
       pVar2=new CSFVar(bufname, 'i',0,0);
@@ -1429,7 +1429,7 @@ NextInpName1:
       goto NextInpName;
     }
 Prov:
-// Есть ли в строке еще уравнения?
+// Р•СЃС‚СЊ Р»Рё РІ СЃС‚СЂРѕРєРµ РµС‰Рµ СѓСЂР°РІРЅРµРЅРёСЏ?
     pos1++;
     k=buf.size();
     buf=buf.substr(pos1,k-pos1);        //Mid(pos1,k-pos1);        
@@ -1450,8 +1450,8 @@ Prov:
 
 //-------------------------------------------------------
 bool CSFLog::SetPIN()
-// Сформировать списки входных, выходных, промежуточных
-// переменных в разделе DCL_PIN
+// РЎС„РѕСЂРјРёСЂРѕРІР°С‚СЊ СЃРїРёСЃРєРё РІС…РѕРґРЅС‹С…, РІС‹С…РѕРґРЅС‹С…, РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹С…
+// РїРµСЂРµРјРµРЅРЅС‹С… РІ СЂР°Р·РґРµР»Рµ DCL_PIN
 {
   CSFVar * pVar;
   CSFVar * pVar1, *pVar2;
@@ -1474,15 +1474,15 @@ bool CSFLog::SetPIN()
     pFunc=m_FuncSystem.m_FuncArray.GetAt(j);
     pVar2 = &pFunc->m_OutVar;
     if (m_SFVarArray.IsNameInArray(pVar2)==-1) {
-     // Переменной еще нет в списке внешних
+     // РџРµСЂРµРјРµРЅРЅРѕР№ РµС‰Рµ РЅРµС‚ РІ СЃРїРёСЃРєРµ РІРЅРµС€РЅРёС…
       pVar= new CSFVar(pVar2);  
       if ((rab1=m_FuncSystem.m_InVarArray.IsNameInArray(pVar))==-1) {
-       // выходная
+       // РІС‹С…РѕРґРЅР°СЏ
         pVar->m_Typ='o';
         m_FuncSystem.m_NumOut++;                 
       }
       else {              
-       // промежуточная
+       // РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅР°СЏ
         pVar->m_Typ='t';
         m_FuncSystem.m_NumInter++;
         pVar1=m_FuncSystem.m_InVarArray.GetAt(rab1);
@@ -1496,10 +1496,10 @@ for (j=0; j<(int)m_FuncSystem.m_InVarArray.Avar.size(); j++) {
   pVar=m_FuncSystem.m_InVarArray.GetAt(j);
   if (m_SFVarArray.IsNameInArray(pVar)==-1) {
 //  if ((pVar->m_Typ=='i')&&(pVar->m_Name!="Gnd")&&
-//    (pVar->m_Name!="Vcc"))  Замена 19.05.2006
+//    (pVar->m_Name!="Vcc"))  Р—Р°РјРµРЅР° 19.05.2006
 
 if ((pVar->m_Name!="Gnd")&&(pVar->m_Name!="Vcc")) 
-{// Входная или промежуточная, которую нужно сделать входной
+{// Р’С…РѕРґРЅР°СЏ РёР»Рё РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅР°СЏ, РєРѕС‚РѕСЂСѓСЋ РЅСѓР¶РЅРѕ СЃРґРµР»Р°С‚СЊ РІС…РѕРґРЅРѕР№
 
 // if ((pVar->m_Typ=='t')){	}
  m_FuncSystem.m_NumInp++;
@@ -1518,7 +1518,7 @@ if ((pVar->m_Name!="Gnd")&&(pVar->m_Name!="Vcc"))
 //#ifdef ENG
 //    Buf="There is no section FUNCTION";
 //#else
-//    Buf="Нет раздела FUNCTION";
+//    Buf="РќРµС‚ СЂР°Р·РґРµР»Р° FUNCTION";
 //#endif
 //    AfxMessageBox(Buf.c_str());
 //#endif
@@ -1532,8 +1532,8 @@ if ((pVar->m_Name!="Gnd")&&(pVar->m_Name!="Vcc"))
 
 //-------------------------------------------------------
 int CSFLog::Limitation(int inp, int term, int&j)      
-// Проверка ограничений в каждом уравнении на число
-// входов, конъюнкций. Номер уравнения не отв. огр. - в number
+// РџСЂРѕРІРµСЂРєР° РѕРіСЂР°РЅРёС‡РµРЅРёР№ РІ РєР°Р¶РґРѕРј СѓСЂР°РІРЅРµРЅРёРё РЅР° С‡РёСЃР»Рѕ
+// РІС…РѕРґРѕРІ, РєРѕРЅСЉСЋРЅРєС†РёР№. РќРѕРјРµСЂ СѓСЂР°РІРЅРµРЅРёСЏ РЅРµ РѕС‚РІ. РѕРіСЂ. - РІ number
 {
   CFunc* pFunc;
 // #ifdef _DEBUG
@@ -1549,8 +1549,8 @@ int CSFLog::Limitation(int inp, int term, int&j)
 
 //-------------------------------------------------------
 int CSFLog::GetNumInpVarInNewSF(CFunc * pFunc)
-  // Опр. число входных переменных уравнения и            
-  // формируемой системы, без учета промежуточных                    
+  // РћРїСЂ. С‡РёСЃР»Рѕ РІС…РѕРґРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… СѓСЂР°РІРЅРµРЅРёСЏ Рё            
+  // С„РѕСЂРјРёСЂСѓРµРјРѕР№ СЃРёСЃС‚РµРјС‹, Р±РµР· СѓС‡РµС‚Р° РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹С…                    
 {     
 // #ifdef _DEBUG
 //   AssertValid(); pFunc->AssertValid();
@@ -1558,7 +1558,7 @@ int CSFLog::GetNumInpVarInNewSF(CFunc * pFunc)
   int nRes;
   int rab1 = GetNumInVar();
   for (int i=0; i<(int)pFunc->m_InVarArray.Avar.size(); i++) {
-    if((nRes=m_SFVarArray.IsNameInArray(pFunc->m_InVarArray.Avar[i])==(-1)))   // Надо разобраться!!!!
+    if((nRes=m_SFVarArray.IsNameInArray(pFunc->m_InVarArray.Avar[i])==(-1)))   // РќР°РґРѕ СЂР°Р·РѕР±СЂР°С‚СЊСЃСЏ!!!!
       rab1++; 
   }
   return rab1;
@@ -1566,8 +1566,8 @@ int CSFLog::GetNumInpVarInNewSF(CFunc * pFunc)
 
 //-------------------------------------------------------
 int CSFLog::ReplaceNames(map <string,string>* ShortNames)      
-// Заменить имена в разделе CSFunction 
-// согласно таблице ShortNames
+// Р—Р°РјРµРЅРёС‚СЊ РёРјРµРЅР° РІ СЂР°Р·РґРµР»Рµ CSFunction 
+// СЃРѕРіР»Р°СЃРЅРѕ С‚Р°Р±Р»РёС†Рµ ShortNames
 {
 	
 int i;
@@ -1580,17 +1580,17 @@ CFunc* pFunc;
 // #ifdef _DEBUG
 // 	AssertValid();
 // #endif     
-// Читать строки раздела  m_fun, заменять имена
-// и переписывать в pfun
+// Р§РёС‚Р°С‚СЊ СЃС‚СЂРѕРєРё СЂР°Р·РґРµР»Р°  m_fun, Р·Р°РјРµРЅСЏС‚СЊ РёРјРµРЅР°
+// Рё РїРµСЂРµРїРёСЃС‹РІР°С‚СЊ РІ pfun
 
 pFun= new CSFunction("LOG",m_FuncSystem.m_NumInp,
 	 m_FuncSystem.m_NumOut,m_FuncSystem.m_NumInter);
 for (i=0; i<(int)m_FuncSystem.m_FuncArray.arFun.size();i++) {
-// получить очередное уравнение
+// РїРѕР»СѓС‡РёС‚СЊ РѕС‡РµСЂРµРґРЅРѕРµ СѓСЂР°РІРЅРµРЅРёРµ
 pFunc=m_FuncSystem.m_FuncArray.arFun[i];
-// заменить в нем имена согласно ShortNames
+// Р·Р°РјРµРЅРёС‚СЊ РІ РЅРµРј РёРјРµРЅР° СЃРѕРіР»Р°СЃРЅРѕ ShortNames
 bufur_new=pFunc->ReplaceAllNames(ShortNames);
-// поместить в новый pFun
+// РїРѕРјРµСЃС‚РёС‚СЊ РІ РЅРѕРІС‹Р№ pFun
 pFun->AddTextLine(bufur_new);
 }
 if (m_Fun != NULL) delete m_Fun;
@@ -1600,8 +1600,8 @@ m_Fun=pFun;
 //---------------------------------------------------------------
 int CSFLog::GetNumTerms()
 { 
-//Получить число термов в системе
-//Version  21 июля 2008
+//РџРѕР»СѓС‡РёС‚СЊ С‡РёСЃР»Рѕ С‚РµСЂРјРѕРІ РІ СЃРёСЃС‚РµРјРµ
+//Version  21 РёСЋР»СЏ 2008
 CSFunction pF;
 CSOP *pSOP;
 int rab1;
@@ -1616,7 +1616,7 @@ if (LogToSdfWithoutElimination()==false)
 //#ifdef ENG
 //	Buf="Error in LogToSdfWithoutElimination";
 //#else
-//	Buf="Ошибка при переходе LogToSdfWithoutElimination";
+//	Buf="РћС€РёР±РєР° РїСЂРё РїРµСЂРµС…РѕРґРµ LogToSdfWithoutElimination";
 //#endif
 //	AfxMessageBox(Buf.c_str());
 //#endif
@@ -1630,7 +1630,7 @@ if (!m_Fun->GetSdf(pSOP)) {
 //#ifdef ENG
 //	Buf="Error when reading section FUNCTION";
 //#else
-//	Buf="Ошибка чтения раздела FUNCTION";
+//	Buf="РћС€РёР±РєР° С‡С‚РµРЅРёСЏ СЂР°Р·РґРµР»Р° FUNCTION";
 //#endif
 //	AfxMessageBox(Buf.c_str());
 //#endif
@@ -1645,10 +1645,10 @@ return rab1;
 //---------------------------------------------------------------
 // int CSFLog::GetNumTerms(CFunc *pFunc1, CPtrArray *pAB_Rab)
 // { 
-// //Получить число термов в системе
-// //Version  28 июля 2008
-// // Если не добавляется уравнение pFunc=0; 
-// // если не добавляется куст, pAB_Rab=0
+// //РџРѕР»СѓС‡РёС‚СЊ С‡РёСЃР»Рѕ С‚РµСЂРјРѕРІ РІ СЃРёСЃС‚РµРјРµ
+// //Version  28 РёСЋР»СЏ 2008
+// // Р•СЃР»Рё РЅРµ РґРѕР±Р°РІР»СЏРµС‚СЃСЏ СѓСЂР°РІРЅРµРЅРёРµ pFunc=0; 
+// // РµСЃР»Рё РЅРµ РґРѕР±Р°РІР»СЏРµС‚СЃСЏ РєСѓСЃС‚, pAB_Rab=0
 // CSFunction pF;
 // CSOP *pSOP;
 // int rab1, i;
@@ -1679,7 +1679,7 @@ return rab1;
 // #ifdef ENG
 // 		Buf="Error in LogToSdfWithoutElimination";
 // #else
-// 		Buf="Ошибка при переходе LogToSdfWithoutElimination";
+// 		Buf="РћС€РёР±РєР° РїСЂРё РїРµСЂРµС…РѕРґРµ LogToSdfWithoutElimination";
 // #endif
 // 		AfxMessageBox(Buf);
 // 		delete Temp;
@@ -1690,7 +1690,7 @@ return rab1;
 // #ifdef ENG
 // 		Buf="Error when reading section FUNCTION";
 // #else
-// 		Buf="Ошибка чтения раздела FUNCTION";
+// 		Buf="РћС€РёР±РєР° С‡С‚РµРЅРёСЏ СЂР°Р·РґРµР»Р° FUNCTION";
 // #endif
 // 		AfxMessageBox(Buf);
 // 		delete pSOP; delete Temp;
@@ -1706,10 +1706,10 @@ return rab1;
 //int CSFLog::GetNumTerms(CFunc *pFunc1, CPtrArray *pAB_Rab)
 int CSFLog::GetNumTerms(CFunc *pFunc1, vector <int *> *pAB_Rab)
 { 
-	//Получить число термов в системе
-	//Version  28 июля 2008
-	// Если не добавляется уравнение pFunc=0; 
-	// если не добавляется куст, pAB_Rab=0
+	//РџРѕР»СѓС‡РёС‚СЊ С‡РёСЃР»Рѕ С‚РµСЂРјРѕРІ РІ СЃРёСЃС‚РµРјРµ
+	//Version  28 РёСЋР»СЏ 2008
+	// Р•СЃР»Рё РЅРµ РґРѕР±Р°РІР»СЏРµС‚СЃСЏ СѓСЂР°РІРЅРµРЅРёРµ pFunc=0; 
+	// РµСЃР»Рё РЅРµ РґРѕР±Р°РІР»СЏРµС‚СЃСЏ РєСѓСЃС‚, pAB_Rab=0
 	CSFunction pF;
 	CSOP *pSOP;
 	int rab1, i;
@@ -1735,7 +1735,7 @@ int CSFLog::GetNumTerms(CFunc *pFunc1, vector <int *> *pAB_Rab)
 	}
 SetPIN();
 CFuncSystemToNewFunction();
-#ifdef _LINUX
+#if defined(_LINUX) || defined(__APPLE__)
 unlink ("~Term");
 #else
 _unlink ("~Term");
@@ -1746,7 +1746,7 @@ WriteSF("~Term");
 #ifdef ENG
 		Buf="Error in LogToSdfWithoutElimination";
 #else
-		Buf="Ошибка при переходе LogToSdfWithoutElimination";
+		Buf="РћС€РёР±РєР° РїСЂРё РїРµСЂРµС…РѕРґРµ LogToSdfWithoutElimination";
 #endif
 //#ifdef _LINUX
     printf("%s\n",Buf.c_str());
@@ -1760,7 +1760,7 @@ WriteSF("~Term");
 //#ifdef ENG
 //		Buf="Error when reading section FUNCTION";
 //#else
-//		Buf="Ошибка чтения раздела FUNCTION";
+//		Buf="РћС€РёР±РєР° С‡С‚РµРЅРёСЏ СЂР°Р·РґРµР»Р° FUNCTION";
 //#endif
 //#ifdef _LINUX
 //    printf("%s\n",Buf.c_str());
@@ -1867,7 +1867,7 @@ void CTypeConnect::Serialize(CArch& ar)
 //IMPLEMENT_DYNCREATE(CTypeConnectArray, CObArray) 
 
 // int CTypeConnectArray::Add(CTypeConnect* pTypeConnect)
-// // Добавить TypeConnect в CTypeConnectArray
+// // Р”РѕР±Р°РІРёС‚СЊ TypeConnect РІ CTypeConnectArray
 // {
 // #ifdef _DEBUG
 //   AssertValid(); pTypeConnect->AssertValid();

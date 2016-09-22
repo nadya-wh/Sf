@@ -271,8 +271,8 @@ void CSFType::Serialize(CArch& ar)
   Seria(m_ElemArray, ar);
 }
 
-//-------------------------- ËËÂÌÍÓ 14 ‰ÂÍ. 1998
-// œÓ‰ÔÓ„‡ÏÏ‡ ÔÓ‚ÂÍË Ì‡ÎË˜Ëˇ ËÏÂÌË ‚ Ï‡ÒÒË‚Â ËÏÂÌ
+//--------------------------–ö–∏—Ä–∏–µ–Ω–∫–æ 14 –¥–µ–∫. 1998
+// –ü–æ–¥–ø—Ä–æ–≥—Ä–∞–º–º–∞ –ø—Ä–æ–≤–µ—Ä–∫–∏ –Ω–∞–ª–∏—á–∏—è –∏–º–µ–Ω–∏ –≤ –º–∞—Å—Å–∏–≤–µ –∏–º–µ–Ω
 int CSFType::IsNameInArray(string Name)
 {
   int j = m_ElemArray.size();
@@ -286,7 +286,7 @@ int CSFType::AddElem(string Elem)
 {
   int i;
   ASSERT(Elem != "");
-  if ((i=IsNameInArray(Elem))>=0) return(i); //»Ïˇ ‰Ó·. ÚÓÎ¸ÍÓ 1 ‡Á.
+  if ((i=IsNameInArray(Elem))>=0) return(i); //–ò–º—è –¥–æ–±. —Ç–æ–ª—å–∫–æ 1 —Ä–∞–∑.
   m_ElemArray.push_back(Elem); 
   return m_ElemArray.size();
 }
@@ -300,7 +300,7 @@ int CSFType::DelElem(string Elem)
   {
     vector <string>::iterator It=m_ElemArray.begin()+i;
 	It->clear();
-    m_ElemArray.erase(It); // ≈ÒÎË ËÏˇ ÂÒÚ¸, ÚÓ Û‰‡ÎËÚ¸ Â„Ó
+    m_ElemArray.erase(It); // –ï—Å–ª–∏ –∏–º—è –µ—Å—Ç—å, —Ç–æ —É–¥–∞–ª–∏—Ç—å –µ–≥–æ
   }
   return (i);
 }
@@ -426,7 +426,7 @@ void CConnectArray::RemoveAll()
   Acon.clear(); 
 }
 //-------------------------------------------------------
-void CConnectArray::RemoveAt(int i)  // 04.05.2000,  ËËÂÌÍÓ
+void CConnectArray::RemoveAt(int i)  // 04.05.2000, –ö–∏—Ä–∏–µ–Ω–∫–æ
 {
   ASSERT(i>=0);
   vector <CSFConnect*>::iterator ii=Acon.begin()+i;
@@ -473,11 +473,11 @@ CSFunction::CSFunction(string Typ, int NumInt, int NumOut, int NumInter)  //??
 {                            //It's nesesary to insert TRY-CATCH
   ASSERT(Typ == "LOG" || Typ == "SDF");
   m_Typ = Typ;
-  ASSERT(NumInt>=0);    //  ËËÂÌÍÓ, 6.12.00
+  ASSERT(NumInt>=0);    // –ö–∏—Ä–∏–µ–Ω–∫–æ, 6.12.00
   m_NumInt = NumInt;
   ASSERT(NumOut>=0);
   m_NumOut = NumOut;
-  ASSERT(NumInter>=0);   //  ËËÂÌÍÓ, 6.12.00
+  ASSERT(NumInter>=0);   // –ö–∏—Ä–∏–µ–Ω–∫–æ, 6.12.00
   m_NumInter = NumInter;
 }
 
