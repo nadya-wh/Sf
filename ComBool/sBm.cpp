@@ -32,6 +32,7 @@
 
 #define SIZE_T_MAX  UINT_MAX            /* max size for a size_t */
 
+
 class CBV;
 class CBM;
 /*
@@ -64,7 +65,7 @@ void CsBM::Init()
 //-------------------------------------------------------------------
 void CsBM::AllocMatrix(int nRow, int nColumn)
 { 
-  ASSERT(nRow > 0);  ASSERT(nColumn > 0 && nColumn <= 32);
+  ASSERT(nRow > 0);  ASSERT(nColumn > 0 && nColumn <= BITS_COUNT);
 
   m_pData = (ULONG*) new int[nRow];
   for (int i = 0; i < nRow; i++) m_pData[i] = 0;
@@ -85,7 +86,7 @@ CsBM::CsBM(const CsBM& bm, BOOL Fl/* = TRUE */)
     memcpy(m_pData, bm.m_pData, bm.m_nSize*sizeof(ULONG));
   }
   else {
-    ASSERT(bm.m_nSize<=32);
+    ASSERT(bm.m_nSize<=BITS_COUNT);
     AllocMatrix(bm.m_nBitLength, bm.m_nSize);
     for (int j = 0; j<m_nBitLength; j++)
       for (int i = 0; i<m_nSize; i++) SetBitAt(i,j, bm.GetBitAt(j, i));
@@ -96,7 +97,7 @@ CsBM::CsBM(const CsBM& bm, BOOL Fl/* = TRUE */)
 //-------------------------------------------------------------------
 CsBM::CsBM(int nRow, int nColumn, BOOL Fl /*= FALSE*/)
 { 
-  ASSERT(nRow >= 0);  ASSERT(nColumn >= 0 && nColumn <= 32);
+  ASSERT(nRow >= 0);  ASSERT(nColumn >= 0 && nColumn <= BITS_COUNT);
   
   if (nRow==0 )  {
     if (nColumn==0) Init();
@@ -108,7 +109,7 @@ CsBM::CsBM(int nRow, int nColumn, BOOL Fl /*= FALSE*/)
   AllocMatrix(nRow, nColumn);
   if (Fl)
     for (int i = 0; i < nRow; i++) {
-      m_pData[i] = 0xffffffff >> (32 - nColumn) << (32 - nColumn);  /* one's fill*/
+      m_pData[i] = 0xffffffff >> (BITS_COUNT - nColumn) << (32 - nColumn);  /* one's fill*/
     }
   m_nGrowBy = 10;  
 }
@@ -117,8 +118,8 @@ CsBM::CsBM(int nRow, int nColumn, BOOL Fl /*= FALSE*/)
 CsBM::CsBM(const ULONG Vect, int nRow, int nColumn)
 {
   if (nRow==0 && nColumn==0) { Init(); return; }
-  ASSERT(nRow > 0);  ASSERT(nColumn > 0 && nColumn <= 32);
-  ULONG V = Vect >> (32 - nColumn) << (32 - nColumn);
+  ASSERT(nRow > 0);  ASSERT(nColumn > 0 && nColumn <= BITS_COUNT);
+  ULONG V = Vect >> (BITS_COUNT - nColumn) << (BITS_COUNT - nColumn);
   AllocMatrix(nRow, nColumn);
   for (int i=0; i<nRow; i++) m_pData[i] = V;  /* one's fill*/
   m_nGrowBy = 10;
@@ -167,7 +168,7 @@ CsBM::~CsBM()
 
 void CsBM::ToShort(CBM &Bm)
 {
-  ASSERT(Bm.GetCountC()<=32);
+  ASSERT(Bm.GetCountC()<=BITS_COUNT);
   int i;
   CsBV sbv;
   RemoveAll();
@@ -204,7 +205,7 @@ void CsBM::SetSize(int nRow, int nColumn, int nGrowBy /* = -1 */)
   int i, nmaxRow;
 #ifdef _DEBUG
   ASSERT_VALID(this);
-  ASSERT(nRow >= 0); ASSERT(nColumn >= 0 && nColumn <= 32);
+  ASSERT(nRow >= 0); ASSERT(nColumn >= 0 && nColumn <= BITS_COUNT);
 #endif
 
   if (nGrowBy != -1) m_nGrowBy = nGrowBy;  // set new size
@@ -355,9 +356,9 @@ CsBV CsBM::GetRowBv(int nIndex, ULONG mask) const
 //--------------------------------------------------------------GetColumnBv(int nColumn)
 CsBV CsBM::GetColumnBv(int nColumn) const
 { 
-  ASSERT(nColumn >= 0); ASSERT(m_nSize <= 32); ASSERT(nColumn < m_nBitLength);
+  ASSERT(nColumn >= 0); ASSERT(m_nSize <= BITS_COUNT); ASSERT(nColumn < m_nBitLength);
   
-  int ns = m_nSize%32;
+  int ns = m_nSize%BITS_COUNT;
   CsBV bv(ns, FALSE);
   for (int i=0; i<ns; i++) bv.SetBitAt(i, GetBitAt(i, nColumn));
   return bv;
@@ -366,9 +367,9 @@ CsBV CsBM::GetColumnBv(int nColumn) const
 //--------------------------------------------------------------GetColumnBv(int nColumn)
 CsBV CsBM::GetColumnBv(int nColumn, ULONG mask) const
 { 
-  ASSERT(nColumn >= 0); ASSERT(m_nSize <= 32); ASSERT(nColumn < m_nBitLength);
+  ASSERT(nColumn >= 0); ASSERT(m_nSize <= BITS_COUNT); ASSERT(nColumn < m_nBitLength);
 
-  int ns = m_nSize%32;
+  int ns = m_nSize%BITS_COUNT;
   CsBV bv(ns, FALSE);
   for (int i=0; i < ns; i++) bv.SetBitAt(i, GetBitAt(i, nColumn));
   bv &= mask;
@@ -471,7 +472,7 @@ void CsBM::SetRowGrow(int nRow, const ULONG newRow)
 #endif
 
   if (nRow >= m_nSize) SetSize(nRow+1, m_nBitLength, m_nGrowBy);
-  m_pData[nRow] = newRow >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  m_pData[nRow] = newRow >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
 }
 
 //---------------------------------------------------SetRowGrow(int nRow, const CBV& bv)
@@ -504,7 +505,7 @@ void CsBM::SetRowGrow(int nRow, const CsBM& bm, int nbmRow)
 int CsBM::Add(BOOL bit/*=FALSE*/, int nCount/*=1*/)
 { 
   int i, first = m_nSize;
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if(m_nSize + nCount < m_nMaxSize) {
     m_nSize += nCount;
     for(i = first; i < m_nSize; i++) m_pData[i] = 0;
@@ -541,7 +542,7 @@ void CsBM::InsertRow(int nRow, const ULONG newRow, int nCount /*=1*/)
     memmove(&m_pData[nRow + nCount], &m_pData[nRow],(m_nSize-nRow-1)*sizeof(ULONG));
   }
 // insert new value in the gap
-  ULONG r = newRow >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG r = newRow >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (int i = nRow; i < nRow + nCount; i++)  m_pData[i] = r;
 }
 
@@ -646,7 +647,7 @@ int CsBM::AddCol(int numCol/*=1*/)
 { 
 #ifdef _DEBUG
   ASSERT_VALID(this);
-  ASSERT(numCol > 0 && (m_nBitLength + numCol) <= 32);
+  ASSERT(numCol > 0 && (m_nBitLength + numCol) <= BITS_COUNT);
 #endif
   m_nBitLength += numCol;
   return m_nBitLength - 1;
@@ -693,7 +694,7 @@ void CsBM::One(int nRow)
   ASSERT (nRow >= -1);
   
   int first, last;
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if (nRow == -1) { first=0; last = m_nSize-1; }
   else { first = nRow; last = nRow; }
   for (; first <= last; first++)  m_pData[first] = mask; 
@@ -716,13 +717,13 @@ void CsBM::Zero(int nRow)
 //--------------------------------------------------------------- Concat(const CsBM& bm)
 void CsBM::Concat(const CsBM& bm)
 { 
-  ASSERT(m_nSize == bm.m_nSize); ASSERT(m_nBitLength + bm.m_nBitLength <= 32);
+  ASSERT(m_nSize == bm.m_nSize); ASSERT(m_nBitLength + bm.m_nBitLength <= BITS_COUNT);
 
   ULONG NewLen, OldLen;
-  OldLen = 32 - bm.m_nBitLength;
+  OldLen = BITS_COUNT - bm.m_nBitLength;
   NewLen = m_nBitLength + bm.m_nBitLength;
   SetSize(m_nSize, NewLen, m_nGrowBy);
-  NewLen = 32 - NewLen;
+  NewLen = BITS_COUNT - NewLen;
   for (int i = 0; i < m_nSize; i++) 
     m_pData[i] |= bm.m_pData[i] >> OldLen << NewLen;
 }
@@ -730,13 +731,13 @@ void CsBM::Concat(const CsBM& bm)
 //---------------------------------------------- Concat(const CsBM& bm1,const CsBM& bm2)
 void CsBM::Concat(const CsBM& bm1, const CsBM& bm2)
 { 
-  ASSERT(bm1.m_nSize == bm2.m_nSize); ASSERT(bm1.m_nBitLength + bm2.m_nBitLength <= 32);
+  ASSERT(bm1.m_nSize == bm2.m_nSize); ASSERT(bm1.m_nBitLength + bm2.m_nBitLength <= BITS_COUNT);
 
   ULONG NewLen, OldLen;
   NewLen = bm1.m_nBitLength + bm2.m_nBitLength;
   SetSize(bm1.m_nSize, NewLen, m_nGrowBy);
-  OldLen = 32 - bm2.m_nBitLength;
-  NewLen = 32 - NewLen;
+  OldLen = BITS_COUNT - bm2.m_nBitLength;
+  NewLen = BITS_COUNT - NewLen;
   for (int i = 0; i < m_nSize; i++) 
     m_pData[i] = bm1.m_pData[i] | (bm2.m_pData[i] >> OldLen << NewLen);
 }
@@ -764,7 +765,7 @@ const CsBM& CsBM::operator|=(const CsBV& bv)
 //-------------------------------------------------- operator|=(const ULONG Vect)
 const CsBM& CsBM::operator|=(const ULONG Vect)
 { 
-  ULONG r = Vect >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG r = Vect >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (int i = 0; i < m_nSize; i++)  m_pData[i] |= r;
   return *this;
 }
@@ -815,7 +816,7 @@ const CsBM& CsBM::operator^=(const CsBV& bv)
 //-------------------------------------------------- operator^=(const ULONG Vect)
 const CsBM& CsBM::operator^=(const ULONG Vect)
 { 
-  ULONG r = Vect >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG r = Vect >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (int i = 0; i < m_nSize; i++)  m_pData[i] ^= r;
   return *this;
 }
@@ -832,7 +833,7 @@ const CsBM& CsBM::operator-=(const CsBV& bv)
 //-------------------------------------------------- operator-=(const ULONG Vect)
 const CsBM& CsBM::operator-=(const ULONG Vect)
 { 
-  ULONG r = Vect >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG r = Vect >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (int i = 0; i < m_nSize; i++)  m_pData[i] -= r;
   return *this;
 }
@@ -865,7 +866,7 @@ STD(CsBM) operator|(const CsBM& bm1, const CsBV& bv2)
 STD(CsBM) operator|(const CsBM& bm1, const ULONG Vect)
 { 
   CsBM bm(bm1.m_nSize, bm1.m_nBitLength);
-  ULONG r = Vect >> (32 - bm1.m_nBitLength) << (32 - bm1.m_nBitLength);
+  ULONG r = Vect >> (BITS_COUNT - bm1.m_nBitLength) << (BITS_COUNT - bm1.m_nBitLength);
   for (int i = 0; i < bm1.m_nSize; i++)
     bm.m_pData[i] = bm1.m_pData[i] | r;
   return bm;
@@ -952,7 +953,7 @@ STD(CsBM) operator^(const CsBM& bm1, const CsBV& bv2)
 STD(CsBM) operator^(const CsBM& bm1, const ULONG Vect)
 { 
   CsBM bm(bm1.m_nSize, bm1.m_nBitLength);
-  ULONG r = Vect >> (32 - bm1.m_nBitLength) << (32 - bm1.m_nBitLength);
+  ULONG r = Vect >> (BITS_COUNT - bm1.m_nBitLength) << (BITS_COUNT - bm1.m_nBitLength);
   for (int i = 0; i < bm1.m_nSize; i++)
     bm.m_pData[i] = bm1.m_pData[i] ^ r;
   return bm;
@@ -985,7 +986,7 @@ STD(CsBM) operator-(const CsBM& bm1, const CsBV& bv2)
 STD(CsBM) operator-(const CsBM& bm1, const ULONG Vect)
 { 
   CsBM bm(bm1.m_nSize, bm1.m_nBitLength);
-  ULONG r = Vect >> (32 - bm1.m_nBitLength) << (32 - bm1.m_nBitLength);
+  ULONG r = Vect >> (BITS_COUNT - bm1.m_nBitLength) << (BITS_COUNT - bm1.m_nBitLength);
   for (int i = 0; i < bm1.m_nSize; i++)
     bm.m_pData[i] = bm1.m_pData[i] - r;
   return bm;
@@ -995,7 +996,7 @@ STD(CsBM) operator-(const CsBM& bm1, const ULONG Vect)
 STD(CsBM) operator~(const CsBM& bm)
 { 
   CsBM bm1(bm.m_nSize, bm.m_nBitLength);
-  ULONG mask = 0xffffffff >> (32 - bm.m_nBitLength) << (32 - bm.m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - bm.m_nBitLength) << (BITS_COUNT - bm.m_nBitLength);
   for (int i = 0; i <bm1.m_nSize; i++)   {
     bm1.m_pData[i] = ~bm.m_pData[i] && mask;
   }
@@ -1125,7 +1126,7 @@ int CsBM::FindRow (const ULONG Vect, int nFRow) const
   ASSERT(nFRow < m_nSize-1);
 
   if (m_nSize == 0) return -1;
-  ULONG r = Vect >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG r = Vect >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (int i = ++nFRow; i < m_nSize; i++)
     if (r == m_pData[i]) return i;
   return -1;
@@ -1162,7 +1163,7 @@ BOOL CsBM::IsOne(int nRow) const
 { 
   ASSERT (nRow>=-1);
 
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if (m_nBitLength == 0) return FALSE;
   if (nRow != -1) { return (m_pData[nRow] == mask); }
   for (int k = 0; k < m_nSize; k++)
@@ -1416,7 +1417,7 @@ void CsBM::CharBit(const vector <string>& s)
     i = s[k].length();
     if (i > max) max = i;    // max - length of row
   }
-  ASSERT(max <= 32);
+  ASSERT(max <= BITS_COUNT);
   if (m_pData == NULL) AllocMatrix(s.size(), max);
   else { SetSize(s.size(), max, m_nGrowBy); Zero(); }
   for (k = 0; k < s.size(); k++) {
@@ -1459,7 +1460,7 @@ void CsBM::CharBit(char* s)
 #endif
     i++;
   }
-  ASSERT(max <= 32);
+  ASSERT(max <= BITS_COUNT);
   if (m_pData == NULL) AllocMatrix(i, max);
   else { SetSize(i, max, m_nGrowBy); Zero(); }
 #ifndef _MSVC9

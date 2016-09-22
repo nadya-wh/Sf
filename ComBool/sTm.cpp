@@ -41,6 +41,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #else
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -63,7 +64,7 @@ CsTM::CsTM(const CsTM& tm, BOOL Fl/* = TRUE */)
     return;
   }  
   if(tm.m_nBitLength == 0) { Init(); return; }
-  if (Fl || tm.m_nSize>32)  { //copy tm in our matrix
+  if (Fl || tm.m_nSize>BITS_COUNT)  { //copy tm in our matrix
     AllocMatrix(tm.m_nSize,tm.m_nBitLength);
     memcpy(m_pData,tm.m_pData,tm.m_nSize*sizeof(ULONG));
     memcpy(m_pData+m_nMaxSize,tm.m_pData+tm.m_nMaxSize,tm.m_nSize*sizeof(ULONG));
@@ -90,7 +91,7 @@ CsTM::CsTM(const CsBM& bm1,const CsBM& bm2,BOOL Fl/* = TRUE */)
     return;
   }  
   if(bm1.GetCountC() == 0) { Init(); return; }
-  if (Fl || bm1.GetCountR()>32)  { //copy tm in our matrix
+  if (Fl || bm1.GetCountR()>BITS_COUNT)  { //copy tm in our matrix
     AllocMatrix(bm1.GetCountR(),bm1.GetCountC());
     for (i=0;i < m_nSize;i++) {
       m_pData[i] = bm1.GetRow(i);
@@ -128,11 +129,11 @@ CsTM::CsTM(int nRow, int nColumn,char symb/*='-'*/)
   AllocMatrix(nRow,nColumn);
   if(symb == '1' || symb == '+') 
     for (i=0; i < nRow; i++) {
-      m_pData[i] = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+      m_pData[i] = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
     }
   if(symb == '0' || symb == '+') 
     for (i=0; i < nRow; i++) {
-      m_pData[i+m_nMaxSize]= 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+      m_pData[i+m_nMaxSize]= 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
     }
   m_nGrowBy = 10;  
 }
@@ -203,9 +204,9 @@ void CsTM::SetSize(int nRow,int nColumn,int nGrowBy/*=-1*/)
   //------------------ Set columns size
   if (nColumn < m_nBitLength) {
     for (i=0; i < m_nSize; i++) {
-      m_pData[i] = m_pData[i] >> (32 - m_nBitLength) << (32 - m_nBitLength);
+      m_pData[i] = m_pData[i] >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
       m_pData[i+m_nMaxSize] = 
-        m_pData[i+m_nMaxSize] >> (32 - m_nBitLength) << (32 - m_nBitLength);
+        m_pData[i+m_nMaxSize] >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
     }
   }
   m_nBitLength = nColumn;
@@ -304,7 +305,7 @@ CsTV CsTM::GetRowTv(int nRow, CsBV& maska) const
 CsTV CsTM::GetColumnTv(int nColumn) const
 {
   ASSERT(nColumn >= 0 && nColumn < m_nBitLength);
-  ASSERT(m_nSize <= 32);
+  ASSERT(m_nSize <= BITS_COUNT);
   CsTV tv(m_nSize);
   int i;
   for (i=0; i < m_nSize; i++) tv.SetBitAt(i,GetBitAt(i,nColumn));
@@ -315,7 +316,7 @@ CsTV CsTM::GetColumnTv(int nColumn) const
 CsTV CsTM::GetColumnTv(int nColumn, ULONG maska) const
 {
   ASSERT(nColumn >= 0 && nColumn < m_nBitLength);
-  ASSERT(m_nSize <= 32);
+  ASSERT(m_nSize <= BITS_COUNT);
   CsTV tv(m_nSize);
   int i;
   for (i=0; i < m_nSize; i++) tv.SetBitAt(i,GetBitAt(i,nColumn));
@@ -523,7 +524,7 @@ CsBV CsTM::GetRowDef(int nRow) const
   ASSERT(m_nSize >= nRow && nRow >= 0);
   CsBV bvTag(m_nBitLength,FALSE);
   ULONG w = ~(m_pData[nRow] & m_pData[nRow+m_nMaxSize]);
-  bvTag = w >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  bvTag = w >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   return  bvTag;
 }   
 
@@ -536,7 +537,7 @@ CsBV CsTM::GetRowDef(int nRow, ULONG maska) const
   ASSERT(m_nSize >= nRow && nRow >= 0);
   CsBV bvTag(m_nBitLength,FALSE);
   ULONG w = ~(m_pData[nRow] & m_pData[nRow+m_nMaxSize]);
-  w = w >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  w = w >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   bvTag = w&maska;
   return  bvTag;
 }   
@@ -632,9 +633,9 @@ CsTM CsTM::ExtractColumns(int nFirst, int nCount) const
   CsTM tm(m_nSize,nCount);
   int j;
   for (j=0;j < m_nSize;j++)  {
-    tm.m_pData[j] = (m_pData[j]<<nFirst)>> (32 - nCount) << (32 - nCount);
+    tm.m_pData[j] = (m_pData[j]<<nFirst)>> (BITS_COUNT - nCount) << (BITS_COUNT - nCount);
     tm.m_pData[j + tm.m_nMaxSize] =
-      (m_pData[j + m_nMaxSize] <<nFirst)>> (32 - nCount) << (32 - nCount);
+      (m_pData[j + m_nMaxSize] <<nFirst)>> (BITS_COUNT - nCount) << (BITS_COUNT - nCount);
   }
   return tm;
 }
@@ -652,10 +653,10 @@ CsTM CsTM::Extract(int nFirstRow, int nFirstColumn,
   for (j=nFirstRow;j < nFirstRow+nCountRow;j++)  {
     tm.m_pData[j-nFirstRow] = 
         (m_pData[j]<<nFirstColumn)
-            >> (32 - nCountColumn) << (32 - nCountColumn);
+            >> (BITS_COUNT - nCountColumn) << (BITS_COUNT - nCountColumn);
     tm.m_pData[j-nFirstRow + tm.m_nMaxSize] =
         (m_pData[j + m_nMaxSize] <<nFirstColumn)
-            >> (32 - nCountColumn) << (32 - nCountColumn);
+            >> (BITS_COUNT - nCountColumn) << (BITS_COUNT - nCountColumn);
   }
   return tm;
 }
@@ -787,15 +788,15 @@ int CsTM::Add(char symb/*='-'*/,int nCount/*=1*/)
     for (; first < m_nSize; first++) {
       switch (symb) {
       case '1': m_pData[first]=
-                    0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+                    0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 m_pData[first+m_nMaxSize]=0; break;
       case '0': m_pData[first+m_nMaxSize]=
-                    0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+                    0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 m_pData[first]=0; break;
       case '+': m_pData[first]=
-                    0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+                    0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 m_pData[first+m_nMaxSize]=
-                    0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+                    0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 break;
       }
     }
@@ -935,7 +936,7 @@ int CsTM::AddCol(int numCol/*=1*/)
   ASSERT_VALID(this);
 #endif
   ASSERT(numCol > 0);
-  if (m_nBitLength==32) return m_nBitLength-1;
+  if (m_nBitLength==BITS_COUNT) return m_nBitLength-1;
   m_nBitLength+=numCol;
   return m_nBitLength-1;
 }
@@ -1000,15 +1001,15 @@ void CsTM::Clear(char symb/*='-'*/,int nRow/*=-1*/)
     m_pData[k+m_nMaxSize] = 0;
     switch (symb) {
       case '1': m_pData[k] = 0xffffffff >> 
-                            (32 - m_nBitLength) << (32 - m_nBitLength);
+                            (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 break; 
       case '0': m_pData[k+m_nMaxSize] = 0xffffffff >> 
-                            (32 - m_nBitLength) << (32 - m_nBitLength);
+                            (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                   break;
       case '+': m_pData[k+m_nMaxSize] = 0xffffffff >> 
-                            (32 - m_nBitLength) << (32 - m_nBitLength);
+                            (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 m_pData[k] = 0xffffffff >> 
-                            (32 - m_nBitLength) << (32 - m_nBitLength);
+                            (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 break;
     }
   } 
@@ -1115,7 +1116,7 @@ int CsTM::CountDefs(const ULONG mask,int nRow/*=-1*/) const
   for (k=first; k <= last; k++) {
     a = (m_pData[k] ^ m_pData[k+m_nMaxSize]) & mask;
     BYTE* pB= (BYTE*)&a;
-    one += 32 - (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]]);
+    one += BITS_COUNT - (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]]);
   }
   return one;
 }
@@ -1161,7 +1162,7 @@ int CsTM::LeftUnDef(int nRow, int nNext/*=-1*/)  const //next bit
   if(m_nBitLength <= (nNext+1)) return (-1);
   ULONG a;
   a = (~(m_pData[nRow] ^ m_pData[nRow+m_nMaxSize]))>> 
-                            (32 - m_nBitLength) << (32 - m_nBitLength);
+                            (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   a <<= (nNext+1);
   if (a)  {
     while (!(a & sOB[pos++]));
@@ -1222,7 +1223,7 @@ int CsTM::LeftUnDef(int nRow, int nNext, ULONG mask) const
   if(m_nBitLength <= (nNext+1)) return (-1);
   ULONG a;
   a = mask & ((~(m_pData[nRow] ^ m_pData[nRow+m_nMaxSize]))>> 
-                            (32 - m_nBitLength) << (32 - m_nBitLength));
+                            (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength));
   a <<= (nNext+1);
   if (a)  {
     while (!(a & sOB[pos++]));
@@ -1285,7 +1286,7 @@ int CsTM::RightUnDef(int nRow, int nPrev/*=-1*/) const
   else  j = nPrev; 
 
   a = (~(m_pData[nRow] ^ m_pData[nRow+m_nMaxSize]))>> 
-                            (32 - m_nBitLength) << (32 - m_nBitLength);
+                            (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (; j>=0; j--)
     if (a & sOB[j]) return j;
   return (-1);
@@ -1343,7 +1344,7 @@ int CsTM::RightUnDef(int nRow, int nPrev/*=-1*/, ULONG mask) const
   else  j = nPrev; 
 
   a = mask & ((~(m_pData[nRow] ^ m_pData[nRow+m_nMaxSize]))>> 
-                            (32 - m_nBitLength) << (32 - m_nBitLength));
+                            (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength));
   for (; j>=0; j--)
     if (a & sOB[j]) return j;
   return (-1);
@@ -1407,7 +1408,7 @@ int CsTM::FindUnDefR (int nRow/*=-1*/) const
 int CsTM::FindDefR (int nRow/*=-1*/) const
 {
   ASSERT(nRow < m_nSize-1);
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (++nRow; nRow < m_nSize; nRow++)  {
    if((m_pData[nRow] ^ m_pData[nRow+m_nMaxSize]) == mask)
      return nRow;
@@ -1419,7 +1420,7 @@ int CsTM::FindDefR (int nRow/*=-1*/) const
 int CsTM::FindOneR (int nRow/*=-1*/) const
 {
   ASSERT(nRow < m_nSize-1);
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (++nRow; nRow < m_nSize; nRow++)  {
    if(m_pData[nRow] == mask)
      return nRow;
@@ -1431,7 +1432,7 @@ int CsTM::FindOneR (int nRow/*=-1*/) const
 int CsTM::FindZeroR (int nRow/*=-1*/) const
 {
   ASSERT(nRow < m_nSize-1);
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (++nRow; nRow < m_nSize; nRow++)  {
    if(m_pData[nRow+m_nMaxSize] == mask)
      return nRow;
@@ -1525,7 +1526,7 @@ BOOL CsTM::IsBool(int nRow/*=-1*/) const
 {
   ASSERT (nRow>=-1 && nRow < m_nSize);
   int k,first=0,last=m_nSize-1;
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if (m_nBitLength == 0) return FALSE;
   if (nRow != -1) first=last=nRow;
   for (k=first; k <= last; k++) {
@@ -2482,7 +2483,7 @@ void CsTM::SubInPlace(BOOL Part,const CsBV& bv,int Row)
 void CsTM::InvertBitsInPlace(BOOL Part)
 {
   ASSERT(m_nBitLength != 0);
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   int i;
   if(Part)
     for (i=0;i < m_nSize; i++) {
@@ -2499,7 +2500,7 @@ void CsTM::InvertBitsInPlace(BOOL Part)
 void CsTM::InvertBitsInPlace(BOOL Part,int Row)
 {
   ASSERT(m_nBitLength != 0);
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if(Part)  m_pData[Row] = (~m_pData[Row]) & mask;
   else      m_pData[Row] = (~m_pData[Row+m_nMaxSize]) & mask;
 }   
@@ -2598,7 +2599,7 @@ void CsTM::Serialize(CArch& ar)
 //---------------------- AllocMatrix-------------------------------------------
 void CsTM::AllocMatrix(int nRow, int nColumn)
 { 
-  ASSERT(nRow >= 0 && nColumn >= 0 && nColumn<=32);
+  ASSERT(nRow >= 0 && nColumn >= 0 && nColumn<=BITS_COUNT);
   m_pData = (ULONG*) new ULONG[nRow * 2];
   memset((BYTE*)&m_pData[0], 0, nRow * sizeof(ULONG)*2);    // zero fill
   m_nSize = m_nMaxSize = nRow;
@@ -2619,7 +2620,7 @@ void CsTM::CharBit(const CString s)
     w = w.Right(w.GetLength() - j-1);
     i++;
   }
-  if (max>32) { Init(); return; }
+  if (max>BITS_COUNT) { Init(); return; }
   if (m_pData == NULL) AllocMatrix(i,max);
   else { SetSize(i,max,m_nGrowBy); Clear(); }
   w = s; j = 0;
@@ -2644,7 +2645,7 @@ void CsTM::CharBit(const CStringArray& s)   //new 11.02
     i = s[k].GetLength();
     if (i > max) max = i;    // max - length of row
   }  
-  if (max>32) { Init(); return; }
+  if (max>BITS_COUNT) { Init(); return; }
   if (m_pData == NULL) AllocMatrix(s.GetSize(),max);
   else { SetSize(s.GetSize(),max,m_nGrowBy); Clear(); }
   for (k=0; k < s.GetSize(); k++) { 
@@ -2701,7 +2702,7 @@ void CsTM::CharBit(const vector <string>& s)   //new 11.02
     i = s[k].length();
     if (i > max) max = i;    // max - length of row
   }  
-  if (max>32) { Init(); return; }
+  if (max>BITS_COUNT) { Init(); return; }
   if (m_pData == NULL) AllocMatrix(s.size(),max);
   else { SetSize(s.size(),max,m_nGrowBy); Clear(); }
   for (k=0; k < s.size(); k++) { 
@@ -2729,7 +2730,7 @@ void CsTM::SafeDelete()
 
 void CsTM::ToShort(CTM &Tm)
 {
-  ASSERT(Tm.GetCountC()<=32);
+  ASSERT(Tm.GetCountC()<=BITS_COUNT);
   int i;
   CsTV stv;
   RemoveAll();

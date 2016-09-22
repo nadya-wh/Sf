@@ -37,6 +37,7 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 #endif
 */
+
 //////////////////////// Construction/Destruction /////////////////////////////
 
 //------------------------ CsTV ------------------------------------------------
@@ -69,7 +70,7 @@ CsTV::CsTV(const CsBV& bv1Src,const CsBV& bv0Src)
 CsTV::CsTV(int nLenBit,char value)
 { 
   ULONG a1,a0;
-  if (nLenBit < 1 || nLenBit > 32) 
+  if (nLenBit < 1 || nLenBit > BITS_COUNT)
     m_bVect1=m_bVect0=m_nBitLength= 0; // return empty vector if invalid repeat count
   else {
     m_nBitLength = nLenBit;
@@ -80,8 +81,8 @@ CsTV::CsTV(int nLenBit,char value)
     case '+': a1=0xffffffff; a0=0xffffffff; break;
     default: return;
     }
-    m_bVect1 = a1 >> (32 - nLenBit) << (32 - nLenBit);
-    m_bVect0 = a0 >> (32 - nLenBit) << (32 - nLenBit);
+    m_bVect1 = a1 >> (BITS_COUNT - nLenBit) << (BITS_COUNT - nLenBit);
+    m_bVect0 = a0 >> (BITS_COUNT - nLenBit) << (BITS_COUNT - nLenBit);
   }
 }
 
@@ -98,7 +99,7 @@ CsTV::CsTV(const ULONG pbt1,const ULONG pbt0,int nLenBit)
 CsTV::CsTV(const char* pch)
 { int nLenBit;
   nLenBit = strlen((char*)pch);
-  if (nLenBit < 1 || nLenBit >32 ) m_bVect1=m_bVect0=m_nBitLength= 0;
+  if (nLenBit < 1 || nLenBit >BITS_COUNT ) m_bVect1=m_bVect0=m_nBitLength= 0;
   else   {
     CharBit(pch); m_nBitLength = nLenBit;
   }
@@ -176,8 +177,8 @@ CsBV CsTV::GetDefs() const
 CsBV CsTV::GetUnDefs() const
 { // Исправил Торопов 09.04.08
   CsBV bv(m_bVect0, m_nBitLength);
-  //bv = (~m_bVect1 | m_bVect0) >> (32 - m_nBitLength) << (32 - m_nBitLength);
-  bv = (~(m_bVect1 | m_bVect0)) >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  //bv = (~m_bVect1 | m_bVect0) >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  bv = (~(m_bVect1 | m_bVect0)) >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
 return bv;
 }
 
@@ -263,9 +264,9 @@ void CsTV::AddZeros(const ULONG bv){ m_bVect0 |= bv; m_bVect1 &= ~bv; }
 void CsTV::Clear(char symb)
 {
   switch (symb) {
-    case '1': m_bVect1 = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+    case '1': m_bVect1 = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
               m_bVect0 = 0; break;
-    case '0': m_bVect0 = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+    case '0': m_bVect0 = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
               m_bVect1 = 0; break;
     case '-': m_bVect1 = 0;m_bVect0 = 0; break;
   }
@@ -295,8 +296,8 @@ const CsTV& CsTV::operator >>=(int nShift)
   if ((m_nBitLength - nShift)==0)  {
     m_bVect1 = 0; m_bVect0 = 0; return *this;
   }
-  m_bVect1 = m_bVect1 >> (32+nShift - m_nBitLength) << (32 - m_nBitLength);
-  m_bVect0 = m_bVect1 >> (32+nShift - m_nBitLength) << (32 - m_nBitLength);
+  m_bVect1 = m_bVect1 >> (BITS_COUNT+nShift - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  m_bVect0 = m_bVect1 >> (BITS_COUNT+nShift - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   return *this;
 }
 
@@ -480,7 +481,7 @@ BOOL CsTV::IsCorrect() const
 BOOL CsTV::IsBool() const
 {
  if (m_nBitLength == 0) return FALSE;     // 27.05.02
- ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+ ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
  return ((m_bVect1 | m_bVect0)==mask); 
 }
 
@@ -492,7 +493,7 @@ BOOL CsTV::IsTrivial() const
 BOOL CsTV::IsOne() const
 {
   if (m_nBitLength == 0) return FALSE;
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if((m_bVect1^mask) != 0)  return FALSE;
   return TRUE;
 }
@@ -501,7 +502,7 @@ BOOL CsTV::IsOne() const
 BOOL CsTV::IsZero() const
 {
   if (m_nBitLength == 0) return FALSE;
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if((m_bVect0^mask) != 0)  return FALSE;
   return TRUE;
 }
@@ -509,7 +510,7 @@ BOOL CsTV::IsZero() const
 //--------------------------- ExistOne ----------------------------------------
 BOOL CsTV::ExistOne() const
 {
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if((m_bVect1&mask) == 0)  return FALSE;
   return TRUE;
 }
@@ -517,7 +518,7 @@ BOOL CsTV::ExistOne() const
 //--------------------------- ExistZero ---------------------------------------
 BOOL CsTV::ExistZero() const
 {
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if((m_bVect0&mask) == 0)  return FALSE;
   return TRUE;
 }
@@ -787,7 +788,7 @@ CsBM CsTV::CsTVtoCsBM() const
 {
   int i, j, nex, ves, count, newR;
   CsBV maska(m_nBitLength, FALSE);
-  maska = (~(m_bVect1 | m_bVect0))>>(32-m_nBitLength)<<(32-m_nBitLength);
+  maska = (~(m_bVect1 | m_bVect0))>>(BITS_COUNT-m_nBitLength)<<(BITS_COUNT-m_nBitLength);
 
   ves=maska.CountBit();
   CsBM bmTag(1<<ves, m_nBitLength); bmTag.SetSize(0, m_nBitLength);
@@ -844,7 +845,7 @@ void CsTV::SubInPlace(BOOL Part,const CsBV& bv)
 //--------------------------- InvertBitsInPlace -------------------------------
 void CsTV::InvertBitsInPlace(BOOL Part)
 {
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if(Part) { m_bVect1 = ~m_bVect1 & mask; }
   else     { m_bVect0 = ~m_bVect0 & mask; }
 }
@@ -852,7 +853,7 @@ void CsTV::InvertBitsInPlace(BOOL Part)
 //--------------------------- InvertBits --------------------------------------
 CsBV CsTV::InvertBits(BOOL Part) const
 {
-  ULONG mask = 0xffffffff >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   CsBV bvTag(m_nBitLength,FALSE);
   if(Part) { bvTag = ~m_bVect1 & mask; }
   else     { bvTag = ~m_bVect0 & mask; }
@@ -891,15 +892,15 @@ CArchive& AFXAPI operator>>(CArchive& ar, CsTV& tv)
 //----------------- SetSize(int nNewLength,int nNewAllocLength)----------------
 void CsTV::SetSize(int nNewLength)
 {
-  if (nNewLength==m_nBitLength || nNewLength>32)  return;
+  if (nNewLength==m_nBitLength || nNewLength>BITS_COUNT)  return;
   ASSERT(nNewLength >= 0);
   if (nNewLength > m_nBitLength) 
     m_nBitLength = nNewLength;
   else
   {
     m_nBitLength = nNewLength;
-    m_bVect1 = m_bVect1 >> (32 - m_nBitLength) << (32 - m_nBitLength);
-    m_bVect0 = m_bVect0 >> (32 - m_nBitLength) << (32 - m_nBitLength);
+    m_bVect1 = m_bVect1 >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+    m_bVect0 = m_bVect0 >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   }
 }
 
@@ -909,7 +910,7 @@ void CsTV::SetSize(int nNewLength)
 //---------------------- AssignChar -------------------------------------------
 void CsTV::AssignChar(int nLenBit, const char* pch)
 {
-  ASSERT(nLenBit <= 32);
+  ASSERT(nLenBit <= BITS_COUNT);
   CharBit(pch);
   m_nBitLength = nLenBit;
 }
@@ -919,7 +920,7 @@ void CsTV::CharBit(const char* pch)
 { int i;
   m_bVect1 = 0;
   m_bVect0 = 0;
-  for (i=0; i < 32 && *pch; i++, pch++) {
+  for (i=0; i < BITS_COUNT && *pch; i++, pch++) {
     if (*pch=='1' || *pch=='+') m_bVect1 |= sOB[i];
     else if (*pch=='0' || *pch=='+') m_bVect0 |= sOB[i];
   }
@@ -953,8 +954,8 @@ void CsTV::Extr(const ULONG SrcVect1,const ULONG SrcVect0,
   if (SrcBitLen == nCount) return; 
   if (nFirst>0)
   { m_bVect1 <<= nFirst; m_bVect0 <<= nFirst; }
-  m_bVect1 = m_bVect1 >> (32 - nCount) << (32 - nCount);
-  m_bVect0 = m_bVect0 >> (32 - nCount) << (32 - nCount);
+  m_bVect1 = m_bVect1 >> (BITS_COUNT - nCount) << (BITS_COUNT - nCount);
+  m_bVect0 = m_bVect0 >> (BITS_COUNT - nCount) << (BITS_COUNT - nCount);
 }
 
 //--------------------------- LeftShiftVect -----------------------------------
@@ -978,8 +979,8 @@ void CsTV::RightShiftVect(const ULONG SrcVect1,const ULONG SrcVect0,
   if (nShift==0) {
     m_bVect1 = SrcVect1; m_bVect0 = SrcVect0; return;
   }
-  m_bVect1 = SrcVect1 >> (32+nShift - nSrcLen) << (32 - nSrcLen);
-  m_bVect0 = SrcVect0 >> (32+nShift - nSrcLen) << (32 - nSrcLen);
+  m_bVect1 = SrcVect1 >> (BITS_COUNT+nShift - nSrcLen) << (BITS_COUNT - nSrcLen);
+  m_bVect0 = SrcVect0 >> (BITS_COUNT+nShift - nSrcLen) << (BITS_COUNT - nSrcLen);
 }
 
 //--------------------------- Pogl --------------------------------------------
@@ -1000,7 +1001,7 @@ BOOL CsTV::Pogl(const ULONG Vect1,const ULONG Vect0,int BitLen) const
 
 void CsTV::ToShort(CTV tv)
 {
-  ASSERT(tv.GetBitLength()<=32);
+  ASSERT(tv.GetBitLength()<=BITS_COUNT);
   int i, n=tv.GetBitLength();
   Empty();
   m_nBitLength=n;

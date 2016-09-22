@@ -45,11 +45,7 @@ SOURCES += main.cpp \
     ../Common/Sop.cpp \
     ../Common/Sbf.cpp \
     ../Common/Bv.cpp \
-    ../Common/Bm.cpp \
-    sTv.cpp \
-    sTm.cpp \
-    sBv.cpp \
-    sBm.cpp
+    ../Common/Bm.cpp
 
 HEADERS += \
     ../Com_Lib/sflog.h \
@@ -65,6 +61,4 @@ HEADERS += \
     ../Common/Sop.h \
     ../Common/Sbf.h \
     ../Common/BaseTern.h \
-    ../Common/BaseBool.h \
-    ShortTern.h \
-    ShortBool.h
+    ../Common/BaseBool.h

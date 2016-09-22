@@ -33,12 +33,12 @@
 #include "../Com_Lib/archive.h"
 #endif
 
-//#ifdef _LINUX
+#ifdef _LINUX
 #undef _DEBUG
 class CBV;
 class CBM;
-typedef unsigned char BYTE; 
-typedef unsigned long ULONG; 
+typedef unsigned char BYTE;
+typedef unsigned long ULONG;
 typedef int BOOL;
 
 #define TRUE 1
@@ -52,52 +52,72 @@ typedef int BOOL;
 #define FSTD(_x) friend _x
 #define STD(_x) _x
 #endif
-/*
+
 #else
-#include <afxwin.h>         // MFC core and standard components
+//#include <afxwin.h>         // MFC core and standard components
 
 #ifndef FO_
 #define FO_
-#define FSTD(_x) friend _x AFXAPI 
-#define STD(_x) _x AFXAPI 
+#define FSTD(_x) friend _x AFXAPI
+#define STD(_x) _x AFXAPI
 #endif
 
 #endif
-*/
+
+
+
+
+
 const BYTE sTabC[256] = {
-0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 
-1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 
-1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 
-2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 
-1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 
-2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 
-2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 
-3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 
-1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 
-2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 
-2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 
-3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 
-2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 
-3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 
-3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 
-4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8};  
+0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4,
+1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5,
+1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5,
+2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5,
+2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
+1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5,
+2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
+2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6,
+3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
+3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7,
+4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8};
 
-
+#ifdef _64_BITS_
+const ULONG sOB[64]= {
+          0x1280000000, 0x640000000, 0x320000000, 0x160000000, 0x80000000, 0x40000000,   0x20000000,   0x10000000,
+           0x128000000,  0x64000000,  0x32000000,  0x16000000,  0x8000000,  0x4000000,    0x2000000,    0x1000000,
+            0x12800000,   0x6400000,   0x3200000,   0x1600000,   0x800000,   0x400000,     0x200000,     0x100000,
+             0x1280000,    0x640000,    0x320000,    0x160000,    0x80000,    0x40000,      0x20000,      0x10000,
+              0x128000,     0x64000,     0x32000,     0x16000,     0x8000,     0x4000,       0x2000,       0x1000,
+               0x12800,      0x6400,      0x3200,      0x1600,      0x800,      0x400,        0x200,        0x100,
+                0x1280,       0x640,       0x320,       0x160,       0x80,       0x40,         0x20,         0x10,
+                 0x128,        0x64,        0x32,        0x16,        0x8,        0x4,          0x2,          0x1 };
+#define BITS_COUNT 64
+#else
 const ULONG sOB[32]=
-        { 0x80000000, 0x40000000, 0x20000000, 0x10000000, 
-           0x8000000,  0x4000000,  0x2000000,  0x1000000, 
-            0x800000,   0x400000,   0x200000,   0x100000, 
-             0x80000,    0x40000,    0x20000,    0x10000, 
-              0x8000,     0x4000,     0x2000,     0x1000, 
-               0x800,      0x400,      0x200,      0x100, 
-                0x80,       0x40,       0x20,       0x10, 
+        { 0x80000000, 0x40000000, 0x20000000, 0x10000000,
+           0x8000000,  0x4000000,  0x2000000,  0x1000000,
+            0x800000,   0x400000,   0x200000,   0x100000,
+             0x80000,    0x40000,    0x20000,    0x10000,
+              0x8000,     0x4000,     0x2000,     0x1000,
+               0x800,      0x400,      0x200,      0x100,
+                0x80,       0x40,       0x20,       0x10,
                  0x8,        0x4,        0x2,        0x1 };
 
-
+#define BITS_COUNT 32
+#endif //BITS_COUNT
 inline int COUNTLONG(ULONG u)
-{ 
+{
  BYTE* pB= (BYTE*)&u;
- return (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]]); 
+#ifdef _64_BITS_
+ return (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]] + sTabC[pB[4]] + sTabC[pB[5]] + sTabC[pB[6]] + sTabC[pB[7]]);
+#else
+ return (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]]);
+#endif //_64_BITS_
 }
 
 
@@ -121,11 +141,9 @@ public:
 //*************************************** Reading ***************************************
   operator ULONG () const;
   BOOL GetBitAt(int nIndex) const;
-/*
-#ifndef _LINUX
+/*#ifndef _LINUX
   CString BitChar(char One = '1',char Zero='0');
-#else
-*/
+#else*/
   char* BitChar(char One = '1',char Zero='0');
 //#endif
   CsBV Extract(int nFirst,int nCount);
@@ -199,16 +217,15 @@ public:
   FSTD(BOOL) operator<=(const CsBV& bv1, const CsBV& bv2);
   FSTD(BOOL) operator<=(const CsBV& bv1, const ULONG Vect);
   FSTD(BOOL) operator<=(const ULONG Vect, const CsBV& bv2);
-/*
-#ifndef _LINUX
+/*#ifndef _LINUX
 //****************************** Input/Output operations ********************************
 #ifdef _DEBUG
   friend CDumpContext& AFXAPI operator<<(CDumpContext& dc,const CsBV& bv);
 #endif
   friend CArchive& AFXAPI operator<<(CArchive& ar, const CsBV& bv);
   friend CArchive& AFXAPI operator>>(CArchive& ar, CsBV& bv);
-#endif
-*/
+#endif*/
+
 //***************************** Advanced access to memory *******************************
   void Empty();
   void SetSize(int nNewLength);
@@ -268,11 +285,11 @@ inline const CsBV& CsBV::operator =(const CsBV& bvSrc)
 inline const CsBV& CsBV::operator =(const char* pch)
 { m_nBitLength = SafeStrlen(pch);
   if (m_nBitLength > 0) CharBit(m_nBitLength, pch);
-  return *this; 
+  return *this;
 }
 
 inline const CsBV& CsBV::operator =(const ULONG IntVal)
-{ if (m_nBitLength > 0)  m_bVect =IntVal >> (32 - m_nBitLength) << (32 - m_nBitLength);
+{ if (m_nBitLength > 0)  m_bVect =IntVal >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   return *this;
 }
 
@@ -290,7 +307,7 @@ inline void CsBV::ConNotInPlace(const ULONG Vect1, int Len1)
 
 inline void CsBV:: Invert(const ULONG Vect)
 {
-  m_bVect = ~Vect >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  m_bVect = ~Vect >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
 }
 
 inline int CsBV::SafeStrlen(const char* pch)
@@ -306,14 +323,13 @@ inline int CsBV::SafeStrlen(const char* pch)
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-/*
-#ifndef _LINUX
+
+/*#ifndef _LINUX
 class CsBM : public CObject
 {
    DECLARE_SERIAL(CsBM)
-#else
-*/
-class CsBM 
+#else*/
+class CsBM
 {
 //#endif
 
@@ -327,11 +343,9 @@ public:
    CsBM(int nRow, int nColumn,BOOL Fl = FALSE);
    CsBM(const ULONG pbt, int nRow,int nColumn);
    CsBM(const char* pch);
-/*
-#ifndef _LINUX
+/*#ifndef _LINUX
    CsBM(const CStringArray& StrAr);
-#else
-*/
+#else*/
    CsBM(const vector <string>& StrAr);
 //#endif
    ~CsBM();
@@ -358,12 +372,10 @@ public:
    CsBV GetColumnBv(int nColomn) const;
    CsBV GetColumnBv(int nColumn,ULONG mask) const;
    ULONG operator[](int nIndex) const;
-/*
-#ifndef _LINUX
+/*#ifndef _LINUX
    CString BitChar(char One = '1',char Zero = '0');
    void BitChar(CStringArray & StrRes, char One = '1',char Zero = '0');
-#else
-*/
+#else*/
    char* BitChar(char One = '1',char Zero = '0');
 //#endif
    void BitChar(vector <string> & StrRes, char One = '1',char Zero = '0');
@@ -400,11 +412,9 @@ public:
 //*********************** Operators and functions of assignment *************************
    const CsBM& operator =(const CsBM& bm);
    const CsBM& operator =(const char* pch);
-/*
-#ifndef _LINUX
+/*#ifndef _LINUX
    const CsBM& operator =(const CStringArray& StrAr);
-#else
-*/
+#else*/
    const CsBM& operator =(const vector <string>& StrAr);
 //#endif
    void Zero(int nRow=-1);
@@ -470,16 +480,15 @@ public:
    FSTD(BOOL) operator<=(const CsBM& bm1,const CsBM& bm2);
    int CoverRow(int nRow1, int nRow2, const ULONG mask);
    int CoverRow(int nRow1, int nRow2);
-/*
-#ifndef _LINUX
+
+/*#ifndef _LINUX
 //****************************** Input/Output operations ********************************
     void Serialize(CArchive&);
 #ifdef _DEBUG
     void Dump(CDumpContext&) const;
     void AssertValid() const;
 #endif
-#endif
-*/
+#endif*/
     void Serialize(CArch&);
 
 protected:
@@ -492,12 +501,10 @@ protected:
 //******************************** Protected functions **********************************
     void Init();
     void AllocMatrix(int nRow, int nColumn);
-/*
-#ifndef _LINUX
+/*#ifndef _LINUX
     void CharBit(const CString s);
     void CharBit(const CStringArray& s);
-#endif
-*/
+#endif*/
     void CharBit(const vector <string>& s);
     void CharBit(const string s);
     void CharBit(char* s);
