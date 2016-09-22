@@ -64,6 +64,10 @@ typedef int BOOL;
 
 #endif
 
+
+
+
+
 const BYTE sTabC[256] = {
 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 
 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 
@@ -82,18 +86,30 @@ const BYTE sTabC[256] = {
 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 
 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8};  
 
-
+#ifdef _64_BITS_
+const ULONG sOB[64]= {
+          0x1280000000, 0x640000000, 0x320000000, 0x160000000, 0x80000000, 0x40000000,   0x20000000,   0x10000000,
+           0x128000000,  0x64000000,  0x32000000,  0x16000000,  0x8000000,  0x4000000,    0x2000000,    0x1000000,
+            0x12800000,   0x6400000,   0x3200000,   0x1600000,   0x800000,   0x400000,     0x200000,     0x100000,
+             0x1280000,    0x640000,    0x320000,    0x160000,    0x80000,    0x40000,      0x20000,      0x10000,
+              0x128000,     0x64000,     0x32000,     0x16000,     0x8000,     0x4000,       0x2000,       0x1000,
+               0x12800,      0x6400,      0x3200,      0x1600,      0x800,      0x400,        0x200,        0x100,
+                0x1280,       0x640,       0x320,       0x160,       0x80,       0x40,         0x20,         0x10,
+                 0x128,        0x64,        0x32,        0x16,        0x8,        0x4,          0x2,          0x1 };
+#define BITS_COUNT 64
+#else
 const ULONG sOB[32]=
-        { 0x80000000, 0x40000000, 0x20000000, 0x10000000, 
-           0x8000000,  0x4000000,  0x2000000,  0x1000000, 
-            0x800000,   0x400000,   0x200000,   0x100000, 
-             0x80000,    0x40000,    0x20000,    0x10000, 
-              0x8000,     0x4000,     0x2000,     0x1000, 
-               0x800,      0x400,      0x200,      0x100, 
-                0x80,       0x40,       0x20,       0x10, 
+        { 0x80000000, 0x40000000, 0x20000000, 0x10000000,
+           0x8000000,  0x4000000,  0x2000000,  0x1000000,
+            0x800000,   0x400000,   0x200000,   0x100000,
+             0x80000,    0x40000,    0x20000,    0x10000,
+              0x8000,     0x4000,     0x2000,     0x1000,
+               0x800,      0x400,      0x200,      0x100,
+                0x80,       0x40,       0x20,       0x10,
                  0x8,        0x4,        0x2,        0x1 };
 
-
+#define BITS_COUNT 32
+#endif
 inline int COUNTLONG(ULONG u)
 { 
  BYTE* pB= (BYTE*)&u;
@@ -269,7 +285,7 @@ inline const CsBV& CsBV::operator =(const char* pch)
 }
 
 inline const CsBV& CsBV::operator =(const ULONG IntVal)
-{ if (m_nBitLength > 0)  m_bVect =IntVal >> (32 - m_nBitLength) << (32 - m_nBitLength);
+{ if (m_nBitLength > 0)  m_bVect =IntVal >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   return *this;
 }
 
@@ -287,7 +303,7 @@ inline void CsBV::ConNotInPlace(const ULONG Vect1, int Len1)
 
 inline void CsBV:: Invert(const ULONG Vect)
 {
-  m_bVect = ~Vect >> (32 - m_nBitLength) << (32 - m_nBitLength);
+  m_bVect = ~Vect >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
 }
 
 inline int CsBV::SafeStrlen(const char* pch)
