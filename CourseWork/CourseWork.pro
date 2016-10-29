@@ -62,3 +62,6 @@ HEADERS += \
     ../Common/Sbf.h \
     ../Common/BaseTern.h \
     ../Common/BaseBool.h
+
+
+DEFINES += _64_BITS_
