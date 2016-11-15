@@ -45,7 +45,10 @@ SOURCES += main.cpp \
     ../Common/Sop.cpp \
     ../Common/Sbf.cpp \
     ../Common/Bv.cpp \
-    ../Common/Bm.cpp
+    ../Common/Bm.cpp \
+    timetest.cpp \
+    vectorcorrectnesstest.cpp \
+    matrixcorrectnesstest.cpp
 
 HEADERS += \
     ../Com_Lib/sflog.h \
@@ -61,7 +64,9 @@ HEADERS += \
     ../Common/Sop.h \
     ../Common/Sbf.h \
     ../Common/BaseTern.h \
-    ../Common/BaseBool.h
-
+    ../Common/BaseBool.h \
+    timetest.h \
+    vectorcorrectnesstest.h \
+    matrixcorrectnesstest.h
 
 DEFINES += _64_BITS_

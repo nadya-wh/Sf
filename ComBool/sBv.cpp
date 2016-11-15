@@ -18,6 +18,7 @@
 #include <stdarg.h>
 #include <assert.h>
 #include <limits.h>
+#include <iostream>
 
 #ifdef _JOINT
 #include "ShortBool.h"
@@ -60,8 +61,9 @@ CsBV::CsBV(const CsBV& bvSrc)
 //-------------------------------------------------------------------
 CsBV::CsBV(int nLength, BOOL Fl)
 {                      // return empty vector if invalid repeat count
-  if (nLength < 1 || nLength > BITS_COUNT)
-  { m_nBitLength = m_bVect = 0; } 
+  if (nLength < 1 || nLength > BITS_COUNT) {
+      m_nBitLength = m_bVect = 0;
+  }
   else {
     if (Fl) {   // Bits
       m_bVect = 0xffffffff >> (BITS_COUNT - nLength) << (BITS_COUNT - nLength);
@@ -186,7 +188,10 @@ void CsBV::Concat(const ULONG Vect, int Len)
 
 //-------------------------------------------------------------------
 void CsBV::Concat(const CsBV& bv)
-{  Concat(bv.m_bVect, bv.m_nBitLength); return; }
+{
+    Concat(bv.m_bVect, bv.m_nBitLength);
+    return;
+}
 
 //-------------------------------------------------------------------
 void CsBV::Concat(const CsBV& bv1, const CsBV& bv2)
@@ -461,8 +466,12 @@ void CsBV::LoopRightShift(int nShift)
 //-------------------------------------------------------------------
 int CsBV::CountBit() const
 {
-  BYTE* pB = (BYTE*)&m_bVect;
-  return (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]]);
+    BYTE* pB = (BYTE*)&m_bVect;
+    if (BITS_COUNT == 32) {
+        return (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]]);
+    } else {
+         return (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]] + sTabC[pB[4]] + sTabC[pB[5]] + sTabC[pB[6]] + sTabC[pB[7]]);
+    }
 }
 
 //-------------------------------------------------------------------
@@ -610,15 +619,19 @@ STD(BOOL) operator<=(const ULONG Vect, const CsBV& bv)
 //void CsBV::ToShort(CBV &bv)
 void CsBV::ToShort(CBV bv)
 {
-  ASSERT(bv.GetBitLength()<=BITS_COUNT
+    ASSERT(bv.GetBitLength()<=BITS_COUNT);
+    int i, n=bv.GetBitLength();
+    Empty();
 
-         );
-  int i, n=bv.GetBitLength();
-  Empty();
-  m_nBitLength=n;
-  for(i=0; i*8<n; i++)
-    m_bVect |= (ULONG)(bv.GetByteAt(i))<<(24-(i*8));
-  return;
+    m_nBitLength=n;
+        int num = 56;
+    if (BITS_COUNT == 32) {
+        num = 24;
+    }
+    for(i = 0; i * 8 < n; i++) {
+        m_bVect |= (ULONG)(bv.GetByteAt(i))<<(num-(i*8)); // 56 -> 24
+    }
+    return;
 }
 
 //-------------------------------------------------------------------

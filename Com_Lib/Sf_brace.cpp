@@ -13,7 +13,11 @@ using namespace std;
 //#include <sys/uio.h>
 #undef _DEBUG
 typedef unsigned char BYTE; 
-typedef unsigned long ULONG; 
+#ifdef _64_BITS_
+typedef unsigned long long ULONG;
+#else
+typedef unsigned long ULONG;
+#endif
 typedef int BOOL;
 
 #define TRUE 1

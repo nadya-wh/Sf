@@ -22,6 +22,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <iostream>
 
 #ifdef _JOINT
 #include "ShortBool.h"
@@ -32,13 +33,20 @@
 #include "../Common/BaseBool.h"
 #include "../Com_Lib/archive.h"
 #endif
+#ifdef _64_BITS_
+typedef unsigned long long ULONG;
+#else
+typedef unsigned long ULONG;
+#endif
+
+
 
 #ifdef _LINUX
 #undef _DEBUG
 class CBV;
 class CBM;
 typedef unsigned char BYTE;
-typedef unsigned long ULONG;
+
 typedef int BOOL;
 
 #define TRUE 1
@@ -87,15 +95,26 @@ const BYTE sTabC[256] = {
 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8};
 
 #ifdef _64_BITS_
-const ULONG sOB[64]= {
-          0x1280000000, 0x640000000, 0x320000000, 0x160000000, 0x80000000, 0x40000000,   0x20000000,   0x10000000,
-           0x128000000,  0x64000000,  0x32000000,  0x16000000,  0x8000000,  0x4000000,    0x2000000,    0x1000000,
-            0x12800000,   0x6400000,   0x3200000,   0x1600000,   0x800000,   0x400000,     0x200000,     0x100000,
-             0x1280000,    0x640000,    0x320000,    0x160000,    0x80000,    0x40000,      0x20000,      0x10000,
-              0x128000,     0x64000,     0x32000,     0x16000,     0x8000,     0x4000,       0x2000,       0x1000,
-               0x12800,      0x6400,      0x3200,      0x1600,      0x800,      0x400,        0x200,        0x100,
-                0x1280,       0x640,       0x320,       0x160,       0x80,       0x40,         0x20,         0x10,
-                 0x128,        0x64,        0x32,        0x16,        0x8,        0x4,          0x2,          0x1 };
+
+const ULONG sOB[64]=
+        {
+   0x8000000000000000,0x4000000000000000, 0x2000000000000000, 0x1000000000000000,
+    0x800000000000000, 0x400000000000000,  0x200000000000000,  0x100000000000000,
+     0x80000000000000,  0x40000000000000,   0x20000000000000,   0x10000000000000,
+      0x8000000000000,   0x4000000000000,    0x2000000000000,    0x1000000000000,//13
+       0x800000000000,    0x400000000000,     0x200000000000,     0x100000000000,
+        0x80000000000,     0x40000000000,      0x20000000000,      0x10000000000,
+         0x8000000000,      0x4000000000,       0x2000000000,       0x1000000000,
+          0x800000000,       0x400000000,        0x200000000,        0x100000000,
+           0x80000000,        0x40000000,         0x20000000,         0x10000000,
+            0x8000000,         0x4000000,          0x2000000,          0x1000000,
+             0x800000,          0x400000,           0x200000,           0x100000,
+              0x80000,           0x40000,            0x20000,            0x10000,
+               0x8000,            0x4000,             0x2000,             0x1000,
+                0x800,             0x400,              0x200,              0x100,
+                 0x80,              0x40,               0x20,               0x10,
+                  0x8,               0x4,                0x2,                0x1 };
+
 #define BITS_COUNT 64
 #else
 const ULONG sOB[32]=
@@ -119,7 +138,6 @@ inline int COUNTLONG(ULONG u)
  return (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]]);
 #endif //_64_BITS_
 }
-
 
 class CsBV
 {
@@ -260,7 +278,9 @@ protected:
 ////////////////////////////////////////////////////////////////////////////////////////
 //                           CsBV class
 ////////////////////////////////////////////////////////////////////////////////////////
-inline int CsBV::GetBitLength() const  { return m_nBitLength; }
+inline int CsBV::GetBitLength() const  {
+    return m_nBitLength;
+}
 
 inline void CsBV::Empty() { m_nBitLength = m_bVect = 0; }
 inline void CsBV::Zero()  { m_bVect = 0; }
@@ -269,14 +289,20 @@ inline BOOL CsBV::IsEmpty() const   { return m_nBitLength == 0; }
 inline CsBV::operator ULONG() const { return m_bVect; }
 
 inline BOOL CsBV::GetBitAt(int nIndex) const
-{ ASSERT(nIndex >= 0); ASSERT(nIndex < m_nBitLength);
-  return ((m_bVect & sOB[nIndex])!=0);
+{
+    ASSERT(nIndex >= 0);
+    ASSERT(nIndex < m_nBitLength);
+    return ((m_bVect & sOB[nIndex])!=0);
 }
 
 inline void CsBV::SetBitAt(int nIndex,  BOOL bit)
-{ ASSERT(nIndex >= 0); ASSERT(nIndex < m_nBitLength);
-  if (bit) m_bVect |=sOB[nIndex];
-  else     m_bVect &=~sOB[nIndex];
+{
+    ASSERT(nIndex >= 0);
+    ASSERT(nIndex < m_nBitLength);
+    if (bit)
+        m_bVect |=sOB[nIndex];
+    else
+        m_bVect &=~sOB[nIndex];
 }
 
 inline const CsBV& CsBV::operator =(const CsBV& bvSrc)
@@ -529,7 +555,11 @@ inline void CsBM::SetRow(int nIndex,const ULONG newRow)
 { ASSERT(nIndex >= 0 && nIndex < m_nSize);  m_pData[nIndex] = newRow; }
 
 inline int CsBM::Add(const ULONG newRow)
-{ SetRowGrow(m_nSize, newRow); return (m_nSize-1); }
+{
+    SetRowGrow(m_nSize, newRow);
+    return (m_nSize-1);
+}
+
 
 inline int CsBM::Add(const CsBV& bv)
 { SetRowGrow(m_nSize, bv); return (m_nSize-1); }
@@ -541,9 +571,13 @@ inline ULONG CsBM::operator [](int nIndex) const
 { return GetRow(nIndex); }
 
 inline BOOL CsBM::GetBitAt(int nRow,int nColumn) const
-{ ASSERT(nColumn >= 0); ASSERT(nRow >= 0);
-  ASSERT(nColumn < m_nBitLength); ASSERT(nRow < m_nSize);
-  return ((m_pData[nRow] & sOB[nColumn])!=0);
+{
+//    cout << "S_1: " << S_1;
+    ASSERT(nColumn >= 0);
+    ASSERT(nRow >= 0);
+    ASSERT(nColumn < m_nBitLength);
+    ASSERT(nRow < m_nSize);
+    return ((m_pData[nRow] & sOB[nColumn])!=0);
 }
 
 inline BOOL CsBM::GetBitAt(int nRow,int nColumn, ULONG mask) const

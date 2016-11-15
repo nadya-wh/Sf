@@ -36,7 +36,11 @@ using namespace std;
 //#ifdef _LINUX
 //#undef _DEBUG
 typedef unsigned char BYTE; 
-typedef unsigned long ULONG; 
+#ifdef _64_BITS_
+typedef unsigned long long ULONG;
+#else
+typedef unsigned long ULONG;
+#endif
 typedef int BOOL;
 
 #define TRUE 1
@@ -60,12 +64,17 @@ typedef int BOOL;
 #endif
 
 //#endif
-
+//#ifdef _64_BITS_
+//#define S_1          8
+//#define S_4          64
+//#else
 #define S_1          8
 #define S_4          32
+//#endif
+
 #define BIT_BYTE(x_) ((x_)/S_1)
 #define BIT_LONG(x_) ((x_)/S_4)
-#define LEN_BYTE(x_) (((x_)+S_1-1)/S_1)
+#define LEN_BYTE(x_) (((x_)+ S_1 - 1) / S_1)
 #define LEN_LONG(x_) (((x_)+S_4-1)/S_4)
 #define ADR_BIT(x_)  ((x_)%S_1)
 #define ADR_BITLONG(x_)  ((x_)%S_4)
@@ -75,14 +84,41 @@ typedef int BOOL;
 
 const BYTE OB[8]={128,64,32,16,8,4,2,1};
 const ULONG OB4[32]=
-        { 0x80000000, 0x40000000, 0x20000000, 0x10000000, 
-           0x8000000,  0x4000000,  0x2000000,  0x1000000, 
-            0x800000,   0x400000,   0x200000,   0x100000, 
-             0x80000,    0x40000,    0x20000,    0x10000, 
-              0x8000,     0x4000,     0x2000,     0x1000, 
-               0x800,      0x400,      0x200,      0x100, 
-                0x80,       0x40,       0x20,       0x10, 
+        { 0x80000000, 0x40000000, 0x20000000, 0x10000000,
+           0x8000000,  0x4000000,  0x2000000,  0x1000000,
+            0x800000,   0x400000,   0x200000,   0x100000,
+             0x80000,    0x40000,    0x20000,    0x10000,
+              0x8000,     0x4000,     0x2000,     0x1000,
+               0x800,      0x400,      0x200,      0x100,
+                0x80,       0x40,       0x20,       0x10,
                  0x8,        0x4,        0x2,        0x1 };
+
+//#ifdef _64_BITS_
+//const BYTE OB[16]={32768, 16384, 8192, 4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1};
+//const ULONG OB4[64]= {
+//          0x1280000000, 0x640000000, 0x320000000, 0x160000000, 0x80000000, 0x40000000,   0x20000000,   0x10000000,
+//           0x128000000,  0x64000000,  0x32000000,  0x16000000,  0x8000000,  0x4000000,    0x2000000,    0x1000000,
+//            0x12800000,   0x6400000,   0x3200000,   0x1600000,   0x800000,   0x400000,     0x200000,     0x100000,
+//             0x1280000,    0x640000,    0x320000,    0x160000,    0x80000,    0x40000,      0x20000,      0x10000,
+//              0x128000,     0x64000,     0x32000,     0x16000,     0x8000,     0x4000,       0x2000,       0x1000,
+//               0x12800,      0x6400,      0x3200,      0x1600,      0x800,      0x400,        0x200,        0x100,
+//                0x1280,       0x640,       0x320,       0x160,       0x80,       0x40,         0x20,         0x10,
+//                 0x128,        0x64,        0x32,        0x16,        0x8,        0x4,          0x2,          0x1 };
+//#define BITS_COUNT 64
+//#else
+//const BYTE OB[8]={128,64,32,16,8,4,2,1};
+//const ULONG OB4[32]=
+//        { 0x80000000, 0x40000000, 0x20000000, 0x10000000,
+//           0x8000000,  0x4000000,  0x2000000,  0x1000000,
+//            0x800000,   0x400000,   0x200000,   0x100000,
+//             0x80000,    0x40000,    0x20000,    0x10000,
+//              0x8000,     0x4000,     0x2000,     0x1000,
+//               0x800,      0x400,      0x200,      0x100,
+//                0x80,       0x40,       0x20,       0x10,
+//                 0x8,        0x4,        0x2,        0x1 };
+
+//#define BITS_COUNT 32
+//#endif //BITS_COUNT
 
 const BYTE TabC[256] = {
 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 
@@ -614,7 +650,9 @@ inline int CBV::SafeStrlen(const char* pch)                   //SafeStrlen (prot
 // Boolean matrix
 
 inline int CBM::GetCountR() const
-{ return m_nSize; }
+{
+    return m_nSize;
+}
 
 inline int CBM::GetUpperBound() const
 { return m_nSize-1; }
@@ -677,9 +715,12 @@ inline BYTE CBM::GetByteAt(int nRow,int nIndex,BYTE * mask) const
 
 
 inline BOOL CBM::GetBitAt(int nRow,int nColumn) const
-{ ASSERT(nColumn >= 0); ASSERT(nRow >= 0);
-  ASSERT(nColumn < m_nBitLength); ASSERT(nRow < m_nSize);
-  return ((m_pData[nRow][BIT_BYTE(nColumn)] & OB[ADR_BIT(nColumn)])!=0);
+{
+    ASSERT(nColumn >= 0);
+    ASSERT(nRow >= 0);
+    ASSERT(nColumn < m_nBitLength);
+    ASSERT(nRow < m_nSize);
+    return ((m_pData[nRow][BIT_BYTE(nColumn)] & OB[ADR_BIT(nColumn)])!=0);
 }
 
 
@@ -698,10 +739,15 @@ inline void CBM::SetByteAt(int nRow,int nIndex, BYTE ch)
 }
 
 inline void CBM::SetBitAt(int nRow,int nColumn,  BOOL bit)
-{ ASSERT(nColumn >= 0); ASSERT(nRow >= 0);
-  ASSERT(nColumn < m_nBitLength); ASSERT(nRow < m_nSize);
-  if (bit) m_pData[nRow][BIT_BYTE(nColumn)] |=OB[ADR_BIT(nColumn)];
-  else     m_pData[nRow][BIT_BYTE(nColumn)] &=~OB[ADR_BIT(nColumn)];
+{
+    ASSERT(nColumn >= 0);
+    ASSERT(nRow >= 0);
+    ASSERT(nColumn < m_nBitLength);
+    ASSERT(nRow < m_nSize);
+    if (bit)
+        m_pData[nRow][BIT_BYTE(nColumn)] |=OB[ADR_BIT(nColumn)];
+    else
+        m_pData[nRow][BIT_BYTE(nColumn)] &=~OB[ADR_BIT(nColumn)];
 }
 
 #undef AFXAPP_DATA

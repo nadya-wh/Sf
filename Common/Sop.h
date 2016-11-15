@@ -37,7 +37,11 @@
 //#else
 
 typedef unsigned char BYTE; 
-typedef unsigned long ULONG; 
+#ifdef _64_BITS_
+typedef unsigned long long ULONG;
+#else
+typedef unsigned long ULONG;
+#endif
 typedef int BOOL;
 
 //const unsigned int  TRUE=1;

@@ -20,6 +20,8 @@
 #include <assert.h>
 #include <limits.h>
 
+#include <iostream>
+
 #ifdef _JOINT
 #include "ShortBool.h"
 #include "BaseBool.h"
@@ -65,12 +67,15 @@ void CsBM::Init()
 //-------------------------------------------------------------------
 void CsBM::AllocMatrix(int nRow, int nColumn)
 { 
-  ASSERT(nRow > 0);  ASSERT(nColumn > 0 && nColumn <= BITS_COUNT);
+    ASSERT(nRow > 0);
+    ASSERT(nColumn > 0 && nColumn <= BITS_COUNT);
 
-  m_pData = (ULONG*) new int[nRow];
-  for (int i = 0; i < nRow; i++) m_pData[i] = 0;
-  m_nSize = m_nMaxSize = nRow;
-  m_nBitLength = nColumn;
+    //m_pData = (ULONG*) new int[nRow];
+    m_pData = new ULONG[nRow];
+    for (int i = 0; i < nRow; i++)
+        m_pData[i] = 0;
+    m_nSize = m_nMaxSize = nRow;
+    m_nBitLength = nColumn;
 }
 
 //****************************** Constructors\Destructor *******************************
@@ -102,7 +107,10 @@ CsBM::CsBM(int nRow, int nColumn, BOOL Fl /*= FALSE*/)
   if (nRow==0 )  {
     if (nColumn==0) Init();
     else {            
-      m_nSize=m_nMaxSize=0; m_nBitLength=nColumn; m_nGrowBy = 10; m_pData = NULL;
+      m_nSize=m_nMaxSize=0;
+      m_nBitLength=nColumn;
+      m_nGrowBy = 10;
+      m_pData = NULL;
     }
     return;
   }
@@ -157,9 +165,12 @@ CsBM::CsBM(const vector <string>& StrAr)
 CsBM::~CsBM()
 { 
 #ifdef _DEBUG
-  ASSERT_VALID(this);
+    ASSERT_VALID(this);
 #endif
-  if (m_pData != NULL) { delete [] m_pData; m_pData = NULL; }
+    if (m_pData != NULL) {
+        delete [] m_pData;//todo
+        m_pData = NULL;
+    }
 }
 
 //-------------------------------------------------------------------
@@ -168,15 +179,18 @@ CsBM::~CsBM()
 
 void CsBM::ToShort(CBM &Bm)
 {
-  ASSERT(Bm.GetCountC()<=BITS_COUNT);
-  int i;
-  CsBV sbv;
-  RemoveAll();
-  for (i=0; i<Bm.GetCountR(); i++) {
-    sbv.ToShort(Bm.GetRowBv(i));
-    Add(sbv);
-  }
-  return;
+    //cout << "\n" <<BITS_COUNT;
+    ASSERT(Bm.GetCountC()<=BITS_COUNT);
+    int i;
+    CsBV sbv;
+    RemoveAll();
+    for (i=0; i<Bm.GetCountR(); i++) {
+        sbv.ToShort(Bm.GetRowBv(i));
+//        cout << "Before Add\n";
+        Add(sbv);
+//        cout << "Row i = " << i << "\n";
+    }
+    return;
 }
 
 //-------------------------------------------------------------------
@@ -202,40 +216,52 @@ void CsBM::FromShort(CBM &Bm)
 //------------------------------------------ SetSize(int nRow, int nColumn, int nGrowBy)
 void CsBM::SetSize(int nRow, int nColumn, int nGrowBy /* = -1 */)
 { 
-  int i, nmaxRow;
+//    cout << "Set size start\n";
+    int i, nmaxRow;
 #ifdef _DEBUG
   ASSERT_VALID(this);
-  ASSERT(nRow >= 0); ASSERT(nColumn >= 0 && nColumn <= BITS_COUNT);
+  ASSERT(nRow >= 0);
+  ASSERT(nColumn >= 0 && nColumn <= BITS_COUNT);
 #endif
 
-  if (nGrowBy != -1) m_nGrowBy = nGrowBy;  // set new size
-  nmaxRow = nRow + m_nGrowBy;
+    if (nGrowBy != -1) {
+        m_nGrowBy = nGrowBy;  // set new size
+    }
+//    cout << "nRow = " << nRow << " m_nGrowBy = " << m_nGrowBy << "\n";
+    nmaxRow = nRow + m_nGrowBy;
+//    cout << nmaxRow << "\n";
   //------------------ shrink to nothing
-  if (nRow == 0) {
-    if (m_pData != NULL) { delete [] m_pData; m_pData = NULL; }
-    m_nBitLength = nColumn; m_nSize = m_nMaxSize=0;
-    return;
-  }
+    if (nRow == 0) {
+        if (m_pData != NULL) {
+            delete [] m_pData;
+            m_pData = NULL;
+        }
+        m_nBitLength = nColumn;
+        m_nSize = m_nMaxSize=0;
+        return;
+    }
   //------------------ create one with exact size
-  if (m_pData == NULL) { // create one with exact size
+    if (m_pData == NULL) { // create one with exact size
 #ifdef SIZE_T_MAX
-    ASSERT((long)nmaxRow*sizeof(ULONG) <= SIZE_T_MAX);  // no overflow
+        ASSERT( (long) nmaxRow * sizeof(ULONG) <= SIZE_T_MAX);  // no overflow
 #endif
-    m_pData = (ULONG*) new int[nmaxRow];
-    for (i = 0; i < nRow; i++) m_pData[i] = 0;
-    m_nSize = nRow; m_nMaxSize = nmaxRow; m_nBitLength = nColumn;
-    return;
-  }
-  m_nBitLength = nColumn;
+        m_pData = (ULONG*) new int[nmaxRow];
+        for (i = 0; i < nRow; i++) {
+            m_pData[i] = 0;
+        }
+        m_nSize = nRow;
+        m_nMaxSize = nmaxRow;
+        m_nBitLength = nColumn;
+        return;
+    }
+    m_nBitLength = nColumn;
 
- //------------------ Set rows size
   if (nRow <= m_nMaxSize) {
     if (nRow > m_nSize)     // it fits // initialize the new elements
       for (i = m_nSize; i<nRow; i++) m_pData[i] = 0;
     m_nSize = nRow;
     return;
   }
-
 #ifdef SIZE_T_MAX
   ASSERT((long)nmaxRow*sizeof(ULONG) <= SIZE_T_MAX);  // no overflow
 #endif
@@ -246,9 +272,12 @@ void CsBM::SetSize(int nRow, int nColumn, int nGrowBy /* = -1 */)
     pNewData[i] = 0;
   }
   for (i=nRow; i < nmaxRow; i++) pNewData[i] = 0;
-  if (m_pData != NULL) delete [] m_pData;
+  if (m_pData != NULL) {
+      delete [] m_pData;
+  }
   m_pData = pNewData;
-  m_nSize = nRow; m_nMaxSize = nmaxRow;
+  m_nSize = nRow;
+  m_nMaxSize = nmaxRow;
 }
 
 //-------------------------------------------------------------------------  FreeExtra()
@@ -471,7 +500,8 @@ void CsBM::SetRowGrow(int nRow, const ULONG newRow)
   ASSERT(nRow >= 0);
 #endif
 
-  if (nRow >= m_nSize) SetSize(nRow+1, m_nBitLength, m_nGrowBy);
+  if (nRow >= m_nSize)
+      SetSize(nRow+1, m_nBitLength, m_nGrowBy);
   m_pData[nRow] = newRow >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
 }
 
@@ -1008,18 +1038,25 @@ STD(CsBM) operator~(const CsBM& bm)
 //------------------------------------------------------------------- CountBit(int nRow)
 int CsBM::CountBit(int nRow) const
 { 
-  ASSERT (nRow >= -1);
+    ASSERT (nRow >= -1);
 
-  int k, one=0;
-  if (nRow != -1) {
-    BYTE* pB= (BYTE*)&m_pData[nRow];
-    return (sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]]); 
-  }
-  for (k = 0; k < m_nSize; k++) {
-    BYTE* pB= (BYTE*)&m_pData[k];
-    one += sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]];
-  }
-  return one;
+    int k, one=0;
+    if (nRow != -1) {
+        BYTE* pB= (BYTE*)&m_pData[nRow];
+        int res = sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]];
+        if (BITS_COUNT == 64) {
+            res += (sTabC[pB[4]] + sTabC[pB[5]] + sTabC[pB[6]] + sTabC[pB[7]]);
+        }
+        return res;
+    }
+    for (k = 0; k < m_nSize; k++) {
+        BYTE* pB= (BYTE*)&m_pData[k];
+        one += sTabC[pB[0]] + sTabC[pB[1]] + sTabC[pB[2]] + sTabC[pB[3]];
+        if (BITS_COUNT == 64) {
+            one += sTabC[pB[4]] + sTabC[pB[5]] + sTabC[pB[6]] + sTabC[pB[7]];
+        }
+    }
+    return one;
 }
 
 //------------------------------------------------------------------- CountBit(int nRow)

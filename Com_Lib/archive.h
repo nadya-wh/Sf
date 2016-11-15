@@ -3,14 +3,24 @@
 #include <stdio.h>
 #include <string>
 
+
+
 using namespace std;
 typedef unsigned UINT;
 typedef unsigned char BYTE;
 typedef unsigned short WORD;
-typedef long LONG;
+#ifdef _64_BITS_
+typedef unsigned long long LONG;
+typedef unsigned long long DWORD;
+#else
+
+typedef unsigned long LONG;
 typedef unsigned long DWORD;
+#endif
+
 #ifdef _BIT64
 typedef __int64 LONGLONG;
+
 typedef unsigned __int64 ULONGLONG;
 #endif
 

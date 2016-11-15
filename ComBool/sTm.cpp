@@ -2581,6 +2581,7 @@ void CsTM::Serialize(CArch& ar)
       ar << m_pData[i+m_nMaxSize];
     }
   }
+
   else {
     ar >> m_nSize;
     ar >> m_nBitLength;

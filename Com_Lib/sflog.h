@@ -24,7 +24,11 @@ using namespace std;
 //#ifdef _LINUX
 #undef _DEBUG
 typedef unsigned char BYTE; 
-typedef unsigned long ULONG; 
+#ifdef _64_BITS_
+typedef unsigned long long ULONG;
+#else
+typedef unsigned long ULONG;
+#endif
 
 #define TRUE 1
 #define FALSE 0

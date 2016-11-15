@@ -44,6 +44,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <iostream>
 #define SIZE_T_MAX  UINT_MAX            /* max size for a size_t */
 
 #ifdef _JOINT
@@ -165,17 +166,21 @@ void CBM::Init()
 
 //---------------------------------------------------- AllocMatrix(int nRow, int nColumn)
 void CBM::AllocMatrix(int nRow, int nColumn)
-{ ASSERT(nRow > 0);
-  ASSERT(nColumn > 0);
-  m_pData = (BYTE**) new BYTE[nRow * sizeof(BYTE*)];
-  int i,nByte = LEN_BYTE(nColumn) * sizeof(BYTE);
-  for (i=0; i<nRow; i++) {
-    m_pData[i] = (BYTE*) new BYTE[nByte];
-    memset(m_pData[i], 0, nByte);  // zero fill
-  }
-  m_nSize = m_nMaxSize = nRow;
-  m_nBitLength = nColumn;
-  m_nAllocLength = m_nByteLength = nByte;
+{
+    ASSERT(nRow > 0);
+    ASSERT(nColumn > 0);
+    m_pData = (BYTE**) new BYTE[nRow * sizeof(BYTE*)];
+
+
+    int nByte = LEN_BYTE(nColumn) * sizeof(BYTE);
+
+    for (int i=0; i<nRow; i++) {
+        m_pData[i] = (BYTE*) new BYTE[nByte];
+        memset(m_pData[i], 0, nByte);  // zero fill
+    }
+    m_nSize = m_nMaxSize = nRow;
+    m_nBitLength = nColumn;
+    m_nAllocLength = m_nByteLength = nByte;
 }
 
 //-------------------------------------------------------------------------- SafeDelete()
@@ -565,9 +570,10 @@ void CBM::BitChar(vector <string>& StrRes, BOOL WithClear, BOOL WithNum,
 
 //---------------------------------------------------------------GetRowBv(int nIndex)
 CBV CBM::GetRowBv(int nIndex) const
-{ ASSERT(nIndex >= 0 && nIndex < m_nSize);
-  CBV bv(m_pData[nIndex],m_nBitLength);
-  return bv;
+{
+    ASSERT(nIndex >= 0 && nIndex < m_nSize);
+    CBV bv(m_pData[nIndex],m_nBitLength);
+    return bv;
 }
  
 //---------------------------------------------------------------GetRowBv(int nIndex)
