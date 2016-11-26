@@ -67,10 +67,12 @@ void testCsBVVectorsMoveRight(int repeatCount, QElapsedTimer timer, CsBV sbv_1) 
     cout << "\n";
 }
 
-void TimeTest::testVectors(int repeatCount, QElapsedTimer timer) {
+void TimeTest::testVectors(int repeatCount, QElapsedTimer timer, int size) {
     cout << "For CBV:\n";
-    CBV bv1 = GetRandV();
-    CBV bv2 = GetRandV();
+    CBV bv1;
+    bv1.GenRbv(size);
+    CBV bv2;
+    bv2.GenRbv(size);
     testCBVVectorsOr(repeatCount, timer, bv1, bv2);
     testCBVVectorsMoveLeft(repeatCount, timer, bv1);
     testCBVVectorsMoveRight(repeatCount, timer, bv1);
@@ -94,10 +96,10 @@ void testCBMMatrixRowConcat(int repeatCount, QElapsedTimer timer, CBM bm1, CBM b
 
 }
 
-void testCsBMMatrixRowConcat(int repeatCount, QElapsedTimer timer, CsBM sbm1, CsBM sbm2) {
+void testCsBMMatrixRowConcat(int repeatCount, QElapsedTimer timer, CsBM* sbm1, CsBM* sbm2) {
     timer.restart();
     for (int i=0; i<repeatCount; i++) {
-        sbm1.GetRowBv(0) & sbm2.GetRow(1);
+        sbm1->GetRowBv(0) & sbm2->GetRow(1);
     }
     cout << "Elapsed time for 'sbm1.GetRowBv(0) & sbm2.GetRow(1);' : " << timer.nsecsElapsed() / repeatCount << "\n";
 }
@@ -110,10 +112,10 @@ void testCBMMatrixDisjunction(int repeatCount, QElapsedTimer timer, CBM bm) {
     cout << "Elapsed time for 'bm.Disjunction();' : " << timer.nsecsElapsed() / repeatCount << "\n";
 }
 
-void testCsBMMatrixDisjunction(int repeatCount, QElapsedTimer timer, CsBM sbm) {
+void testCsBMMatrixDisjunction(int repeatCount, QElapsedTimer timer, CsBM* sbm) {
     timer.restart();
     for (int i=0; i<repeatCount; i++) {
-        sbm.Disjunction();
+        sbm->Disjunction();
     }
     cout << "Elapsed time for 'sbm.Disjunction();' : " << timer.nsecsElapsed() / repeatCount << "\n";
 }
@@ -126,10 +128,10 @@ void testCBMMatrixExchangeRow(int repeatCount, QElapsedTimer timer, CBM bm, int 
     cout << "Elapsed time for 'bm.ExchangeRow(j, j + 1);' : " << timer.nsecsElapsed() / repeatCount << "\n";
 }
 
-void testCsBMMatrixExchangeRow(int repeatCount, QElapsedTimer timer, CsBM sbm, int j) {
+void testCsBMMatrixExchangeRow(int repeatCount, QElapsedTimer timer, CsBM* sbm, int j) {
     timer.restart();
     for (int i=0; i<repeatCount; i++) {
-        sbm.ExchangeRow(j, j + 1);
+        sbm->ExchangeRow(j, j + 1);
     }
     cout << "Elapsed time for 'sbm.ExchangeRow(j, j + 1);' : " << timer.nsecsElapsed() / repeatCount << "\n";
 }
@@ -159,40 +161,48 @@ void testCBMMatrixSetRow(int repeatCount, QElapsedTimer timer, CBM bm1, CBM bm2,
 
 }
 
-void testCsBMMatrixSetRow(int repeatCount, QElapsedTimer timer, CsBM sbm1, CsBM sbm2, int _i, int j, int k) {
+void testCsBMMatrixSetRow(int repeatCount, QElapsedTimer timer, CsBM* sbm1, CsBM* sbm2, int _i, int j, int k) {
     timer.restart();
     for (int i=0; i<repeatCount; i++) {
-        sbm1.SetRow(j, sbm2.GetRowBv(_i)- sbm2.GetRow(k));
+        sbm1->SetRow(j, sbm2->GetRowBv(_i)- sbm2->GetRow(k));
     }
     cout << "Elapsed time for 'sbm1.SetRow(j, sbm2.GetRowBv(_i)- sbm2.GetRow(k));' : " << timer.nsecsElapsed() / repeatCount << "\n";
 
 }
 
-void TimeTest::testMatrices(int repeatCount, QElapsedTimer timer) {
+void TimeTest::testMatrices(int repeatCount, QElapsedTimer timer, int rowCount, int columnCount) {
     CBM bm1;
-    bm1 = bm1.GenRbm(31, 31);
+    bm1 = bm1.GenRbm(rowCount, columnCount);
     CBM bm2;
-    bm2 = bm2.GenRbm(31, 31);
+    bm2 = bm2.GenRbm(rowCount, columnCount);
 
     // CBM
     cout << "For CBM matrices:\n";
     testCBMMatrixRowConcat(repeatCount, timer, bm1, bm2);
     testCBMMatrixDisjunction(repeatCount, timer, bm1);
     testCBMMatrixExchangeRow(repeatCount, timer, bm1, 1);
-    testCBMMatrixAdd(5, timer, bm1);
-    testCBMMatrixSetRow(repeatCount, timer, bm1, bm2, 4, 5, 6);
+    //testCBMMatrixAdd(5, timer, bm1);
+   // testCBMMatrixSetRow(repeatCount, timer, bm1, bm2, 4, 5, 6);
 
-    CsBM sbm1;
-    sbm1.ToShort(bm1);
-    CsBM sbm2;
-    sbm2.ToShort(bm2);
+    CsBM* sbm1 = new CsBM(rowCount, columnCount, FALSE);
+    for (int i = 0; i < bm1.GetCountR(); i++) {
+        for (int j = 0; j < bm1.GetCountC(); j++) {
+            sbm1->SetBitAt(i, j, bm1.GetBitAt(i, j));
+        }
+    }
+    CsBM* sbm2 = new CsBM(rowCount, columnCount, FALSE);
+    for (int i = 0; i < bm2.GetCountR(); i++) {
+        for (int j = 0; j < bm2.GetCountC(); j++) {
+            sbm2->SetBitAt(i, j, bm2.GetBitAt(i, j));
+        }
+    }
 
     // CsBM
     cout << "\n\nFor CsBM matrices:\n";
     testCsBMMatrixRowConcat(repeatCount, timer, sbm1, sbm2);
     testCsBMMatrixDisjunction(repeatCount, timer, sbm1);
     testCsBMMatrixExchangeRow(repeatCount, timer, sbm1, 1);
-    testCsBMMatrixAdd(5, timer, sbm1);
-    testCsBMMatrixSetRow(repeatCount, timer, sbm1, sbm2, 4, 5, 6);
+    //testCsBMMatrixAdd(5, timer, sbm1);
+   // testCsBMMatrixSetRow(repeatCount, timer, sbm1, sbm2, 4, 5, 6);
 
 }

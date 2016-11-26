@@ -15,7 +15,7 @@ public:
     BOOL checkTransp (CsBM matrix);
     BOOL checkCountBit(CBM realMatrix, CsBM matrix);
     BOOL checkDisjunction(CBM realMatrix, CsBM matrix);
-
+    void runTests(int rowCount, int columnCount);
 
 
 };

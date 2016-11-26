@@ -10,8 +10,8 @@ class TimeTest
 {
 public:
     TimeTest();
-    void testMatrices(int repeatCount, QElapsedTimer timer);
-    void testVectors(int repeatCount, QElapsedTimer timer);
+    void testMatrices(int repeatCount, QElapsedTimer timer, int rowCount, int columnCount);
+    void testVectors(int repeatCount, QElapsedTimer timer, int size);
 };
 
 #endif // TIMETEST_H

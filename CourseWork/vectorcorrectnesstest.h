@@ -16,6 +16,10 @@ public:
     BOOL checkRightSHift(CBV vect, CsBV shortVector, int num);
     BOOL checkCountBit(CBV vect, CsBV shortVector);
     BOOL checkLeftOne(CBV vect, CsBV shortVector, int num);
+    void printVector(CBV& vect);
+    void printVector(CsBV& vect);
+
+    void runTests(int len);
 
 };
 
