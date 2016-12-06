@@ -49,7 +49,7 @@ void MatrixCorrectnessTest::runTests(int rowCount, int columnCount) {
 
 
 
-    cout << "\n\nMatrices are equal:   " << areEqual(realMatrix, *shortMatrix);
+    //cout << "\n\nMatrices are equal:   " << areEqual(realMatrix, *shortMatrix);
     for (int i = 0; i < realMatrix.GetCountR(); i++) {
         for (int j = 0; j < realMatrix.GetCountC(); j++) {
             shortMatrix->SetBitAt(i, j, realMatrix.GetBitAt(i, j));

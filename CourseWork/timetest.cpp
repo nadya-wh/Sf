@@ -182,7 +182,7 @@ void TimeTest::testMatrices(int repeatCount, QElapsedTimer timer, int rowCount, 
     testCBMMatrixDisjunction(repeatCount, timer, bm1);
     testCBMMatrixExchangeRow(repeatCount, timer, bm1, 1);
     //testCBMMatrixAdd(5, timer, bm1);
-   // testCBMMatrixSetRow(repeatCount, timer, bm1, bm2, 4, 5, 6);
+    testCBMMatrixSetRow(repeatCount, timer, bm1, bm2, 4, 5, 6);
 
     CsBM* sbm1 = new CsBM(rowCount, columnCount, FALSE);
     for (int i = 0; i < bm1.GetCountR(); i++) {
@@ -203,6 +203,150 @@ void TimeTest::testMatrices(int repeatCount, QElapsedTimer timer, int rowCount, 
     testCsBMMatrixDisjunction(repeatCount, timer, sbm1);
     testCsBMMatrixExchangeRow(repeatCount, timer, sbm1, 1);
     //testCsBMMatrixAdd(5, timer, sbm1);
-   // testCsBMMatrixSetRow(repeatCount, timer, sbm1, sbm2, 4, 5, 6);
+    testCsBMMatrixSetRow(repeatCount, timer, sbm1, sbm2, 4, 5, 6);
 
 }
+
+void testCTMMatrixRowConcens(int repeatCount, QElapsedTimer timer, CTM tm1, CTM tm2) {
+    timer.restart();
+
+    for (int i=0; i<repeatCount; i++) {
+        tm1.GetRowTv(0).Concens(tm2.GetRowTv(1));
+    }
+    cout << "Elapsed time for 'tm1.GetRowTv(0).Concens(tm2.GetRowTv(1));' : " << timer.nsecsElapsed() / repeatCount << "\n";
+
+}
+
+void testCsTMMatrixRowConcens(int repeatCount, QElapsedTimer timer, CsTM* stm1, CsTM* stm2) {
+    timer.restart();
+
+    for (int i=0; i<repeatCount; i++) {
+        stm1->GetRowTv(0).Concens( stm2->GetRowTv(1));
+    }
+    cout << "Elapsed time for 'stm1->GetRowTv(0).Concens( stm2->GetRowTv(1));' : " << timer.nsecsElapsed() / repeatCount << "\n";
+}
+
+void testCTMMatrixOrthogon(int repeatCount, QElapsedTimer timer, CTM tm1) {
+    timer.restart();
+
+    for (int i=0; i<repeatCount; i++) {
+        tm1.Orthogon(1, 2);
+    }
+    cout << "tm1.Orthogon(1, 2);' : " << timer.nsecsElapsed() / repeatCount << "\n";
+
+}
+
+void testCsTMMatrixOrthogon(int repeatCount, QElapsedTimer timer, CsTM* stm1) {
+    timer.restart();
+
+    for (int i=0; i<repeatCount; i++) {
+        stm1->Orthogon(1, 2);
+    }
+    cout << "Elapsed time for 'stm1->Orthogon(1, 2);' : " << timer.nsecsElapsed() / repeatCount << "\n";
+}
+
+void TimeTest::testTernaryMatrices(int repeatCount, QElapsedTimer timer,
+                                   int rowCount, int columnCount) {
+    CTM bm1;
+    bm1 = bm1.GenRtm(rowCount, columnCount);
+    CTM bm2;
+    bm2 = bm2.GenRtm(rowCount, columnCount);
+
+    // CTM
+    cout << "For CTM matrices:\n";
+    testCTMMatrixRowConcens(repeatCount, timer, bm1, bm2);
+    testCTMMatrixOrthogon(repeatCount, timer, bm1);
+
+    CsTM* sbm1 = new CsTM(rowCount, columnCount, FALSE);
+    for (int i = 0; i < bm1.GetCountR(); i++) {
+        for (int j = 0; j < bm1.GetCountC(); j++) {
+            sbm1->SetBitAt(i, j, bm1.GetBitAt(i, j));
+        }
+    }
+    CsTM* sbm2 = new CsTM(rowCount, columnCount, FALSE);
+    for (int i = 0; i < bm2.GetCountR(); i++) {
+        for (int j = 0; j < bm2.GetCountC(); j++) {
+            sbm2->SetBitAt(i, j, bm2.GetBitAt(i, j));
+        }
+    }
+
+    // CsTM
+    cout << "\n\nFor CsTM matrices:\n";
+    testCsTMMatrixRowConcens(repeatCount, timer, sbm1, sbm2);
+    testCsTMMatrixOrthogon(repeatCount, timer, sbm1);
+}
+
+
+void testCTVVectorsMoveLeft(int repeatCount, QElapsedTimer timer, CTV bv_1) {
+    timer.restart();
+    CTV bv11;
+    for (int i=0; i<repeatCount; i++) {
+        bv11 = bv_1 << 7;
+    }
+    cout << "Elapsed time for 'CTV tv1 = tv_1 << 7;' : " << timer.nsecsElapsed() / repeatCount<< "\n";
+
+}
+
+void testCsTVVectorsMoveLeft(int repeatCount, QElapsedTimer timer, CsTV sbv_1) {
+    timer.restart();
+    CsTV sbv11;
+    for (int i=0; i<repeatCount; i++) {
+        sbv11 = sbv_1 << 7;
+    }
+    cout << "Elapsed time for 'CsTV stv11 = stv_1 << 7;' : " << timer.nsecsElapsed() / repeatCount << "\n";
+
+    cout << "\n";
+}
+void testCTVVectorsMoveRight(int repeatCount, QElapsedTimer timer, CTV bv_1) {
+    timer.restart();
+    CTV bv11;
+    for (int i=0; i<repeatCount; i++) {
+        bv11 = bv_1 >> 7;
+    }
+    cout << "Elapsed time for 'CTV tv1 = tv_1 >> 7;' : " << timer.nsecsElapsed() / repeatCount<< "\n";
+
+}
+
+void testCsTVVectorsMoveRight(int repeatCount, QElapsedTimer timer, CsTV sbv_1) {
+    timer.restart();
+    CsTV sbv11;
+    for (int i=0; i<repeatCount; i++) {
+        sbv11 = sbv_1 >> 7;
+    }
+    cout << "Elapsed time for 'CsTV stv11 = stv_1 >> 7;' : " << timer.nsecsElapsed() / repeatCount << "\n";
+
+    cout << "\n";
+}
+
+
+void TimeTest::testTernaryVectors(int repeatCount, QElapsedTimer timer, int size) {
+//    CsTV *ctv1 = new CsTV(63);
+//    CTV ctv;
+//    ctv.GenRtv(63);
+//    for(int i = 0; i < ctv.GetBitLength(); i++) {
+//        ctv1->SetBitAt(i, ctv.GetBitAt(i));
+//    }
+
+    cout << "For CTV:\n";
+    CTV bv1;
+    bv1.GenRtv(size);
+    CTV bv2;
+    bv2.GenRtv(size);
+    testCTVVectorsMoveLeft(repeatCount, timer, bv1);
+    testCTVVectorsMoveRight(repeatCount, timer, bv1);
+
+    cout << "\n\nFor CsTV:\n";
+    CsTV sbv1;
+    sbv1.ToShort(bv1);
+    CsTV sbv2;
+    sbv2.ToShort(bv2);
+    testCsTVVectorsMoveLeft(repeatCount, timer, sbv1);
+    testCsTVVectorsMoveRight(repeatCount, timer, sbv1);
+
+
+
+}
+
+
+
+

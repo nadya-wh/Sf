@@ -624,7 +624,7 @@ void CsBV::ToShort(CBV bv)
     Empty();
 
     m_nBitLength=n;
-        int num = 56;
+    int num = 56;
     if (BITS_COUNT == 32) {
         num = 24;
     }

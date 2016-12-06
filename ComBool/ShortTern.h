@@ -34,6 +34,12 @@
 #include "../ComBool/ShortBool.h"
 #endif
 
+#ifdef _64_BITS_
+#define BITS_COUNT 64
+#else
+#define BITS_COUNT 32
+#endif
+
 class CBV;
 class CBM;
 class CTV;
@@ -553,7 +559,7 @@ inline const CsTV& CsTV::operator =(const CsBV& bvSrc)        //operator =
 { 
   m_nBitLength = bvSrc.GetBitLength();
   m_bVect1 = (ULONG)bvSrc;
-  m_bVect0 = (~(ULONG)bvSrc)>> (32 - m_nBitLength) << (32 - m_nBitLength);
+  m_bVect0 = (~(ULONG)bvSrc)>> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   return *this;
 }
 

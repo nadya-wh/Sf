@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////////////
 // Ver.1.1.0    24.06.2006   Russian == English
 /////////////////////////////////////////////////////////////////
-
+#include <iostream>
 #include <limits.h>
 #ifdef _JOINT
 #include "ShortBool.h"
@@ -111,8 +111,10 @@ CsTV::CsTV(const char* pch)
 
 //------------------------- GetBitAt ------------------------------------------
 char CsTV::GetBitAt(int nIndex) const
-{ 
-  ASSERT(nIndex >= 0); ASSERT(nIndex < m_nBitLength);
+{
+    //cout << nIndex << " " << m_nBitLength << "\n";
+  ASSERT(nIndex >= 0);
+  ASSERT(nIndex < m_nBitLength);
   ULONG a1, a0;
    
   a1 = m_bVect1 & sOB[nIndex];
@@ -1020,11 +1022,19 @@ void CsTV::ToShort(CTV tv)
 void CsTV::FromShort(CTV &tv)
 {
   int i;
-  BYTE w1[4], w0[4];
+  int arLength = BITS_COUNT == 32 ? 4 : 8;
+  BYTE w1[arLength], w0[arLength];
+
+  int num = 56;
+  if (BITS_COUNT == 32) {
+      num = 24;
+  }
+
   for(i=0; i*8<m_nBitLength; i++)
   {  
-    w1[i] = (BYTE)((m_bVect1<<(i*8))>>24);
-    w0[i] = (BYTE)((m_bVect0<<(i*8))>>24);
+
+    w1[i] = (BYTE)((m_bVect1<<(i*8))>>num);
+    w0[i] = (BYTE)((m_bVect0<<(i*8))>>num);
   }
   SetSize(m_nBitLength);
   tv.SetOnes(w1);
