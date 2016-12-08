@@ -45,16 +45,16 @@ void MatrixCorrectnessTest::runTests(int rowCount, int columnCount) {
 
 
     CsBM* shortMatrix = new CsBM(rowCount, columnCount, FALSE);
-    //shortMatrix->ToShort(realMatrix);
+    shortMatrix->ToShort(realMatrix);
 
 
 
     //cout << "\n\nMatrices are equal:   " << areEqual(realMatrix, *shortMatrix);
-    for (int i = 0; i < realMatrix.GetCountR(); i++) {
-        for (int j = 0; j < realMatrix.GetCountC(); j++) {
-            shortMatrix->SetBitAt(i, j, realMatrix.GetBitAt(i, j));
-        }
-    }
+//    for (int i = 0; i < realMatrix.GetCountR(); i++) {
+//        for (int j = 0; j < realMatrix.GetCountC(); j++) {
+//            shortMatrix->SetBitAt(i, j, realMatrix.GetBitAt(i, j));
+//        }
+//    }
 
     cout << "\n\nMatrices are equal:   " << areEqual(realMatrix, *shortMatrix);
 

@@ -48,6 +48,12 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 
 #undef _DEBUG
 
+#ifdef _64_BITS_
+#define MASK 0xffffffffffffffff
+#else
+#define MASK 0xffffffff
+#endif
+
 //#endif
 
 //******************************* Constructors\Destructor *********************
@@ -127,13 +133,17 @@ CsTM::CsTM(int nRow, int nColumn,char symb/*='-'*/)
   }
   if ( nColumn == 0) { Init(); return; }
   AllocMatrix(nRow,nColumn);
+//  int mask = 0xffffffff;
+//  if (BITS_COUNT == 64) {
+//      mask = 0xffffffffffffffff;
+//  }
   if(symb == '1' || symb == '+') 
     for (i=0; i < nRow; i++) {
-      m_pData[i] = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+      m_pData[i] = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
     }
   if(symb == '0' || symb == '+') 
     for (i=0; i < nRow; i++) {
-      m_pData[i+m_nMaxSize]= 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+      m_pData[i+m_nMaxSize]= MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
     }
   m_nGrowBy = 10;  
 }
@@ -775,6 +785,10 @@ void CsTM::SetRowOne(int nRow,const ULONG newRow)
 //----------------- Add -------------------------------------------------------
 int CsTM::Add(char symb/*='-'*/,int nCount/*=1*/)
 {
+//    int mask = 0xffffffff;
+//    if (BITS_COUNT == 64) {
+//        mask = 0xffffffffffffffff;
+//    }
   int i, first=m_nSize;
   if(m_nSize + nCount <= m_nMaxSize) {
     m_nSize += nCount;
@@ -788,15 +802,15 @@ int CsTM::Add(char symb/*='-'*/,int nCount/*=1*/)
     for (; first < m_nSize; first++) {
       switch (symb) {
       case '1': m_pData[first]=
-                    0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+                    MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 m_pData[first+m_nMaxSize]=0; break;
       case '0': m_pData[first+m_nMaxSize]=
-                    0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+                    MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 m_pData[first]=0; break;
       case '+': m_pData[first]=
-                    0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+                    MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 m_pData[first+m_nMaxSize]=
-                    0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+                    MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 break;
       }
     }
@@ -1000,15 +1014,15 @@ void CsTM::Clear(char symb/*='-'*/,int nRow/*=-1*/)
     m_pData[k]=0;
     m_pData[k+m_nMaxSize] = 0;
     switch (symb) {
-      case '1': m_pData[k] = 0xffffffff >> 
+      case '1': m_pData[k] = MASK >>
                             (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 break; 
-      case '0': m_pData[k+m_nMaxSize] = 0xffffffff >> 
+      case '0': m_pData[k+m_nMaxSize] = MASK >>
                             (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                   break;
-      case '+': m_pData[k+m_nMaxSize] = 0xffffffff >> 
+      case '+': m_pData[k+m_nMaxSize] = MASK >>
                             (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
-                m_pData[k] = 0xffffffff >> 
+                m_pData[k] = MASK >>
                             (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
                 break;
     }
@@ -1408,7 +1422,7 @@ int CsTM::FindUnDefR (int nRow/*=-1*/) const
 int CsTM::FindDefR (int nRow/*=-1*/) const
 {
   ASSERT(nRow < m_nSize-1);
-  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (++nRow; nRow < m_nSize; nRow++)  {
    if((m_pData[nRow] ^ m_pData[nRow+m_nMaxSize]) == mask)
      return nRow;
@@ -1420,7 +1434,7 @@ int CsTM::FindDefR (int nRow/*=-1*/) const
 int CsTM::FindOneR (int nRow/*=-1*/) const
 {
   ASSERT(nRow < m_nSize-1);
-  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (++nRow; nRow < m_nSize; nRow++)  {
    if(m_pData[nRow] == mask)
      return nRow;
@@ -1432,7 +1446,7 @@ int CsTM::FindOneR (int nRow/*=-1*/) const
 int CsTM::FindZeroR (int nRow/*=-1*/) const
 {
   ASSERT(nRow < m_nSize-1);
-  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   for (++nRow; nRow < m_nSize; nRow++)  {
    if(m_pData[nRow+m_nMaxSize] == mask)
      return nRow;
@@ -1526,7 +1540,7 @@ BOOL CsTM::IsBool(int nRow/*=-1*/) const
 {
   ASSERT (nRow>=-1 && nRow < m_nSize);
   int k,first=0,last=m_nSize-1;
-  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if (m_nBitLength == 0) return FALSE;
   if (nRow != -1) first=last=nRow;
   for (k=first; k <= last; k++) {
@@ -2483,7 +2497,7 @@ void CsTM::SubInPlace(BOOL Part,const CsBV& bv,int Row)
 void CsTM::InvertBitsInPlace(BOOL Part)
 {
   ASSERT(m_nBitLength != 0);
-  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   int i;
   if(Part)
     for (i=0;i < m_nSize; i++) {
@@ -2500,7 +2514,7 @@ void CsTM::InvertBitsInPlace(BOOL Part)
 void CsTM::InvertBitsInPlace(BOOL Part,int Row)
 {
   ASSERT(m_nBitLength != 0);
-  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if(Part)  m_pData[Row] = (~m_pData[Row]) & mask;
   else      m_pData[Row] = (~m_pData[Row+m_nMaxSize]) & mask;
 }   

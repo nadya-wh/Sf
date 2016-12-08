@@ -62,8 +62,8 @@ int main(int argc, char *argv[])
 //    cout << "VECTORS TESTS for 64:\n\n";
 //    vectorCorrectnessTest.runTests(64);
     MatrixCorrectnessTest matrixCorrectnessTest;
-//    cout << "\n\nMATRICES TESTS for 32 and 32:\n\n";
-//    matrixCorrectnessTest.runTests(32, 32);
+    cout << "\n\nMATRICES TESTS for 32 and 32:\n\n";
+    matrixCorrectnessTest.runTests(32, 32);
 //    cout << "\n\nMATRICES TESTS for 64 and 64:\n\n";
 //    matrixCorrectnessTest.runTests(64, 64);
     cout << "\n\nTIME TESTS FOR SIZE = 31:\n";
@@ -73,17 +73,17 @@ int main(int argc, char *argv[])
 //    timeTest.testVectors(repeatCount, timer, 31);
 //    timeTest.testMatrices(repeatCount, timer, 31, 31);
 //    timeTest.testTernaryVectors(repeatCount, timer, 31);
-    timeTest.testTernaryMatrices(repeatCount, timer, 31, 31);
+//    timeTest.testTernaryMatrices(repeatCount, timer, 31, 31);
 
-    cout << "\n\nTIME TESTS FOR SIZE = 63:\n";
+//    cout << "\n\nTIME TESTS FOR SIZE = 63:\n";
 //    timeTest.testVectors(repeatCount, timer, 63);
 //    timeTest.testMatrices(repeatCount, timer, 63, 63);
 //    timeTest.testTernaryVectors(repeatCount, timer, 63);
-    timeTest.testTernaryMatrices(repeatCount, timer, 63, 63);
+//    timeTest.testTernaryMatrices(repeatCount, timer, 63, 63);
 
 //    cout << "\n" << BITS_COUNT << "\n\n";
 
-//    TernaryVectorCorrectnessTest tvCorrectnessTest;
+    TernaryVectorCorrectnessTest tvCorrectnessTest;
 
 //    //tvCorrectnessTest.runTests(63);
 
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 
 //    //ctv1->FromShort(ctv);
 
-//    //cout << tvCorrectnessTest.areEqual(ctv, *ctv1);
+    tvCorrectnessTest.runTests(63);
 
 //    for(int i = 0; i < ctv.GetBitLength(); i++) {
 //        if (ctv.GetBitAt(i) != ctv1->GetBitAt(i)) {

@@ -9,7 +9,8 @@ class TernaryVectorCorrectnessTest
 public:
     TernaryVectorCorrectnessTest();
     BOOL areEqual(CTV realVector, CsTV shortVector);
-    BOOL checkFromShort(int columnCount, CTV realVector);
+    BOOL checkFromShort(int columnCount);
+    BOOL checkInvertBits(int columnCount);
     void runTests(int columnCount);
 };
 

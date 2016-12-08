@@ -34,6 +34,11 @@
 
 #define SIZE_T_MAX  UINT_MAX            /* max size for a size_t */
 
+#ifdef _64_BITS_
+#define MASK 0xffffffffffffffff
+#else
+#define MASK 0xffffffff
+#endif
 
 class CBV;
 class CBM;
@@ -117,7 +122,7 @@ CsBM::CsBM(int nRow, int nColumn, BOOL Fl /*= FALSE*/)
   AllocMatrix(nRow, nColumn);
   if (Fl)
     for (int i = 0; i < nRow; i++) {
-      m_pData[i] = 0xffffffff >> (BITS_COUNT - nColumn) << (32 - nColumn);  /* one's fill*/
+      m_pData[i] = MASK >> (BITS_COUNT - nColumn) << (32 - nColumn);  /* one's fill*/
     }
   m_nGrowBy = 10;  
 }
@@ -535,7 +540,7 @@ void CsBM::SetRowGrow(int nRow, const CsBM& bm, int nbmRow)
 int CsBM::Add(BOOL bit/*=FALSE*/, int nCount/*=1*/)
 { 
   int i, first = m_nSize;
-  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if(m_nSize + nCount < m_nMaxSize) {
     m_nSize += nCount;
     for(i = first; i < m_nSize; i++) m_pData[i] = 0;
@@ -724,7 +729,7 @@ void CsBM::One(int nRow)
   ASSERT (nRow >= -1);
   
   int first, last;
-  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if (nRow == -1) { first=0; last = m_nSize-1; }
   else { first = nRow; last = nRow; }
   for (; first <= last; first++)  m_pData[first] = mask; 
@@ -1026,7 +1031,7 @@ STD(CsBM) operator-(const CsBM& bm1, const ULONG Vect)
 STD(CsBM) operator~(const CsBM& bm)
 { 
   CsBM bm1(bm.m_nSize, bm.m_nBitLength);
-  ULONG mask = 0xffffffff >> (BITS_COUNT - bm.m_nBitLength) << (BITS_COUNT - bm.m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - bm.m_nBitLength) << (BITS_COUNT - bm.m_nBitLength);
   for (int i = 0; i <bm1.m_nSize; i++)   {
     bm1.m_pData[i] = ~bm.m_pData[i] && mask;
   }
@@ -1200,7 +1205,7 @@ BOOL CsBM::IsOne(int nRow) const
 { 
   ASSERT (nRow>=-1);
 
-  ULONG mask = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  ULONG mask = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
   if (m_nBitLength == 0) return FALSE;
   if (nRow != -1) { return (m_pData[nRow] == mask); }
   for (int k = 0; k < m_nSize; k++)

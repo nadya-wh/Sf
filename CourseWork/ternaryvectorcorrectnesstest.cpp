@@ -14,12 +14,26 @@ BOOL TernaryVectorCorrectnessTest::areEqual(CTV realVector, CsTV shortVector) {
     return TRUE;
 }
 
-BOOL TernaryVectorCorrectnessTest::checkFromShort(int columnCount, CTV ctv2) {
-        CsTV *ctv1 = new CsTV(columnCount);
-        CTV ctv;
-        ctv.GenRtv(columnCount);
+BOOL TernaryVectorCorrectnessTest::checkFromShort(int columnCount) {
+    CsTV *ctv1 = new CsTV(columnCount);
+    CTV ctv;
+    ctv.GenRtv(columnCount);
+    ctv1->FromShort(ctv);
+    return areEqual(ctv, *ctv1);
+}
 
-        ctv1->FromShort(ctv);
+BOOL TernaryVectorCorrectnessTest::checkInvertBits(int columnCount) {
+    CsTV *ctv1 = new CsTV(columnCount);
+    CTV ctv;
+    ctv.GenRtv(columnCount);
+    for(int i = 0; i < ctv.GetBitLength(); i++) {
+        ctv1->SetBitAt(i, ctv.GetBitAt(i));
+    }
+    cout << "Equal: " <<areEqual(ctv, *ctv1);
+
+    ctv.InvertBitsInPlace(TRUE);
+    ctv1->InvertBitsInPlace(TRUE);
+
     return areEqual(ctv, *ctv1);
 }
 
@@ -27,5 +41,6 @@ BOOL TernaryVectorCorrectnessTest::checkFromShort(int columnCount, CTV ctv2) {
 void TernaryVectorCorrectnessTest::runTests(int columnCount) {
     CTV ctv;
     ctv.GenRtv(columnCount);
-    cout << "Check FromShort: " << checkFromShort(columnCount, ctv);
+    cout << "checkInvertBits: " << checkInvertBits(columnCount) << "\n";
+    cout << "checkFromShort: " << checkFromShort(columnCount);
 }

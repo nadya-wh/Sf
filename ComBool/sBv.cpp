@@ -42,6 +42,12 @@ static char BASED_CODE THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif
 
+#ifdef _64_BITS_
+#define MASK 0xffffffffffffffff
+#else
+#define MASK 0xffffffff
+#endif
+
 
 /////////////////////////////////////////////////////////////////////
 //////////////////////// Construction/Destruction ///////////////////
@@ -66,7 +72,7 @@ CsBV::CsBV(int nLength, BOOL Fl)
   }
   else {
     if (Fl) {   // Bits
-      m_bVect = 0xffffffff >> (BITS_COUNT - nLength) << (BITS_COUNT - nLength);
+      m_bVect = MASK >> (BITS_COUNT - nLength) << (BITS_COUNT - nLength);
     }
     else m_bVect = 0;
     m_nBitLength = nLength;
@@ -141,7 +147,7 @@ void CsBV::CharBit(int nLen, const char* pch)
 //-------------------------------------------------------------------
 void CsBV::One()
 { if (m_nBitLength==0) return;
-  m_bVect = 0xffffffff >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
+  m_bVect = MASK >> (BITS_COUNT - m_nBitLength) << (BITS_COUNT - m_nBitLength);
 }
 
 //-------------------------------------------------------------------
