@@ -41,6 +41,5 @@ BOOL TernaryVectorCorrectnessTest::checkInvertBits(int columnCount) {
 void TernaryVectorCorrectnessTest::runTests(int columnCount) {
     CTV ctv;
     ctv.GenRtv(columnCount);
-    cout << "checkInvertBits: " << checkInvertBits(columnCount) << "\n";
-    cout << "checkFromShort: " << checkFromShort(columnCount);
+    cout << "\ncheckInvertBits: " << checkInvertBits(columnCount) << "\n";
 }

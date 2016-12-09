@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 //    vectorCorrectnessTest.runTests(64);
     MatrixCorrectnessTest matrixCorrectnessTest;
     cout << "\n\nMATRICES TESTS for 32 and 32:\n\n";
-    matrixCorrectnessTest.runTests(32, 32);
+    matrixCorrectnessTest.runTests(31, 31);
 //    cout << "\n\nMATRICES TESTS for 64 and 64:\n\n";
 //    matrixCorrectnessTest.runTests(64, 64);
     cout << "\n\nTIME TESTS FOR SIZE = 31:\n";
